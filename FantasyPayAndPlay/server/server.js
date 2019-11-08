@@ -1,9 +1,11 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const cors = require("cors");
 const db = require("../config/keys.js").MONGO_URI;
 const expressGraphQL = require("express-graphql");
 const app = express();
+const index = require('./models/index');
 const schema = require('./schema/schema');
 
 if (!db) {
@@ -18,12 +20,17 @@ mongoose
 // remember we use bodyParser to parse requests into json
 app.use(bodyParser.json());
 
+app.use(cors());
+
 app.use(
   "/graphql",
-  expressGraphQL({
+  expressGraphQL(req => ({
     schema,
+    context: {
+      token: req.headers.authorization
+    },
     graphiql: true
-  })
+  }))
 );
 
 module.exports = app;
