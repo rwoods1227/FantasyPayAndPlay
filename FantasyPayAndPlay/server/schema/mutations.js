@@ -86,7 +86,7 @@ const mutation = new GraphQLObjectType({
               let MoneylineHomeDetails = `Moneyline for ${game.HomeTeamName}`
                 let MoneylineHomeLine = game.PregameOdds[0].HomeMoneyLine;
 
-              let OverUnderDetails = `Over/Under for ${description} is ${game.PregameOdds[0].OverUnder}`
+              let OverUnderDetails = `Over/Under for ${description} is ${Math.round(game.PregameOdds[0].OverUnder)}`
                 let OverLine = game.PregameOdds[0].OverPayout;
                 let UnderLine = game.PregameOdds[0].UnderPayout;
 
@@ -154,6 +154,12 @@ const mutation = new GraphQLObjectType({
       args: { id: { type: GraphQLID } },
       resolve(parentValue, { id }) {
         return Bet.remove({ _id: id });
+      }
+    },
+    deleteAllBets: {
+      type: BetType,
+      resolve() {
+        return Bet.deleteMany({});
       }
     },
   }

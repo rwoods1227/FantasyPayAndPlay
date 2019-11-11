@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const graphql = require("graphql");
 const { GraphQLObjectType, GraphQLString, GraphQLID, GraphQLInt, GraphQLBoolean, GraphQLList } = graphql;
+const Bet = mongoose.model("bet");
 const BetType = new GraphQLObjectType({
   name: "BetType",
   // remember we wrap the fields in a thunk to avoid circular dependency issues
@@ -14,7 +15,7 @@ const BetType = new GraphQLObjectType({
     users: {
       type: new GraphQLList(require("./user_type")),
       resolve(parentValue) {
-        return Category.fetchBetUsers(parentValue.id)
+        return Bet.fetchBetUsers(parentValue.id)
       }
     }
   }),
