@@ -15,7 +15,17 @@ const UserSchema = new Schema({
     required: true,
     min: 8,
     max: 32
-  }
+  },
+  balance: {
+    type: Number,
+    default: 10000
+  },
+  bets: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "bets"
+    }
+  ]
 });
 
 module.exports = mongoose.model("user", UserSchema);
