@@ -10,7 +10,7 @@ export default props => (
     <div className="left-panel">
       <a href="/">FantasyPay&Play</a>
       <div className="title-container">
-        <h2>Welcome back!</h2>
+        <h2>Welcome to FantasyPay&Play</h2>
         <span>FantasyPay&Play is the easiest way to enjoy fantasy leagues with friends!</span>
       </div>
     </div>
