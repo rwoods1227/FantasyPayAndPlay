@@ -1,7 +1,6 @@
-module.exports = {
-  MONGO_URI:
-    "mongodb+srv://fantasypayandplay:HV40P1D9c7Dq87nD@cluster0-2nklu.mongodb.net/fantasy-pay-and-play?retryWrites=true&w=majority",
-  secretOrKey: "eec0c65c-48a5-4c76-a81f-8d2ac1034070",
-  NFLKey:
-    "da4fbd74c7c94570a97fa5c6f2679f14"
-};
+// keys.js
+if (process.env.NODE_ENV === 'production') {
+  module.exports = require('./keys_prod');
+} else {
+  module.exports = require('./keys_dev');
+}
