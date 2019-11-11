@@ -1,0 +1,138 @@
+div.login-page {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+}
+
+div.login-page > div.left-panel {
+  min-width: 512px;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #102131;
+  display: flex;
+  flex: 2 2 0;
+  position: relative;
+  transition: all 0.3s ease;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+div.login-page > div.right-panel {
+  flex: 3 3 0;
+  height: 100vh;
+  overflow: auto;
+  background-color: #f8fafd;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  min-width: 517px;
+}
+
+div.login-page > div.right-panel > div.content-container {
+  height: 393px;
+  min-width: 417px;
+  max-width: 900px;
+  margin-top: 100px;
+}
+
+div.login-page > div.right-panel > div.content-container > div.header-container {
+  margin-bottom: 40px;
+}
+
+div.onboard-header {
+  font-size: 42px;
+  line-height: 1.52;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+div.onboard-header > a.right-header-action {
+  font-size: 16px;
+  font-weight: bold;
+  color: #00ceb8;
+  cursor: pointer;
+}
+
+div.onboard-desc {
+  font-family: 'Lato';
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: -0.1px;
+  color: #8190b0;
+}
+
+form.auth-form > label {
+  font-size: 12px;
+  line-height: 18px;
+  color: #8190b0;
+  display: block;
+  transition: all 0.2s ease;
+  margin-bottom: 3px;
+}
+
+form.auth-form > input {
+  font-family: 'Lato';
+  height: 52px;
+  padding: 15px 12px;
+  background-color: #fff;
+  box-sizing: border-box;
+  outline: none;
+  border: none;
+  font-size: 18px;
+  color: #022047;
+  caret-color: #00ceb8;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.1);
+  transition: all 0.2s ease;
+  width: 384px;
+  margin-bottom: 30px;
+}
+
+form.auth-form > input::placeholder {
+  color: #a3bed7;
+  font-weight: normal;
+}
+
+form.auth-form > button.auth-submit-button {
+  width: 206px;
+  text-transform: uppercase;
+  color: #fff;
+  font-family: "Muli";
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-align: center;
+  height: 48px;
+  line-height: 48px;
+  border-radius: 24px;
+  padding: 0 48px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background-image: linear-gradient(315deg, #00b7b3, #4ce2a7);
+}
+
+form.auth-form > button.auth-submit-button:hover {
+  box-shadow: 0 5px 8px 0 rgba(2,32,71,0.1);
+}
+
+div.footer {
+  width: 417px;
+  text-decoration: none;
+  line-height: 1.29;
+  color: #8190b0;
+  margin-bottom: 48px;
+  font-size: 14px;
+}
+
+div.footer > a {
+  cursor: pointer;
+}
