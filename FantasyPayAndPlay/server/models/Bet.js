@@ -2,10 +2,10 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const BetSchema = new Schema({
-  users: [
+  userBet: [
     {
       type: Schema.Types.ObjectId,
-      ref: "user"
+      ref: "userbet"
     }
   ],
   description: {

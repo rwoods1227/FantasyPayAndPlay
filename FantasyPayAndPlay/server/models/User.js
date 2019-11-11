@@ -20,12 +20,19 @@ const UserSchema = new Schema({
     type: Number,
     default: 10000
   },
-  bets: [
+  userBet: [
     {
       type: Schema.Types.ObjectId,
-      ref: "bets"
+      ref: "userbet"
     }
   ]
 });
+
+// UserSchema.statics.fetchUserBets = UserId => {
+//   const User = mongoose.model("user");
+//   return User.findById(UserId)
+//     .populate("bets")
+//     .then(user => user.bets);
+// };
 
 module.exports = mongoose.model("user", UserSchema);

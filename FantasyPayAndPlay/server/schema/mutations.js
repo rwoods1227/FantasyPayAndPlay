@@ -161,7 +161,7 @@ const mutation = new GraphQLObjectType({
       resolve() {
         return Bet.deleteMany({});
       }
-    },
+    }
   }
 });
 
