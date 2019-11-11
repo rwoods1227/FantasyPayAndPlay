@@ -18,12 +18,4 @@ const UserBetSchema = new Schema({
   }
 });
 
-// BetSchema.statics.fetchBetUsers = BetId => {
-//   const Bet = mongoose.model("bet");
-//   return Bet.findById(BetId)
-//     .populate("users")
-//     .then(bet => bet.users);
-
-// };
-
 module.exports = mongoose.model("userbet", UserBetSchema);

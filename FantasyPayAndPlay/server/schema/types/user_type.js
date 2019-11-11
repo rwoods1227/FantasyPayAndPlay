@@ -17,7 +17,13 @@ const UserType = new GraphQLObjectType({
     email: { type: GraphQLString },
     token: { type: GraphQLString },
     loggedIn: { type: GraphQLBoolean },
-    balance: { type: GraphQLFloat }
+    balance: { type: GraphQLFloat },
+    userBet: {
+      type: new GraphQLList(require('./user_bet_type')),
+      resolve(parentValue) {
+        return User.fetchUsersUserBets(parentValue.id)
+      }
+    }
   })
 });
 

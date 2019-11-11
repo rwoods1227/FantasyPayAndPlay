@@ -161,6 +161,22 @@ const mutation = new GraphQLObjectType({
       resolve() {
         return Bet.deleteMany({});
       }
+    },
+    createUserBet: {
+      type: UserBetType,
+      args: {
+        value: { type: GraphQLInt }
+      },
+      resolve(parentValue, { value }) {
+        return new UserBet({ value }).save();
+      }
+    },
+    deleteUserBet: {
+      type: UserBetType,
+      args: { _id: { type: GraphQLID } },
+      resolve(parentValue, { _id }) {
+        return UserBet.remove({ _id })
+      }
     }
   }
 });

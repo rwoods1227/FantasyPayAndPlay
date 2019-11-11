@@ -12,10 +12,16 @@ const BetType = new GraphQLObjectType({
     date: { type: GraphQLString },
     line: { type: GraphQLInt },
     win: { type: GraphQLBoolean },
-    users: {
-      type: new GraphQLList(require("./user_type")),
+    // users: {
+    //   type: new GraphQLList(require("./user_type")),
+    //   resolve(parentValue) {
+    //     return Bet.fetchBetUsers(parentValue.id)
+    //   }
+    // },
+    userBet: {
+      type: new GraphQLList(require('./user_bet_type')),
       resolve(parentValue) {
-        return Bet.fetchBetUsers(parentValue.id)
+        return Bet.fetchBetsUserBets(parentValue.id)
       }
     }
   }),
