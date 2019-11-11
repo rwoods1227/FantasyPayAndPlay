@@ -1,43 +1,37 @@
-import React from 'react';
-import { Formik, Form, Field } from 'formik';
-import useSession from './useSession';
+import React from "react";
+import { Link } from "react-router-dom";
+import RegisterForm from "./RegisterForm";
 
-import Mutations from '../../graphql/mutations';
-const { REGISTER } = Mutations;
+require("./auth.css");
+require("./left-panel.css");
 
-export default props => {
-  const [registerUser] = useSession(REGISTER);
-
-  return (
-    <Formik
-      initialValues={{
-        email: '',
-        password: '',
-        username: ''
-      }}
-      onSubmit={values => registerUser({ variables: values })}
-    >
-      <Form>
-        <label htmlFor="email">email</label>
-        <Field
-          name="email"
-          autoComplete="email"
-          type="email"
-        />
-        <label htmlFor="email">username</label>
-        <Field
-          name="username"
-          autoComplete="username"
-          type="text"
-        />
-        <label htmlFor="password">password</label>
-        <Field
-          name="password"
-          autoComplete="new-password"
-          type="password"
-        />
-        <button type="submit">Sign up</button>
-      </Form>
-    </Formik>
-  )
-}
+export default props => (
+  <div className="login-page">
+    <div className="left-panel">
+      <a href="/">FantasyPay&Play</a>
+      <div className="title-container">
+        <h2>Welcome back!</h2>
+        <span>FantasyPay&Play is the easiest way to enjoy fantasy leagues with friends!</span>
+      </div>
+    </div>
+    <div className="right-panel">
+      <div className="content-container">
+        <div className="header-container">
+          <div className="onboard-header">
+            <h2>Sign up</h2>
+            <Link to="/login" className="right-header-action">Login</Link>
+          </div>
+          <div className="onboard-desc">
+            Let's get started by creating an account
+          </div>
+        </div>
+        <RegisterForm />
+      </div>
+      <footer>
+        <div className="footer">
+          <a href="https://github.com/rwoods1227/FantasyPayAndPlay">Learn about FantasyPay&Play</a>
+        </div>
+      </footer>
+    </div>
+  </div>
+);

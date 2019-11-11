@@ -1,0 +1,39 @@
+nav.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 75px;
+  padding: 0 60px;
+  margin-top: 30px;
+}
+
+h1.nav-header {
+  font-size: 24px;
+  color: #fbfbfb;
+}
+
+div.auth {
+  display: flex;
+  align-items: center;
+}
+
+div.auth > a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 180px;
+  color: #00ceb8;
+  cursor: pointer;
+  height: 52px;
+}
+
+a#login-link {
+  font-size: 16px;
+}
+
+a#register-link {
+  font-size: 14px;
+  border-radius: 26px;
+  border: 1px solid #07c5ff;
+
+}

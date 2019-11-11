@@ -1,0 +1,26 @@
+div.left-panel > a {
+  font-size: 24px;
+  height: 30px;
+  color: #fbfbfb;
+  margin: 50px;
+  cursor: pointer;
+}
+
+div.title-container {
+  font-size: 36px;
+  font-weight: 900;
+  font-family: 'Muli';
+  color: #fff;
+  line-height: 45px;
+  margin: 50px;
+  margin-bottom: 191px;
+}
+
+div.title-container > span {
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.5;
+  letter-spacing: -0.1px;
+  font-family: 'Lato';
+  color: #e6effa;
+}
