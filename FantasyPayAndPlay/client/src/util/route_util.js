@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import { Query } from "react-apollo";
-import Queries from "../components/graphql/queries";
+import Queries from "../graphql/queries";
 const { IS_LOGGED_IN } = Queries;
 
 // our route switches on routeType

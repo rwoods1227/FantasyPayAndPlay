@@ -28,8 +28,7 @@ FantasyPay&Play is a fantasy football and sports betting website. It incorporate
 - [ ] Docker
 - [ ] MERN
 - [ ] Heroku
-- [ ] BettingApi(https://oddsapi.io/)
-- [ ] FantasyAPI(https://sportsdata.io/developers/api-documentation/nfl#/fantasy)
+- [ ] FantasyAPI/BettingAPI(https://sportsdata.io/developers/api-documentation/nfl#/fantasy)
 
 # Group Members and Work Breakdown
  * Zach: https://github.com/zacharycwilliams

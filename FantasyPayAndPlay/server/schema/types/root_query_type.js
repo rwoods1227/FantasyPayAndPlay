@@ -2,18 +2,20 @@ const mongoose = require("mongoose");
 const graphql = require("graphql");
 const { GraphQLObjectType, GraphQLList, GraphQLID, GraphQLNonNull } = graphql;
 // const axios = require('axios');
-// const AWSKey = require('../../../config/keys').AWSKey;
+// const NFLKey = require('../../../config/keys').NFLKey;
 
 const User = mongoose.model("user");
 const UserType = require("./user_type");
+const Bet = mongoose.model("bet");
+const BetType = require("./bet_type");
 
 
 // const authOptions = {
 //   method: "GET",
 //   url:
-//     "https://6eqbflk187.execute-api.us-east-2.amazonaws.com/default/generate-price",
+//     "https://api.sportsdata.io/v3/nfl/odds/json/GameOddsByWeek/2019/10",
 //   headers: {
-//     "x-api-key": AWSKey
+//     "x-api-key": NFLKey
 //   },
 // };
 
@@ -33,6 +35,19 @@ const RootQueryType = new GraphQLObjectType({
       args: { _id: { type: new GraphQLNonNull(GraphQLID) } },
       resolve(_, args) {
         return User.findById(args._id);
+      }
+    },
+    bets: {
+      type: new GraphQLList(BetType),
+      resolve() {
+        return Bet.find({});
+      }
+    },
+    bet: {
+      type: BetType,
+      args: { _id: { type: new GraphQLNonNull(GraphQLID) } },
+      resolve(_, args) {
+        return Bet.findById(args._id);
       }
     }
   })
