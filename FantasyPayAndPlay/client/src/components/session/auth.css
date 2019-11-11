@@ -49,11 +49,12 @@ div.onboard-header {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  font-weight: 900;
 }
 
 div.onboard-header > a.right-header-action {
   font-size: 16px;
-  font-weight: bold;
+  font-weight: 800;
   color: #00ceb8;
   cursor: pointer;
 }
@@ -118,6 +119,7 @@ form.auth-form > button.auth-submit-button {
   cursor: pointer;
   transition: all 0.2s ease;
   background-image: linear-gradient(315deg, #00b7b3, #4ce2a7);
+  font-weight: 800;
 }
 
 form.auth-form > button.auth-submit-button:hover {

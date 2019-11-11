@@ -12,6 +12,7 @@ export default {
         _id
         description
         details
+        date
         line
         win
       }

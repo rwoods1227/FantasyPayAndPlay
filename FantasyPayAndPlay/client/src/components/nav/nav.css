@@ -25,6 +25,7 @@ div.auth > a {
   color: #00ceb8;
   cursor: pointer;
   height: 52px;
+  font-weight: 800;
 }
 
 a#login-link {

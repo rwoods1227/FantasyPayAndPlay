@@ -1,0 +1,83 @@
+div.bets-page {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  background-color: #18202f;
+  color: white;
+}
+
+div.bets-page > div.bets-container {
+  padding-top: 20px;
+  padding-bottom: 10px;
+}
+
+div.bets-container > ul.bets-list {
+  height: 502px;
+  width: 470px;
+  overflow: hidden;
+  overflow-y: scroll;
+  background-color: #283245;
+  border-bottom-left-radius: 10px;
+}
+
+div.bets-container > h1 {
+  font-size: 24px;
+  font-weight: 800;
+  line-height: 32px;
+}
+
+div.bets-container > span {
+  color: #7888a4;
+  font-size: 12px;
+  margin-bottom: 20px;
+}
+
+ul.bets-list > li > a {
+  cursor: pointer;
+}
+
+div.bets-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 10px;
+  font-size: 24px;
+  font-weight: 800;
+  border-bottom: 1px solid #18202f;
+}
+
+div.bets-tabs-container {
+  display: flex;
+}
+
+div.bets-tabs-container > div.tab {
+  display: flex;
+  height: 62px;
+  width: 117.5px;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  align-items: center;
+  position: relative;
+  background: #3a465b;
+  box-shadow: 1px -4px 5px #17202f;
+  cursor: pointer;
+  padding: 0 19px;
+  font-size: 12px;
+  font-family: 'Muli';
+  font-weight: bold;
+  color: #a3bbd3;
+  z-index: 1;
+}
+
+div.bets-tabs-container > div.tab:nth-child(n + 2) {
+  margin-left: -10px;
+}
+
+div.bets-tabs-container > div.tab.selected {
+  z-index: 2;
+  background-color: #283245;
+  box-shadow: none;
+  color: #00ceb8;
+}
