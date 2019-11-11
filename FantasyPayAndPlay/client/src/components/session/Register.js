@@ -8,7 +8,7 @@ require("./left-panel.css");
 export default props => (
   <div className="login-page">
     <div className="left-panel">
-      <a href="/">FantasyPay&Play</a>
+      <a href="/" className="main-icon">FantasyPay&Play</a>
       <div className="title-container">
         <h2>Welcome to FantasyPay&Play</h2>
         <span>FantasyPay&Play is the easiest way to enjoy fantasy leagues with friends!</span>
