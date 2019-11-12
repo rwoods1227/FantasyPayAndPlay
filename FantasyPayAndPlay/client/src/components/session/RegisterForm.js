@@ -46,7 +46,7 @@ export default props => {
   return (
     <Formik
       initialValues={{
-        email: '',
+        email: props.email || "",
         password: '',
         username: ''
       }}

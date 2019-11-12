@@ -10,7 +10,6 @@ export default (mutation) => {
       history.push("/");
     },
     update: (client, { data }) => {
-      console.log(data);
       client.writeData({
         data: {
           isLoggedIn: data.login ? data.login.loggedIn : data.register.loggedIn

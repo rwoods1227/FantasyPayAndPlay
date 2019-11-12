@@ -13,7 +13,8 @@ const App = () => (
   <div>
     <Switch>
       <AuthRoute exact path="/login" component={Login} routeType="auth" />
-      <AuthRoute exact path="/register" component={Register} routeType="auth" />
+      <AuthRoute path="/register/:email" component={Register} routeType="auth" />
+      <AuthRoute path="/register" component={Register} routeType="auth" />
       <Route exact path="/bets" component={BetsList} routeType="protected" />
       <Route path="/bets/:id" component={BetDetail} routeType="protected" />
       <Route path="/" component={Splash} />

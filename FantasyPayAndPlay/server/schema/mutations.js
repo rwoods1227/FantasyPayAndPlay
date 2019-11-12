@@ -118,7 +118,7 @@ const mutation = new GraphQLObjectType({
                 win: win
               }).save();
 
-                let UnderBet = new Bet({
+              let UnderBet = new Bet({
                 description: description,
                 details: OverUnderDetails,
                 date: date,
