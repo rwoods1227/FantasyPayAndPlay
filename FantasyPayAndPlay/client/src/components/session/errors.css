@@ -3,7 +3,7 @@ div.error-message-container {
 }
 
 div.validation-alert {
-  height: 63px;
+  min-height: 63px;
   padding: 21px 26px;
   border-radius: 4px;
   font-size: 14px;
@@ -13,8 +13,12 @@ div.validation-alert {
   background-color: rgba(250,150,170,0.5);
   color: #ff2b6d;
 }
+div.validation-alert > div {
+  display: flex;
+  align-items: center;
+}
 
-div.validation-alert > i {
+div.validation-alert > i, div.validation-alert > div > i {
   color: #ff2b6d;
   font-size: 20px;
 }
@@ -25,6 +29,11 @@ div.dismiss-button {
   font-size: 20px;
 }
 
-div.validation-alert > span {
-  margin-left: -50px;
+div.validation-alert > div > span {
+  padding: 0 20px;
+}
+
+div.validation-alert > div > span > ul {
+  list-style: disc outside none;
+  font-size: 13px;
 }

@@ -9,21 +9,39 @@ export default props => {
   const [registerUser] = useSession(REGISTER);
 
   const [error, setError] = useState({
-    erroredField: ""
+    isError: false
   });
 
   const [focus, setFocus] = useState({
     focusedOn: ""
   });
 
-  const handleError = errorField => {
-    setError(error => ({ ...error, errorField }));
+  const handleError = bool => {
+    setError(error => ({ ...error, isError: bool }));
   };
 
   const handleFocus = field => {
-    setFocus(focusedOn => ({ ...focus, focusedOn: field }));
+    setFocus(focus => ({ ...focus, focusedOn: field }));
   }
 
+  const errorMessage = (
+    <div className="error-message-container">
+      <div className="validation-alert">
+        <div>
+          <i className="fa fa-exclamation-triangle"></i>
+          <span>
+            <ul>
+              <li>● email must be valid & unique</li>
+              <li>● password must be between 8-32 characters</li>
+            </ul>
+          </span>
+        </div>
+        <div className="dismiss-button" onClick={() => handleError(false)}>
+          <i className="fa fa-times"></i>
+        </div>
+      </div>
+    </div>
+  );
 
   return (
     <Formik
@@ -32,9 +50,13 @@ export default props => {
         password: '',
         username: ''
       }}
-      onSubmit={values => registerUser({ variables: values })}
+      onSubmit={values => 
+        registerUser({ variables: values })
+          .catch(() => handleError(true))
+      }
     >
       <Form className="auth-form">
+        {error.isError ? errorMessage : null}
         <label 
           htmlFor="username"
           style={focus.focusedOn === "username" ? { color: '#00ceb8' } : null}

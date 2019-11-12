@@ -32,10 +32,20 @@ div.login-page > div.right-panel {
 }
 
 div.login-page > div.right-panel > div.content-container {
-  height: 393px;
+  min-height: 393px;
   width: 70%;
   max-width: 900px;
   margin-top: 100px;
+}
+
+div.login-page > div.right-panel.signup {
+  padding-top: 10px;
+  justify-content: flex-end;
+}
+
+div.login-page > div.right-panel > div.content-container.signup {
+  margin: 10px 0;
+  min-width: 366px;
 }
 
 div.login-page > div.right-panel > div.content-container > div.header-container {
@@ -139,7 +149,7 @@ div.footer {
   text-decoration: none;
   line-height: 1.29;
   color: #8190b0;
-  margin-bottom: 48px;
+  margin-bottom: 40px;
   font-size: 14px;
 }
 

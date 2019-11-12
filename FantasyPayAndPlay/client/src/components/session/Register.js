@@ -15,8 +15,8 @@ export default props => (
         <span>FantasyPay&Play is the easiest way to enjoy fantasy leagues with friends!</span>
       </div>
     </div>
-    <div className="right-panel">
-      <div className="content-container">
+    <div className="right-panel signup">
+      <div className="content-container signup">
         <div className="header-container">
           <div className="onboard-header">
             <h2>Sign up</h2>
