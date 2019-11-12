@@ -47,7 +47,9 @@ const Splash = props => {
                   spellCheck="false"
                   placeholder="Email"
                 />
-                <button type="submit">GET STARTED</button>
+                <div className="splash-callout-button">
+                  <button type="submit">GET STARTED</button>
+                </div>
               </Form>
             </Formik>
           </div>
