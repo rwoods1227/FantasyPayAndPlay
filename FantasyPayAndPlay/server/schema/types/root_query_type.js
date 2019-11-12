@@ -49,6 +49,13 @@ const RootQueryType = new GraphQLObjectType({
       resolve(_, args) {
         return Bet.findById(args._id);
       }
+    },
+    UserBet: {
+      type: UserBetType,
+      args: { _id: { type: GraphQLID } },
+      resolve(_, args) {
+        return UserBet.findById(args._id)
+      }
     }
   })
 });
