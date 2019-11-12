@@ -5,6 +5,7 @@ const {
   GraphQLInt,
   GraphQLNonNull,
   GraphQLID,
+  GraphQLFloat,
   GraphQLList
 } = graphql;
 const mongoose = require("mongoose");
@@ -16,6 +17,7 @@ const UserType = require("./types/user_type");
 const User = mongoose.model("user");
 const BetType = require("./types/bet_type");
 const Bet = mongoose.model("bet");
+const UserBetType = require("./types/user_bet_type")
 
 
 const authOptions = {
@@ -162,20 +164,22 @@ const mutation = new GraphQLObjectType({
         return Bet.deleteMany({});
       }
     },
-    createUserBet: {
-      type: UserBetType,
-      args: {
-        value: { type: GraphQLInt }
-      },
-      resolve(parentValue, { value }) {
-        return new UserBet({ value }).save();
-      }
-    },
     deleteUserBet: {
       type: UserBetType,
       args: { _id: { type: GraphQLID } },
       resolve(parentValue, { _id }) {
         return UserBet.remove({ _id })
+      }
+    },
+    createUserBet: {
+      type: UserBetType,
+      args: {
+        betId: { type: GraphQLID },
+        userId: { type: GraphQLID },
+        value: { type: GraphQLFloat }
+      },
+      resolve(_, { betId, userId, value }) {
+        return UserBet.makeUserBet(betId, userId, value);
       }
     }
   }

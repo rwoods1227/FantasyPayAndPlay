@@ -35,7 +35,6 @@ BetSchema.statics.fetchBetsUserBets = BetId => {
   return Bet.findById(BetId)
     .populate("userBets")
     .then(bet => bet.userBets);
-
 };
 
 module.exports = mongoose.model("bet", BetSchema);

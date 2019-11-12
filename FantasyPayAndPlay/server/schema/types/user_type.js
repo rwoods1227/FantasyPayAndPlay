@@ -5,6 +5,8 @@ const {
   GraphQLString,
   GraphQLID,
   GraphQLInt,
+  GraphQLFloat,
+  GraphQLList,
   GraphQLBoolean
 } = graphql;
 

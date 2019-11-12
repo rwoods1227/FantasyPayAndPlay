@@ -4,7 +4,8 @@ const {
   GraphQLObjectType,
   GraphQLID,
   GraphQL,
-  GraphQLInt
+  GraphQLList,
+  GraphQLFloat
 } = graphql;
 
 const UserBetType = new GraphQLObjectType({
@@ -12,26 +13,18 @@ const UserBetType = new GraphQLObjectType({
   // remember we wrap the fields in a thunk to avoid circular dependency issues
   fields: () => ({
     _id: { type: GraphQLID },
-    value: { type: GraphQLInt },
+    value: { type: GraphQLFloat },
 
     bet: { 
       type: require('./bet_type'),
         resolve(parentValue) {
-          return UserBet.findById(parentValue._id)
-            .populate("bet")
-            .then(UserBet => {
-              return UserBet.bet
-          })
+          return Bet.findById(parentValue.bet)
         }
     },
     user: {
       type: require('./user_type'),
       resolve(parentValue) {
-        return UserBet.findById(parentValue._id)
-          .populate("user")
-          .then(UserBet => {
-            return UserBet.user
-          })
+        return User.findById(parentValue.user)
       } 
     }
   })
