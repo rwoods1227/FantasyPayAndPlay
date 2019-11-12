@@ -37,12 +37,6 @@ UserBetSchema.statics.makeUserBet = function(betId, userId, value) {
       )
     }
   )
-
-
-
-  // const UserBet = mongoose.model("userbet")
-
-  
 };
 
 module.exports = mongoose.model("userbet", UserBetSchema);

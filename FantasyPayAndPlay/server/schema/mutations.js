@@ -18,6 +18,7 @@ const User = mongoose.model("user");
 const BetType = require("./types/bet_type");
 const Bet = mongoose.model("bet");
 const UserBetType = require("./types/user_bet_type")
+const UserBet = mongoose.model("userbet")
 
 
 const authOptions = {
@@ -176,10 +177,27 @@ const mutation = new GraphQLObjectType({
       args: {
         betId: { type: GraphQLID },
         userId: { type: GraphQLID },
-        value: { type: GraphQLFloat }
+        value: { type: GraphQLInt }
       },
       resolve(_, { betId, userId, value }) {
         return UserBet.makeUserBet(betId, userId, value);
+      }
+    },
+    updateUserBalance: {
+      type: UserType,
+      args: {
+        _id: { type: GraphQLID },
+        balance: { type: GraphQLInt }
+      },
+      resolve(parentValue, { _id, balance }) {
+        return User.findByIdAndUpdate(
+          { _id: _id }, 
+          { $set: { balance } },
+          { new: true },
+           (err, user) => {
+              return user
+           }
+        )
       }
     }
   }
