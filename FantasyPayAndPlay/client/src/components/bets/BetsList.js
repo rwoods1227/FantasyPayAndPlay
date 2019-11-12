@@ -20,13 +20,20 @@ const BetsList = ({ matchType }) => {
         
         return viewableGames.map(({ _id, description, details, date }) => (
           <li key={_id}>
+            {matchType === "upcoming" ? 
             <Link to={`/bets/${_id}`}>
               <div className="bets-item">
                 <span className="bet-item-date">{date.slice(0,10)}</span>
                 <span>{date.slice(11)}</span>
                 <span className="bet-item-description">{description}</span>
               </div>
-            </Link>
+            </Link> :
+              <div className="bets-item">
+                <span className="bet-item-date">{date.slice(0, 10)}</span>
+                <span>{date.slice(11)}</span>
+                <span className="bet-item-description">{description}</span>
+              </div>
+            }
           </li>
         ));
       }}

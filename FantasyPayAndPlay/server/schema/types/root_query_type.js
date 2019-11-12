@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const graphql = require("graphql");
-const { GraphQLObjectType, GraphQLList, GraphQLID, GraphQLNonNull } = graphql;
+const { GraphQLObjectType, GraphQLList, GraphQLID, GraphQLNonNull, GraphQLString } = graphql;
 // const axios = require('axios');
 // const NFLKey = require('../../../config/keys').NFLKey;
 
@@ -48,6 +48,13 @@ const RootQueryType = new GraphQLObjectType({
       args: { _id: { type: new GraphQLNonNull(GraphQLID) } },
       resolve(_, args) {
         return Bet.findById(args._id);
+      }
+    },
+    betTypes: {
+      type: new GraphQLList(BetType),
+      args: { description: { type: new GraphQLNonNull(GraphQLString) } },
+      resolve(_, { description }) {
+        return Bet.find({ description });
       }
     }
   })
