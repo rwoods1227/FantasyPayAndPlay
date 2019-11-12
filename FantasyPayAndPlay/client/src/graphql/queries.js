@@ -24,6 +24,19 @@ export default {
         _id
         description
         details
+        date
+        line
+        win
+      }
+    }
+  `,
+  FETCH_BET_TYPES: gql`
+    query FetchBetTypes($description: String!) {
+      betTypes(description: $description) {
+        _id
+        description
+        details
+        date
         line
         win
       }
