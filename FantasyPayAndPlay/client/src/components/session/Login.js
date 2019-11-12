@@ -4,6 +4,7 @@ import LoginForm from "./LoginForm";
 
 require("./auth.css");
 require("./left-panel.css");
+require("./errors.css");
 
 export default props => (
   <div className="login-page">
@@ -27,7 +28,7 @@ export default props => (
         </div>
         <LoginForm />
       </div>
-      <footer>
+      <footer className="auth-footer">
         <div className="footer">
           <a href="https://github.com/rwoods1227/FantasyPayAndPlay">Learn about FantasyPay&Play</a>
         </div>
