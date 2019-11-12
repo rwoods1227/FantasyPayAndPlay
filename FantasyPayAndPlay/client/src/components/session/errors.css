@@ -1,0 +1,30 @@
+div.error-message-container {
+  margin: 20px 0;
+}
+
+div.validation-alert {
+  height: 63px;
+  padding: 21px 26px;
+  border-radius: 4px;
+  font-size: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(250,150,170,0.5);
+  color: #ff2b6d;
+}
+
+div.validation-alert > i {
+  color: #ff2b6d;
+  font-size: 20px;
+}
+
+div.dismiss-button {
+  cursor: pointer;
+  position: relative;
+  font-size: 20px;
+}
+
+div.validation-alert > span {
+  margin-left: -50px;
+}
