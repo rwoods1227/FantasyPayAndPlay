@@ -36,5 +36,18 @@ a#register-link {
   font-size: 14px;
   border-radius: 26px;
   border: 1px solid #07c5ff;
+}
 
+a#splash-nav-open-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 120px;
+  color: #00ceb8;
+  cursor: pointer;
+  height: 52px;
+  font-weight: 800;
+  font-size: 14px;
+  border-radius: 26px;
+  border: 1px solid #07c5ff;
 }

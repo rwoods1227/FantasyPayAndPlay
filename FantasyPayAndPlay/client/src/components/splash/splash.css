@@ -60,3 +60,16 @@ div.splash-callout > form > button {
   color: #022047;
   margin-top: -53px;
 }
+
+div.splash-callout > a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 280px;
+  background-image: linear-gradient(286deg, #07c5ff, #4ce2b8);
+  border-radius: 26px;
+  height: 52px;
+  font-size: 14px;
+  font-weight: 800;
+  color: #022047;
+}

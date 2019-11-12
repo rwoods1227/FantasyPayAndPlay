@@ -9,22 +9,25 @@ const { IS_LOGGED_IN } = Queries;
 require("./nav.css");
 
 const Nav = props => {
-  const { data, client } = useQuery(IS_LOGGED_IN);
-  const history = useHistory();
+  const { data } = useQuery(IS_LOGGED_IN);
+
+  // const logoutButton = (
+  //   <button
+  //     onClick={e => {
+  //       e.preventDefault();
+  //       localStorage.removeItem("auth-token");
+  //       client.writeData({ data: { isLoggedIn: false } });
+  //       history.push("/");
+  //     }}
+  //   >
+  //   Logout
+  //   </button>
+  // );
 
   return data.isLoggedIn ? (
     <nav className="navbar">
       <h1 className="nav-header"><Link to="/">FantasyPay&Play</Link></h1>
-      <button
-        onClick={e => {
-          e.preventDefault();
-          localStorage.removeItem("auth-token");
-          client.writeData({ data: { isLoggedIn: false } });
-          history.push("/");
-        }}
-      >
-        Logout
-      </button>
+      <Link to="/bets" id="splash-nav-open-link">OPEN</Link>
     </nav>
   ) : (
       <nav className="navbar">
