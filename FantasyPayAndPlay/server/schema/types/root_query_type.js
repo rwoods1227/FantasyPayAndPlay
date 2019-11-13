@@ -8,6 +8,8 @@ const User = mongoose.model("user");
 const UserType = require("./user_type");
 const Bet = mongoose.model("bet");
 const BetType = require("./bet_type");
+const Player = mongoose.model("player");
+const PlayerType = require("./player_type");
 
 
 // const authOptions = {
@@ -56,7 +58,20 @@ const RootQueryType = new GraphQLObjectType({
       resolve(_, { description }) {
         return Bet.find({ description });
       }
-    }
+    },
+    players: {
+      type: new GraphQLList(PlayerType),
+      resolve() {
+        return Player.find({});
+      }
+    },
+    player: {
+      type: PlayerType,
+      args: { _id: { type: new GraphQLNonNull(GraphQLID) } },
+      resolve(_, args) {
+        return Player.findById(args._id);
+      }
+    },
   })
 });
 
