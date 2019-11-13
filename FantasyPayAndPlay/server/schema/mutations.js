@@ -22,6 +22,8 @@ const UserBetType = require("./types/user_bet_type")
 const UserBet = mongoose.model("userbet")
 const PlayerType = require("./types/player_type");
 const Player = mongoose.model("player");
+const TeamType = require("./types/team_type");
+const Team = mongoose.model("team");
 
 
 const authOptions = {
@@ -506,6 +508,47 @@ const mutation = new GraphQLObjectType({
       type: PlayerType,
       resolve() {
         return Player.deleteMany({});
+      }
+    },
+    newTeam: {
+      type: TeamType,
+      args: {
+        name: { type: GraphQLString },
+        description: { type: GraphQLString },
+        user: { type: GraphQLID }
+      },
+      resolve(parentValue, { name, description, user}) {
+        return new Team({ name, description, user }).save();
+      }
+    },
+    // add dependent removal of players on team
+    deleteTeam: {
+      type: TeamType,
+      args: { teamId: { type: GraphQLID } },
+      resolve(parentValue, { teamId }) {
+        return Team.removePlayersAndDestroy(teamId);
+      }
+    },
+    //adds player to team and creates makes player.owned = true
+    addPlayerToTeam: {
+      type: PlayerType,
+      args: {
+        playerId: { type: GraphQLID },
+        teamId: { type: GraphQLID }
+      },
+      resolve(parentValue, { playerId, teamId }) {
+        return Player.addPlayerToTeam(playerId, teamId);
+      }
+    },
+    // removes player from a team and sets player.team = null and player.owned = false
+    removePlayerFromTeam: {
+      type: PlayerType,
+      args: {
+        playerId: { type: GraphQLID },
+        teamId: { type: GraphQLID }
+      },
+      resolve(parentValue, { playerId, teamId }) {
+        return Player.removePlayerFromTeam(playerId, teamId);
       }
     }
   }
