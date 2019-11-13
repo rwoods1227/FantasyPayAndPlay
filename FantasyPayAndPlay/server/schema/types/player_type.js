@@ -12,6 +12,7 @@ const PlayerType = new GraphQLObjectType({
   fields: () => ({
     _id: { type: GraphQLID },
     name: { type: GraphQLString },
+    owned: { type: GraphQLBoolean },
     team: { type: GraphQLString },
     position: { type: GraphQLString },
     IsGameOver: { type: GraphQLBoolean },
