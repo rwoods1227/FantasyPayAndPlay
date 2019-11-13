@@ -5,8 +5,10 @@ const Team = mongoose.model("team");
 const TeamType = new GraphQLObjectType({
   name: "TeamType",
   // remember we wrap the fields in a thunk to avoid circular dependency issues
+  // add user and follow through
   fields: () => ({
     _id: { type: GraphQLID },
+    user: { type: GraphQLID },
     name: { type: GraphQLString },
     description: { type: GraphQLString },
     players: {
@@ -18,4 +20,4 @@ const TeamType = new GraphQLObjectType({
   }),
 });
 
-module.exports = BetType;
+module.exports = TeamType;

@@ -514,17 +514,19 @@ const mutation = new GraphQLObjectType({
       type: TeamType,
       args: {
         name: { type: GraphQLString },
-        description: { type: GraphQLString }
+        description: { type: GraphQLString },
+        user: { type: GraphQLID }
       },
-      resolve(parentValue, { name, description }) {
-        return new Team({ name, description }).save();
+      resolve(parentValue, { name, description, user}) {
+        return new Team({ name, description, user }).save();
       }
     },
+    // add dependent removal of players on team
     deleteTeam: {
       type: TeamType,
-      args: { id: { type: GraphQLID } },
-      resolve(parentValue, { id }) {
-        return Team.remove({ _id: id });
+      args: { teamId: { type: GraphQLID } },
+      resolve(parentValue, { teamId }) {
+        return Team.removePlayersAndDestroy(teamId);
       }
     },
     //adds player to team and creates makes player.owned = true

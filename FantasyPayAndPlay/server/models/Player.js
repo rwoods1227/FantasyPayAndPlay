@@ -2,10 +2,10 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const PlayerSchema = new Schema({
-  user: 
+  userTeam: 
     {
       type: Schema.Types.ObjectId,
-      ref: "user"
+      ref: "team"
     },
   owned: {
     type: Boolean,
@@ -342,16 +342,18 @@ PlayerSchema.statics.addPlayerToTeam = (playerId, teamId) => {
 
   return Player.findById(playerId).then(player => {
     // if the player already had a category
-    if (player.team) {
-      // find the old team and remove this player from it's players
-      Team.findById(player.team).then(oldTeam => {
-        oldTeam.players.pull(player);
-        return oldTeam.save();
-      });
-    }
+    // if (player.team) {
+    //   // find the old team and remove this player from it's players
+    //   Team.findById(player.team).then(oldTeam => {
+    //     oldTeam.players.pull(player);
+    //     return oldTeam.save();
+    //   });
+    // }
+      // will probably need to add a thing where owned players cannot be added but for now its whatever, becuase I think people won't have access tp them
+
     //  find the team and push this player in, as well as set this player's team
     return Team.findById(teamId).then(newTeam => {
-      player.team = newTeam;
+      player.userTeam = newTeam;
       player.owned = true;
       newTeam.players.push(player);
 
@@ -368,15 +370,15 @@ PlayerSchema.statics.removePlayerFromTeam = (playerId, teamId) => {
   //not using teamId but leaving it in there in case needed later
   return Player.findById(playerId).then(player => {
     // if the player already had a category
-    if (player.team) {
+    if (player.userTeam) {
       // find the old team and remove this player from it's players
-      Team.findById(player.team).then(oldTeam => {
-        oldTeam.players.pull(player);
-        return oldTeam.save();
+      Team.findById(player.userTeam).then(oldUserTeam => {
+        oldUserTeam.players.pull(player);
+        return oldUserTeam.save();
       });
     }
     //return player to available players field
-    player.team = null;
+    player.userTeam = null;
     player.owned = false;
     return Promise.all([player.save()]).then(
       ([player]) => player
