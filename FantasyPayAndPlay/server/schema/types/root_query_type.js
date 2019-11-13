@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const graphql = require("graphql");
-const { GraphQLObjectType, GraphQLList, GraphQLID, GraphQLNonNull } = graphql;
+const { GraphQLObjectType, GraphQLList, GraphQLID, GraphQLNonNull, GraphQLString } = graphql;
 // const axios = require('axios');
 // const NFLKey = require('../../../config/keys').NFLKey;
 
@@ -10,6 +10,8 @@ const Bet = mongoose.model("bet");
 const BetType = require("./bet_type");
 const UserBetType = require("./user_bet_type");
 const UserBet = mongoose.model("userbet");
+const Player = mongoose.model("player");
+const PlayerType = require("./player_type");
 
 
 // const authOptions = {
@@ -58,7 +60,27 @@ const RootQueryType = new GraphQLObjectType({
       resolve(_, args) {
         return UserBet.findById(args._id)
       }
-    }
+    },
+    betTypes: {
+      type: new GraphQLList(BetType),
+      args: { description: { type: new GraphQLNonNull(GraphQLString) } },
+      resolve(_, { description }) {
+        return Bet.find({ description });
+      }
+    },
+    players: {
+      type: new GraphQLList(PlayerType),
+      resolve() {
+        return Player.find({});
+      }
+    },
+    player: {
+      type: PlayerType,
+      args: { _id: { type: new GraphQLNonNull(GraphQLID) } },
+      resolve(_, args) {
+        return Player.findById(args._id);
+      }
+    },
   })
 });
 

@@ -1,7 +1,7 @@
 div.bets-page {
   display: flex;
   justify-content: center;
-  height: 100%;
+  height: 100vh;
   background-color: #18202f;
   color: white;
 }
@@ -76,7 +76,7 @@ div.bets-tabs-container > div.tab:nth-child(n + 2) {
 }
 
 div.bets-tabs-container > div.tab.selected {
-  z-index: 2;
+  z-index: 6 !important;
   background-color: #283245;
   box-shadow: none;
   color: #00ceb8;

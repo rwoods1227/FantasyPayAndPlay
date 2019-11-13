@@ -32,10 +32,20 @@ div.login-page > div.right-panel {
 }
 
 div.login-page > div.right-panel > div.content-container {
-  height: 393px;
-  min-width: 417px;
+  min-height: 393px;
+  width: 70%;
   max-width: 900px;
   margin-top: 100px;
+}
+
+div.login-page > div.right-panel.signup {
+  padding-top: 10px;
+  justify-content: flex-end;
+}
+
+div.login-page > div.right-panel > div.content-container.signup {
+  margin: 10px 0;
+  min-width: 366px;
 }
 
 div.login-page > div.right-panel > div.content-container > div.header-container {
@@ -90,13 +100,17 @@ form.auth-form > input {
   caret-color: #00ceb8;
   box-shadow: 0 2px 4px 0 rgba(0,0,0,0.1);
   transition: all 0.2s ease;
-  width: 384px;
+  width: 100%;
   margin-bottom: 30px;
 }
 
 form.auth-form > input::placeholder {
   color: #a3bed7;
   font-weight: normal;
+}
+
+form.auth-form > input:focus {
+  box-shadow: 0 9px 10px 0 rgba(2, 32, 71, 0.1);
 }
 
 form.auth-form > button.auth-submit-button {
@@ -126,12 +140,16 @@ form.auth-form > button.auth-submit-button:hover {
   box-shadow: 0 5px 8px 0 rgba(2,32,71,0.1);
 }
 
+footer.auth-footer {
+  width: 70%;
+}
+
 div.footer {
-  width: 417px;
+  text-align: start;
   text-decoration: none;
   line-height: 1.29;
   color: #8190b0;
-  margin-bottom: 48px;
+  margin-bottom: 40px;
   font-size: 14px;
 }
 

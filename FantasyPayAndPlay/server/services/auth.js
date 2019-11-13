@@ -58,7 +58,6 @@ const logout = async data => {
 
 const login = async data => {
   try {
-    console.log(data);
     // use our other validator we wrote to validate this data
     const { message, isValid } = validateLoginInput(data);
 

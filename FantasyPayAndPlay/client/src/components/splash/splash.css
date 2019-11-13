@@ -1,0 +1,75 @@
+div.splash-logged-out {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+}
+
+div.splash-logged-out > h1 {
+  text-align: center;
+  font-size: 44px;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+div.splash-logged-out > h4 {
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.3em;
+  color: #8190b0;
+  margin-bottom: 30px;
+  width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+div.splash-callout > form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+div.splash-callout > form > input {
+  justify-content: space-between;
+  background: rgba(255,255,255,0.1);
+  border: 1.5px solid #4ce2a7;
+  border-radius: 100px;
+  display: flex;
+  justify-content: center;
+  width: 460px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 18px;
+  padding: 14px 20px;
+}
+
+div.splash-callout > form > input::placeholder {
+  color: #5f7496
+}
+
+div.splash-callout > form > div > button {
+  width: 165px;
+  border-radius: 25px;
+  background-image: linear-gradient(286deg, #07c5ff, #4ce2b8);
+  border-radius: 26px;
+  height: 52px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #022047;
+  margin-top: -53px;
+}
+
+div.splash-callout > a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 280px;
+  background-image: linear-gradient(286deg, #07c5ff, #4ce2b8);
+  border-radius: 26px;
+  height: 52px;
+  font-size: 14px;
+  font-weight: 800;
+  color: #022047;
+}
