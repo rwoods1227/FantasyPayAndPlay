@@ -1,3 +1,7 @@
+const mongoose = require("mongoose");
+const graphql = require("graphql");
+const { GraphQLObjectType, GraphQLString, GraphQLID, GraphQLInt, GraphQLBoolean, GraphQLList, GraphQLFloat } = graphql;
+
 const Player = mongoose.model("player");
 const UserType = require("./user_type");
 const User = mongoose.model("user");
@@ -11,14 +15,13 @@ const PlayerType = new GraphQLObjectType({
     team: { type: GraphQLString },
     position: { type: GraphQLString },
     IsGameOver: { type: GraphQLBoolean },
-    line: { type: GraphQLInt },
     
     projWPassingAttempts: { type: GraphQLFloat },
     projWPassingCompletions: { type: GraphQLFloat },
     projWPassingYards: { type: GraphQLFloat },
     projWPassingTouchdowns: { type: GraphQLFloat },
     projWPassingInterceptions: { type: GraphQLFloat },
-    projWpRushingAttempts: { type: GraphQLFloat },
+    projWRushingAttempts: { type: GraphQLFloat },
     projWRushingYards: { type: GraphQLFloat },
     projWRushingTouchdowns: { type: GraphQLFloat },
     projWFumblesLost: { type: GraphQLFloat },
@@ -38,7 +41,7 @@ const PlayerType = new GraphQLObjectType({
     weeklyPassingYards: { type: GraphQLFloat },
     weeklyPassingTouchdowns: { type: GraphQLFloat },
     weeklyPassingInterceptions: { type: GraphQLFloat },
-    weeklypRushingAttempts: { type: GraphQLFloat },
+    weeklyRushingAttempts: { type: GraphQLFloat },
     weeklyRushingYards: { type: GraphQLFloat },
     weeklyRushingTouchdowns: { type: GraphQLFloat },
     weeklyFumblesLost: { type: GraphQLFloat },
@@ -58,7 +61,7 @@ const PlayerType = new GraphQLObjectType({
     seasonPassingYards: { type: GraphQLFloat },
     seasonPassingTouchdowns: { type: GraphQLFloat },
     seasonPassingInterceptions: { type: GraphQLFloat },
-    seasonpRushingAttempts: { type: GraphQLFloat },
+    seasonRushingAttempts: { type: GraphQLFloat },
     seasonRushingYards: { type: GraphQLFloat },
     seasonRushingTouchdowns: { type: GraphQLFloat },
     seasonFumblesLost: { type: GraphQLFloat },
@@ -77,7 +80,7 @@ const PlayerType = new GraphQLObjectType({
     projSPassingYards: { type: GraphQLFloat },
     projSPassingTouchdowns: { type: GraphQLFloat },
     projSPassingInterceptions: { type: GraphQLFloat },
-    projSpRushingAttempts: { type: GraphQLFloat },
+    projSRushingAttempts: { type: GraphQLFloat },
     projSRushingYards: { type: GraphQLFloat },
     projSRushingTouchdowns: { type: GraphQLFloat },
     projSFumblesLost: { type: GraphQLFloat },
@@ -90,6 +93,9 @@ const PlayerType = new GraphQLObjectType({
     projSTwoPointConversionReceptions: { type: GraphQLFloat },
     projSFantasyPoints: { type: GraphQLFloat },
     projSFantasyPointsPPR: { type: GraphQLFloat },
+
+    averageDraftPosition: { type: GraphQLFloat },
+    averageDraftPositionPPR: { type: GraphQLFloat },
 //this user relation will be changed abit I think
     user: {
       type: UserType,

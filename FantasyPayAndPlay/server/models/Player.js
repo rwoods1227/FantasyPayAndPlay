@@ -43,7 +43,7 @@ const PlayerSchema = new Schema({
     type: Number,
     required: false,
   },
-  projWpRushingAttempts: {
+  projWRushingAttempts: {
     type: Number,
     required: false,
   },
@@ -119,7 +119,7 @@ const PlayerSchema = new Schema({
     type: Number,
     required: false,
   },
-  weeklypRushingAttempts: {
+  weeklyRushingAttempts: {
     type: Number,
     required: false,
   },
@@ -195,7 +195,7 @@ const PlayerSchema = new Schema({
     type: Number,
     required: false,
   },
-  seasonpRushingAttempts: {
+  seasonRushingAttempts: {
     type: Number,
     required: false,
   },
@@ -267,7 +267,7 @@ const PlayerSchema = new Schema({
     type: Number,
     required: false,
   },
-  projSpRushingAttempts: {
+  projSRushingAttempts: {
     type: Number,
     required: false,
   },
@@ -319,16 +319,15 @@ const PlayerSchema = new Schema({
     type: Number,
     required: false,
   },
-  projSAverageDraftPositionPPR: {
+  averageDraftPositionPPR: {
     type: Number,
     required: false,
   },
-  projSAverageDraftPosition: {
+  averageDraftPosition: {
     type: Number,
     required: false,
   }
 });
-
 
 module.exports = mongoose.model("player", PlayerSchema);
 
@@ -431,7 +430,7 @@ module.exports = mongoose.model("player", PlayerSchema);
 
 
 
-// projected season stats (for draft stuff)   
+// projected season stats (for draft stuff)   https://api.sportsdata.io/v3/nfl/projections/json/PlayerSeasonProjectionStats/2019
 
   //FantasyPointsYahoo
   //Name
