@@ -207,16 +207,23 @@ const mutation = new GraphQLObjectType({
         const promiseArr = [];
         const allPlayers = {};
 
+
+
+
         promiseArr.push(axios(seasonStats).then(res => {
           let seasonStatsArr = res.data;
           sortJsonArray(seasonStatsArr, 'PlayerID');
-          console.log(seasonStatsArr[0].PlayerID);
+          // console.log(seasonStatsArr[0].PlayerID);
           seasonStatsArr.forEach(player => {
             if (player.Position === "QB" || player.Position === "RB" || player.Position === "WR" || player.Position === "TE") {
-              allPlayers[`${player.PlayerID}`] = {};
-              allPlayers[`${player.PlayerID}`]['name'] = player.Name;
-              allPlayers[`${player.PlayerID}`]['team'] = player.Team;
-              allPlayers[`${player.PlayerID}`]['position'] = player.Position;
+              // allPlayers[`${player.PlayerID}`] = {};
+              console.log("4")
+              if (allPlayers[`${player.PlayerID}`] === undefined) {
+                allPlayers[`${player.PlayerID}`] = {};
+                allPlayers[`${player.PlayerID}`]['name'] = player.Name;
+                allPlayers[`${player.PlayerID}`]['team'] = player.Team;
+                allPlayers[`${player.PlayerID}`]['position'] = player.Position;
+              }
 
               allPlayers[`${player.PlayerID}`]['seasonPassingAttempts'] = player.PassingAttempts;
               allPlayers[`${player.PlayerID}`]['seasonPassingCompletions'] = player.PassingCompletions;
@@ -240,45 +247,25 @@ const mutation = new GraphQLObjectType({
           })
         }))
 
-        promiseArr.push(axios(projSeasonStats).then(res => {
-          let projSeasonStatsArr = res.data;
-          sortJsonArray(projSeasonStatsArr, 'PlayerID');
-          console.log(projSeasonStatsArr[0].PlayerID)
-          projSeasonStatsArr.forEach(player => {
-            if (player.Position === "QB" || player.Position === "RB" || player.Position === "WR" || player.Position === "TE") {
-              allPlayers[`${player.PlayerID}`] = {};
-              allPlayers[`${player.PlayerID}`]['projSPassingAttempts'] = player.PassingAttempts;
-              allPlayers[`${player.PlayerID}`]['projSPassingCompletions'] = player.PassingCompletions;
-              allPlayers[`${player.PlayerID}`]['projSPassingYards'] = player.PassingYards;
-              allPlayers[`${player.PlayerID}`]['projSPassingTouchdowns'] = player.PassingTouchdowns;
-              allPlayers[`${player.PlayerID}`]['projSPassingInterceptions'] = player.PassingInterceptions;
-              allPlayers[`${player.PlayerID}`]['projSRushingAttempts'] = player.RushingAttempts;
-              allPlayers[`${player.PlayerID}`]['projSRushingYards'] = player.RushingYards;
-              allPlayers[`${player.PlayerID}`]['projSRushingTouchdowns'] = player.RushingTouchdowns;
-              allPlayers[`${player.PlayerID}`]['projSFumblesLost'] = player.FumblesLost;
-              allPlayers[`${player.PlayerID}`]['projSReceivingTargets'] = player.ReceivingTargets;
-              allPlayers[`${player.PlayerID}`]['projSReceptions'] = player.Receptions;
-              allPlayers[`${player.PlayerID}`]['projSReceivingYards'] = player.ReceivingYards;
-              allPlayers[`${player.PlayerID}`]['projSReceivingTouchdowns'] = player.ReceivingTouchdowns;
-              allPlayers[`${player.PlayerID}`]['projSTwoPointConversionPasses'] = player.TwoPointConversionPasses;
-              allPlayers[`${player.PlayerID}`]['projSTwoPointConversionRuns'] = player.TwoPointConversionRuns;
-              allPlayers[`${player.PlayerID}`]['projSTwoPointConversionReceptions'] = player.TwoPointConversionReceptions;
-              allPlayers[`${player.PlayerID}`]['projSFantasyPoints'] = player.FantasyPoints;
-              allPlayers[`${player.PlayerID}`]['projSFantasyPointsPPR'] = player.FantasyPointsPPR;
-              allPlayers[`${player.PlayerID}`]['averageDraftPosition'] = player.AverageDraftPosition;
-              allPlayers[`${player.PlayerID}`]['averageDraftPositionPPR'] = player.AverageDraftPositionPPR;
-            }
-          })
-        }))
+
 
         promiseArr.push(axios(weeklyStats).then(res => {
           
           let weeklyStatsArr = res.data;
           sortJsonArray(weeklyStatsArr, 'PlayerID');
-          console.log(weeklyStatsArr[0].PlayerID);
+          // console.log(weeklyStatsArr[0].PlayerID);
           weeklyStatsArr.forEach(player => {
             if (player.Position === "QB" || player.Position === "RB" || player.Position === "WR" || player.Position === "TE"){
-              allPlayers[`${player.PlayerID}`] = {};
+              // allPlayers[`${player.PlayerID}`] = {};
+              if (allPlayers[`${player.PlayerID}`] === undefined) {
+                allPlayers[`${player.PlayerID}`] = {};
+                allPlayers[`${player.PlayerID}`]['name'] = player.Name;
+                allPlayers[`${player.PlayerID}`]['team'] = player.Team;
+                allPlayers[`${player.PlayerID}`]['position'] = player.Position;
+              }
+
+
+              console.log("3")
               allPlayers[`${player.PlayerID}`]['isGameOver'] = player.IsGameOver;
               allPlayers[`${player.PlayerID}`]['weeklyPassingAttempts'] = player.PassingAttempts;
               allPlayers[`${player.PlayerID}`]['weeklyPassingCompletions'] = player.PassingCompletions;
@@ -306,10 +293,16 @@ const mutation = new GraphQLObjectType({
         promiseArr.push(axios(projWeeklyStats).then(res => {
           let projWeeklyStatsArr = res.data;
           sortJsonArray(projWeeklyStatsArr, 'PlayerID');
-          console.log(projWeeklyStatsArr[0].PlayerID);
+          // console.log(projWeeklyStatsArr[0].PlayerID);
           projWeeklyStatsArr.forEach(player => {
             if (player.Position === "QB" || player.Position === "RB" || player.Position === "WR" || player.Position === "TE") {
-              allPlayers[`${player.PlayerID}`] = {};
+              if (allPlayers[`${player.PlayerID}`] === undefined) {
+                allPlayers[`${player.PlayerID}`] = {};
+                allPlayers[`${player.PlayerID}`]['name'] = player.Name;
+                allPlayers[`${player.PlayerID}`]['team'] = player.Team;
+                allPlayers[`${player.PlayerID}`]['position'] = player.Position;
+              }
+              console.log("2")
               allPlayers[`${player.PlayerID}`]['projWPassingAttempts'] = player.PassingAttempts;
               allPlayers[`${player.PlayerID}`]['projWPassingCompletions'] = player.PassingCompletions;
               allPlayers[`${player.PlayerID}`]['projWPassingYards'] = player.PassingYards;
@@ -333,9 +326,48 @@ const mutation = new GraphQLObjectType({
           })
         }))
 
+        promiseArr.push(axios(projSeasonStats).then(res => {
+          let projSeasonStatsArr = res.data;
+          sortJsonArray(projSeasonStatsArr, 'PlayerID');
+         
+          projSeasonStatsArr.forEach(player => {
+            if (player.Position === "QB" || player.Position === "RB" || player.Position === "WR" || player.Position === "TE") {
+              console.log("1")
+              if (allPlayers[`${player.PlayerID}`] === undefined){
+                allPlayers[`${player.PlayerID}`] = {};
+                allPlayers[`${player.PlayerID}`]['name'] = player.Name;
+                allPlayers[`${player.PlayerID}`]['team'] = player.Team;
+                allPlayers[`${player.PlayerID}`]['position'] = player.Position;
+              }
+              // allPlayers[`${player.PlayerID}`] = allPlayers[`${player.PlayerID}`] || {};
+             
+
+              allPlayers[`${player.PlayerID}`]['projSPassingAttempts'] = player.PassingAttempts;
+              allPlayers[`${player.PlayerID}`]['projSPassingCompletions'] = player.PassingCompletions;
+              allPlayers[`${player.PlayerID}`]['projSPassingYards'] = player.PassingYards;
+              allPlayers[`${player.PlayerID}`]['projSPassingTouchdowns'] = player.PassingTouchdowns;
+              allPlayers[`${player.PlayerID}`]['projSPassingInterceptions'] = player.PassingInterceptions;
+              allPlayers[`${player.PlayerID}`]['projSRushingAttempts'] = player.RushingAttempts;
+              allPlayers[`${player.PlayerID}`]['projSRushingYards'] = player.RushingYards;
+              allPlayers[`${player.PlayerID}`]['projSRushingTouchdowns'] = player.RushingTouchdowns;
+              allPlayers[`${player.PlayerID}`]['projSFumblesLost'] = player.FumblesLost;
+              allPlayers[`${player.PlayerID}`]['projSReceivingTargets'] = player.ReceivingTargets;
+              allPlayers[`${player.PlayerID}`]['projSReceptions'] = player.Receptions;
+              allPlayers[`${player.PlayerID}`]['projSReceivingYards'] = player.ReceivingYards;
+              allPlayers[`${player.PlayerID}`]['projSReceivingTouchdowns'] = player.ReceivingTouchdowns;
+              allPlayers[`${player.PlayerID}`]['projSTwoPointConversionPasses'] = player.TwoPointConversionPasses;
+              allPlayers[`${player.PlayerID}`]['projSTwoPointConversionRuns'] = player.TwoPointConversionRuns;
+              allPlayers[`${player.PlayerID}`]['projSTwoPointConversionReceptions'] = player.TwoPointConversionReceptions;
+              allPlayers[`${player.PlayerID}`]['projSFantasyPoints'] = player.FantasyPoints;
+              allPlayers[`${player.PlayerID}`]['projSFantasyPointsPPR'] = player.FantasyPointsPPR;
+              allPlayers[`${player.PlayerID}`]['averageDraftPosition'] = player.AverageDraftPosition;
+              allPlayers[`${player.PlayerID}`]['averageDraftPositionPPR'] = player.AverageDraftPositionPPR;
+            }
+          })
+        }))
+
 
         console.log("finish 1", promiseArr)
-        console.log("finish3", allPlayers[0])
 
         return Promise.all(promiseArr).then(() =>{
           let promiseArr = [];
