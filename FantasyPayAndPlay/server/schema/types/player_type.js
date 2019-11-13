@@ -11,7 +11,10 @@ const PlayerType = new GraphQLObjectType({
   // remember we wrap the fields in a thunk to avoid circular dependency issues
   fields: () => ({
     _id: { type: GraphQLID },
+    // not populated can do that if need be
+    userTeam: { type: GraphQLID },
     name: { type: GraphQLString },
+    owned: { type: GraphQLBoolean },
     team: { type: GraphQLString },
     position: { type: GraphQLString },
     IsGameOver: { type: GraphQLBoolean },

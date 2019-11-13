@@ -22,6 +22,8 @@ const UserBetType = require("./types/user_bet_type")
 const UserBet = mongoose.model("userbet")
 const PlayerType = require("./types/player_type");
 const Player = mongoose.model("player");
+const TeamType = require("./types/team_type");
+const Team = mongoose.model("team");
 
 
 const authOptions = {
@@ -124,87 +126,86 @@ const mutation = new GraphQLObjectType({
     createAllBets: {
       type: new GraphQLList(BetType),
       resolve() {
-        return axios(authOptions).then(res => {
-          res.data.forEach(game => {
-            let description = `${game.HomeTeamName} Vs. ${game.AwayTeamName}`;
-            let date = game.DateTime;
-            let win = 0;
+          return axios(authOptions).then(res => {
+            res.data.forEach(game => {
+              let description = `${game.HomeTeamName} Vs. ${game.AwayTeamName}`;
+              let date = game.DateTime;
+              let win = 0;
+              let scoreId = game.ScoreId;
 
-            let MoneylineAwayDetails = `Moneyline for ${game.AwayTeamName}`;
-            let MoneylineAwayLine = game.PregameOdds[0].AwayMoneyLine;
-            let MoneylineHomeDetails = `Moneyline for ${game.HomeTeamName}`;
-            let MoneylineHomeLine = game.PregameOdds[0].HomeMoneyLine;
 
-            let OverUnderDetails = `Over/Under for ${description} is ${Math.round(
-              game.PregameOdds[0].OverUnder
-            )}`;
-            let OverLine = game.PregameOdds[0].OverPayout;
-            let UnderLine = game.PregameOdds[0].UnderPayout;
+              let MoneylineAwayDetails = `Moneyline for ${game.AwayTeamName}` 
+                let MoneylineAwayLine = game.PregameOdds[0].AwayMoneyLine;
+              let MoneylineHomeDetails = `Moneyline for ${game.HomeTeamName}`
+                let MoneylineHomeLine = game.PregameOdds[0].HomeMoneyLine;
 
-            let SpreadDetails = `Spread for ${game.HomeTeamName} is ${Math.ceil(
-              game.PregameOdds[0].HomePointSpread
-            )}`;
-            let SpreadAwayLine = game.PregameOdds[0].AwayPointSpreadPayout;
-            let SpreadHomeLine = game.PregameOdds[0].HomePointSpreadPayout;
+              let OverUnderDetails = `Over/Under for ${description} is ${Math.round(game.PregameOdds[0].OverUnder)}`
+                let OverLine = game.PregameOdds[0].OverPayout;
+                let UnderLine = game.PregameOdds[0].UnderPayout;
 
-            let MoneyLineAwayBet = new Bet({
-              description: description,
-              details: MoneylineAwayDetails,
-              date: date,
-              line: MoneylineAwayLine,
-              win: win
-            }).save();
+              let SpreadDetails = `Spread for ${game.HomeTeamName} is ${Math.ceil(game.PregameOdds[0].HomePointSpread)}`
+                let SpreadAwayLine = game.PregameOdds[0].AwayPointSpreadPayout;
+                let SpreadHomeLine = game.PregameOdds[0].HomePointSpreadPayout;
 
-            let MoneyLineHomeBet = new Bet({
-              description: description,
-              details: MoneylineHomeDetails,
-              date: date,
-              line: MoneylineHomeLine,
-              win: win
-            }).save();
+               let MoneyLineAwayBet = new Bet({
+                description: description,
+                details: MoneylineAwayDetails,
+                date: date,
+                line: MoneylineAwayLine,
+                scoreId: scoreId,
+                win: win
+              }).save();
 
-            let OverBet = new Bet({
-              description: description,
-              details: OverUnderDetails,
-              date: date,
-              line: OverLine,
-              win: win
-            }).save();
+              let MoneyLineHomeBet = new Bet({
+                description: description,
+                details: MoneylineHomeDetails,
+                date: date,
+                line: MoneylineHomeLine,
+                scoreId: scoreId,
+                win: win
+              }).save();
 
-            let UnderBet = new Bet({
-              description: description,
-              details: OverUnderDetails,
-              date: date,
-              line: UnderLine,
-              win: win
-            }).save();
+              let OverBet = new Bet({
+                description: description,
+                details: OverUnderDetails,
+                date: date,
+                line: OverLine,
+                scoreId: scoreId,
+                win: win
+              }).save();
 
-            let SpreadAwayBet = new Bet({
-              description: description,
-              details: SpreadDetails,
-              date: date,
-              line: SpreadAwayLine,
-              win: win
-            }).save();
+              let UnderBet = new Bet({
+                description: description,
+                details: OverUnderDetails,
+                date: date,
+                line: UnderLine,
+                scoreId: scoreId,
+                win: win
+              }).save();
 
-            let SpreadHomeBet = new Bet({
-              description: description,
-              details: SpreadDetails,
-              date: date,
-              line: SpreadHomeLine,
-              win: win
-            }).save();
+                let SpreadAwayBet = new Bet({
+                description: description,
+                details: SpreadDetails,
+                date: date,
+                line: SpreadAwayLine,
+                scoreId: scoreId,
+                win: win
+              }).save();
 
-            return {
-              MoneyLineAwayBet,
-              MoneyLineHomeBet,
-              OverBet,
-              UnderBet,
-              SpreadAwayBet,
-              SpreadHomeBet
-            };
-          });
-        });
+              let SpreadHomeBet = new Bet({
+                description: description,
+                details: SpreadDetails,
+                date: date,
+                line: SpreadHomeLine,
+                scoreId: scoreId,
+                win: win
+              }).save();
+
+              return { MoneyLineAwayBet, MoneyLineHomeBet, OverBet, UnderBet, SpreadAwayBet, SpreadHomeBet}
+              
+            });
+          })
+      
       }
     },
     deleteBet: {
@@ -655,6 +656,47 @@ const mutation = new GraphQLObjectType({
       type: PlayerType,
       resolve() {
         return Player.deleteMany({});
+      }
+    },
+    newTeam: {
+      type: TeamType,
+      args: {
+        name: { type: GraphQLString },
+        description: { type: GraphQLString },
+        user: { type: GraphQLID }
+      },
+      resolve(parentValue, { name, description, user}) {
+        return new Team({ name, description, user }).save();
+      }
+    },
+    // add dependent removal of players on team
+    deleteTeam: {
+      type: TeamType,
+      args: { teamId: { type: GraphQLID } },
+      resolve(parentValue, { teamId }) {
+        return Team.removePlayersAndDestroy(teamId);
+      }
+    },
+    //adds player to team and creates makes player.owned = true
+    addPlayerToTeam: {
+      type: PlayerType,
+      args: {
+        playerId: { type: GraphQLID },
+        teamId: { type: GraphQLID }
+      },
+      resolve(parentValue, { playerId, teamId }) {
+        return Player.addPlayerToTeam(playerId, teamId);
+      }
+    },
+    // removes player from a team and sets player.team = null and player.owned = false
+    removePlayerFromTeam: {
+      type: PlayerType,
+      args: {
+        playerId: { type: GraphQLID },
+        teamId: { type: GraphQLID }
+      },
+      resolve(parentValue, { playerId, teamId }) {
+        return Player.removePlayerFromTeam(playerId, teamId);
       }
     }
   }
