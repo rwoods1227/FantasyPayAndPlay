@@ -75,24 +75,6 @@ UserBetSchema.statics.updateTheUserBalance = function(userId, betId) {
     )
     
   })
-
-  // return Bet.findById(betId).then(bet => {
-    
-  //   if (!bet.win) {
-  //     return User.findById(userId).then(user => {
-  //       user.balance = (user.balance - bet.userBet.value)
-  //       return user.save()
-  //     });
-  //   } else {
-  //     return User.findById(userId).then(user => {
-  //       const moneyLineBet = bet.line
-  //       const betValue = bet.userBet.value
-  //       const calculateWinnings = ((100 / moneyLineBet) * 1.0) * betValue 
-  //       user.balance = (user.balance + calculateWinnings)
-  //       return user.save();
-  //     });
-  //   }
-  //   });
   };
 
 module.exports = mongoose.model("userbet", UserBetSchema);
