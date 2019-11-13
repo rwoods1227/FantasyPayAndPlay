@@ -2,10 +2,10 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const BetSchema = new Schema({
-  users: [
+  userBets: [
     {
       type: Schema.Types.ObjectId,
-      ref: "user"
+      ref: "userbet"
     }
   ],
   description: {
@@ -25,17 +25,16 @@ const BetSchema = new Schema({
     required: false,
   },
   win: {
-    type: Boolean,
-    default: false
+    type: Number,
+    default: 0
  }
 });
 
-BetSchema.statics.fetchBetUsers = BetId => {
+BetSchema.statics.fetchBetsUserBets = BetId => {
   const Bet = mongoose.model("bet");
   return Bet.findById(BetId)
-    .populate("users")
-    .then(bet => bet.users);
-
+    .populate("userBets")
+    .then(bet => bet.userBets);
 };
 
 module.exports = mongoose.model("bet", BetSchema);

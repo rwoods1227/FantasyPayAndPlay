@@ -5,6 +5,7 @@ const {
   GraphQLInt,
   GraphQLNonNull,
   GraphQLID,
+  GraphQLFloat,
   GraphQLList
 } = graphql;
 const mongoose = require("mongoose");
@@ -17,6 +18,8 @@ const UserType = require("./types/user_type");
 const User = mongoose.model("user");
 const BetType = require("./types/bet_type");
 const Bet = mongoose.model("bet");
+const UserBetType = require("./types/user_bet_type")
+const UserBet = mongoose.model("userbet")
 const PlayerType = require("./types/player_type");
 const Player = mongoose.model("player");
 
@@ -117,7 +120,7 @@ const mutation = new GraphQLObjectType({
             res.data.forEach(game => {
               let description = `${game.HomeTeamName} Vs. ${game.AwayTeamName}`;
               let date = game.DateTime;
-              let win = false;
+              let win = 0;
 
 
               let MoneylineAwayDetails = `Moneyline for ${game.AwayTeamName}` 
@@ -199,6 +202,35 @@ const mutation = new GraphQLObjectType({
       type: BetType,
       resolve() {
         return Bet.deleteMany({});
+      }
+    },
+    deleteUserBet: {
+      type: UserBetType,
+      args: { _id: { type: GraphQLID } },
+      resolve(parentValue, { _id }) {
+        return UserBet.remove({ _id })
+      }
+    },
+    createUserBet: {
+      type: UserBetType,
+      args: {
+        betId: { type: GraphQLID },
+        userId: { type: GraphQLID },
+        value: { type: GraphQLInt }
+      },
+      resolve(_, { betId, userId, value }) {
+        return UserBet.makeUserBet(betId, userId, value);
+      }
+    },
+    updateUserBalance: {
+      type: UserBetType,
+      args: {
+        _id: { type: GraphQLID },
+        bet: { type: GraphQLID },
+        user: { type: GraphQLID }
+      },
+      resolve(_, { _id, bet, user }) {
+        return UserBet.updateTheUserBalance(_id, bet, user)
       }
     },
     createAllPlayers: {
