@@ -24,7 +24,7 @@ const UserBet = mongoose.model("userbet")
 const authOptions = {
   method: "GET",
   url:
-    "https://api.sportsdata.io/v3/nfl/odds/json/GameOddsByWeek/2019/10",
+    "https://api.sportsdata.io/v3/nfl/odds/json/GameOddsByWeek/2019/11",
   headers: {
     "Ocp-Apim-Subscription-Key": NFLKey
   },
@@ -81,7 +81,7 @@ const mutation = new GraphQLObjectType({
             res.data.forEach(game => {
               let description = `${game.HomeTeamName} Vs. ${game.AwayTeamName}`;
               let date = game.DateTime;
-              let win = false;
+              let win = 0;
 
 
               let MoneylineAwayDetails = `Moneyline for ${game.AwayTeamName}` 
@@ -184,20 +184,14 @@ const mutation = new GraphQLObjectType({
       }
     },
     updateUserBalance: {
-      type: UserType,
+      type: UserBetType,
       args: {
         _id: { type: GraphQLID },
-        balance: { type: GraphQLInt }
+        bet: { type: GraphQLID },
+        user: { type: GraphQLID }
       },
-      resolve(parentValue, { _id, balance }) {
-        return User.findByIdAndUpdate(
-          { _id: _id }, 
-          { $set: { balance } },
-          { new: true },
-           (err, user) => {
-              return user
-           }
-        )
+      resolve(_, { _id, bet, user }) {
+        return UserBet.updateTheUserBalance(_id, bet, user)
       }
     }
   }

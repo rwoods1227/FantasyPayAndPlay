@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const graphql = require("graphql");
 const User = mongoose.model("user");
+const Bet = mongoose.model("bet");
 const UserBet = mongoose.model("userbet")
 const {
   GraphQLObjectType,
