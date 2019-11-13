@@ -24,6 +24,10 @@ const BetSchema = new Schema({
     type: Number,
     required: false,
   },
+  scoreId: {
+    type: Number,
+    required: false,
+  },
   win: {
     type: Number,
     default: 0

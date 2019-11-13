@@ -43,15 +43,12 @@ TeamSchema.statics.removePlayersAndDestroy= (teamId) => {
   // may need promise stuff unsure
   let promiseArr = [];
   Team.findById(teamId).then(team => {
-    console.log(team.name)
     User.findById(team.user).then((user) =>{
-      console.log(user.email)
       user.teams.pull(team);
       promiseArr.push(user.save())
     })
     team.players.forEach(playerId => {
       Player.findById(playerId).then((player) => {
-      console.log(player.name)
       player.userTeam = null;
       player.owned = false;
       promiseArr.push(player.save())

@@ -11,6 +11,7 @@ const BetType = new GraphQLObjectType({
     description: { type: GraphQLString },
     date: { type: GraphQLString },
     line: { type: GraphQLInt },
+    scoreId: { type: GraphQLInt },
     win: { type: GraphQLInt },
     userBet: {
       type: new GraphQLList(require('./user_bet_type')),
