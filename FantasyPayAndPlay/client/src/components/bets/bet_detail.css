@@ -1,4 +1,4 @@
-div.bet-detail-page {
+div.bets-page {
   display: flex;
   justify-content: center;
   height: 100vh;
@@ -6,7 +6,7 @@ div.bet-detail-page {
   color: white;
 }
 
-div.bet-detail-page > div.bet-detail-container {
+div.bets-page > div.bet-detail-container {
   padding-top: 20px;
   padding-bottom: 10px;
 }

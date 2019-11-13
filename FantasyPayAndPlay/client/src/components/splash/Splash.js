@@ -1,6 +1,6 @@
 import React from "react";
 import Nav from "../nav/Nav";
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useQuery } from "@apollo/react-hooks";
 import { Formik, Form, Field } from 'formik';
 
@@ -18,8 +18,15 @@ const Splash = props => {
     <div>
       <Nav />
       {data.isLoggedIn ? (
-        <div>
-
+        <div className="splash-logged-out">
+          <h1>Start a fantasy team or <br />bet on matches today</h1>
+          <h4>Start your fantasy for free in just 60 seconds.</h4>
+          <div className="splash-callout">
+            <Link to="/bets">OPEN FANTASY PAY & PLAY</Link>
+          </div>
+          <div className="splash-gif-container">
+            <img src={SplashGif} alt="splash-gif"></img>
+          </div>
         </div>
         ) : (
         <div className="splash-logged-out">
@@ -40,7 +47,9 @@ const Splash = props => {
                   spellCheck="false"
                   placeholder="Email"
                 />
-                <button type="submit">GET STARTED</button>
+                <div className="splash-callout-button">
+                  <button type="submit">GET STARTED</button>
+                </div>
               </Form>
             </Formik>
           </div>

@@ -36,5 +36,37 @@ a#register-link {
   font-size: 14px;
   border-radius: 26px;
   border: 1px solid #07c5ff;
+}
 
+a#splash-nav-open-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 120px;
+  color: #00ceb8;
+  cursor: pointer;
+  height: 52px;
+  font-weight: 800;
+  font-size: 14px;
+  border-radius: 26px;
+  border: 1px solid #07c5ff;
+  margin-left: 20px;
+}
+
+div.navbar-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+div.navbar-links > button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 180px;
+  color: #00ceb8;
+  cursor: pointer;
+  height: 52px;
+  font-weight: 700;
+  font-size: 16px;
 }

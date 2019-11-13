@@ -49,7 +49,7 @@ div.splash-callout > form > input::placeholder {
   color: #5f7496
 }
 
-div.splash-callout > form > button {
+div.splash-callout > form > div > button {
   width: 165px;
   border-radius: 25px;
   background-image: linear-gradient(286deg, #07c5ff, #4ce2b8);
@@ -59,4 +59,17 @@ div.splash-callout > form > button {
   font-weight: 700;
   color: #022047;
   margin-top: -53px;
+}
+
+div.splash-callout > a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 280px;
+  background-image: linear-gradient(286deg, #07c5ff, #4ce2b8);
+  border-radius: 26px;
+  height: 52px;
+  font-size: 14px;
+  font-weight: 800;
+  color: #022047;
 }

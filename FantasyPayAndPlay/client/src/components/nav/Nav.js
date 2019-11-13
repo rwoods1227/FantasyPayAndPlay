@@ -1,7 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
-import { useHistory } from 'react-router-dom';
 
 import Queries from "../../graphql/queries";
 const { IS_LOGGED_IN } = Queries;
@@ -12,19 +11,26 @@ const Nav = props => {
   const { data, client } = useQuery(IS_LOGGED_IN);
   const history = useHistory();
 
+  const logoutButton = (
+    <button
+      onClick={e => {
+        e.preventDefault();
+        localStorage.removeItem("auth-token");
+        client.writeData({ data: { isLoggedIn: false } });
+        history.push("/");
+      }}
+    >
+    LOGOUT
+    </button>
+  );
+
   return data.isLoggedIn ? (
     <nav className="navbar">
       <h1 className="nav-header"><Link to="/">FantasyPay&Play</Link></h1>
-      <button
-        onClick={e => {
-          e.preventDefault();
-          localStorage.removeItem("auth-token");
-          client.writeData({ data: { isLoggedIn: false } });
-          history.push("/");
-        }}
-      >
-        Logout
-      </button>
+      <div className="navbar-links">
+        {logoutButton}
+        <Link to="/bets" id="splash-nav-open-link">OPEN</Link>
+      </div>
     </nav>
   ) : (
       <nav className="navbar">

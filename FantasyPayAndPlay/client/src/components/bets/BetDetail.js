@@ -30,7 +30,7 @@ const BetDetail = props => {
 
             const tabs = ["Moneyline", "Spread", "Over/Under"];
             return (
-              <div className="bet-detail-page">
+              <div className="bets-page">
                 <div className="bet-detail-container">
                   <h1>{description}</h1>
                   <span>Bet on this match</span>
