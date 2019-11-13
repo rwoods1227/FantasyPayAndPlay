@@ -123,6 +123,7 @@ const mutation = new GraphQLObjectType({
               let description = `${game.HomeTeamName} Vs. ${game.AwayTeamName}`;
               let date = game.DateTime;
               let win = 0;
+              let scoreId = game.ScoreId;
 
 
               let MoneylineAwayDetails = `Moneyline for ${game.AwayTeamName}` 
@@ -143,6 +144,7 @@ const mutation = new GraphQLObjectType({
                 details: MoneylineAwayDetails,
                 date: date,
                 line: MoneylineAwayLine,
+                scoreId: scoreId,
                 win: win
               }).save();
 
@@ -151,6 +153,7 @@ const mutation = new GraphQLObjectType({
                 details: MoneylineHomeDetails,
                 date: date,
                 line: MoneylineHomeLine,
+                scoreId: scoreId,
                 win: win
               }).save();
 
@@ -159,6 +162,7 @@ const mutation = new GraphQLObjectType({
                 details: OverUnderDetails,
                 date: date,
                 line: OverLine,
+                scoreId: scoreId,
                 win: win
               }).save();
 
@@ -167,6 +171,7 @@ const mutation = new GraphQLObjectType({
                 details: OverUnderDetails,
                 date: date,
                 line: UnderLine,
+                scoreId: scoreId,
                 win: win
               }).save();
 
@@ -175,6 +180,7 @@ const mutation = new GraphQLObjectType({
                 details: SpreadDetails,
                 date: date,
                 line: SpreadAwayLine,
+                  scoreId: scoreId,
                 win: win
               }).save();
 
@@ -183,6 +189,7 @@ const mutation = new GraphQLObjectType({
                 details: SpreadDetails,
                 date: date,
                 line: SpreadHomeLine,
+                scoreId: scoreId,
                 win: win
               }).save();
 
