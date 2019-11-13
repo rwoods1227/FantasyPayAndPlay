@@ -13,8 +13,8 @@ const Nav = props => {
   const history = useHistory();
 
   return data.isLoggedIn ? (
-    <React.Fragment>
-      <Link to="/">Home</Link>
+    <nav className="navbar">
+      <h1 className="nav-header"><Link to="/">FantasyPay&Play</Link></h1>
       <button
         onClick={e => {
           e.preventDefault();
@@ -25,10 +25,10 @@ const Nav = props => {
       >
         Logout
       </button>
-    </React.Fragment>
+    </nav>
   ) : (
       <nav className="navbar">
-        <h1 className="nav-header">FantasyPay&Play</h1>
+        <h1 className="nav-header"><Link to="/">FantasyPay&Play</Link></h1>
         <div className="auth" id="signed-out">
           <Link to="/login" id="login-link">Login</Link>
           <Link to="/register" id="register-link">SIGN UP</Link>

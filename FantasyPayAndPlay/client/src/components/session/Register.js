@@ -26,7 +26,7 @@ export default props => (
             Let's get started by creating an account
           </div>
         </div>
-        <RegisterForm />
+        <RegisterForm email={props.match.params.email} />
       </div>
       <footer className="auth-footer">
         <div className="footer">

@@ -54,6 +54,11 @@ body {
   background-color: #01081f;
   font-family: 'Muli';
   font-weight: 600;
+  min-width: 768px;
+}
+
+a {
+  cursor: pointer;
 }
 
 .main-icon {
