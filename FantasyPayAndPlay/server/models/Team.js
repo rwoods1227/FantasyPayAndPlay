@@ -68,12 +68,14 @@ TeamSchema.statics.removePlayersAndDestroy= (teamId) => {
     (teamId) => console.log("complete"))
 }
 
-TeamSchema.statics.addteamToLeague = (teamId, leagueId) => {
+TeamSchema.statics.addTeamToLeague = (teamId, leagueId) => {
   const Team = mongoose.model("team");
   const League = mongoose.model("league");
 
   return Team.findById(teamId).then(team => {
+    console.log(team)
     return League.findById(leagueId).then(newleague => {
+      console.log(newleague)
       team.league = newleague;
       newleague.teams.push(team);
 

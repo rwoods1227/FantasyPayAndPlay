@@ -36,8 +36,8 @@ const LeagueSchema = new Schema({
 LeagueSchema.statics.fetchLeagueTeams = LeagueId => {
   const League = mongoose.model("league");
   return League.findById(LeagueId)
-    .populate("players")
-    .then(league => league.players);
+    .populate("teams")
+    .then(league => league.teams);
 };
 
 LeagueSchema.statics.deleteTeamsAndDestroy = (leagueId) => {

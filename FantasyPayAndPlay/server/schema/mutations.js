@@ -582,7 +582,7 @@ const mutation = new GraphQLObjectType({
     deleteLeague: {
       type: LeagueType,
       args: { leagueId: { type: GraphQLID } },
-      resolve(parentValue, { teamId }) {
+      resolve(parentValue, { leagueId }) {
         return League.deleteTeamsAndDestroy(leagueId);
       }
     },
@@ -593,8 +593,8 @@ const mutation = new GraphQLObjectType({
         leagueId: { type: GraphQLID },
         teamId: { type: GraphQLID }
       },
-      resolve(parentValue, { leagueId, teamId }) {
-        return Team.addTeamToLeague(leagueId, teamId);
+      resolve(parentValue, { teamId, leagueId }) {
+        return Team.addTeamToLeague(teamId, leagueId);
       }
     },
     // removes team from a league and deletes that team
@@ -604,8 +604,8 @@ const mutation = new GraphQLObjectType({
         leagueId: { type: GraphQLID },
         teamId: { type: GraphQLID }
       },
-      resolve(parentValue, { leagueId, teamId }) {
-        return Team.removeAndDeleteTeamFromLeague(leagueId, teamId);
+      resolve(parentValue, { teamId, leagueId }) {
+        return Team.removeAndDeleteTeamFromLeague(teamId, leagueId);
       }
     },
   }
