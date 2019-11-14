@@ -24,6 +24,8 @@ const PlayerType = require("./types/player_type");
 const Player = mongoose.model("player");
 const TeamType = require("./types/team_type");
 const Team = mongoose.model("team");
+const LeagueType = require("./types/league_type");
+const League = mongoose.model("league");
 
 
 const authOptions = {
@@ -528,10 +530,11 @@ const mutation = new GraphQLObjectType({
       args: {
         name: { type: GraphQLString },
         description: { type: GraphQLString },
-        user: { type: GraphQLID }
+        user: { type: GraphQLID },
+        league: { type: GraphQLID }
       },
-      resolve(parentValue, { name, description, user}) {
-        return new Team({ name, description, user }).save();
+      resolve(parentValue, { name, description, user, league}) {
+        return new Team({ name, description, user, league }).save();
       }
     },
     // add dependent removal of players on team
@@ -563,7 +566,48 @@ const mutation = new GraphQLObjectType({
       resolve(parentValue, { playerId, teamId }) {
         return Player.removePlayerFromTeam(playerId, teamId);
       }
-    }
+    },
+    newLeague: {
+      type: LeagueType,
+      args: {
+        name: { type: GraphQLString },
+        description: { type: GraphQLString },
+        user: { type: GraphQLID }
+      },
+      resolve(parentValue, { name, description, user }) {
+        return new League({ name, description, user }).save();
+      }
+    },
+    // add dependent delete of associated teams on League, also maybe players later on depending on how that is implemented
+    deleteLeague: {
+      type: LeagueType,
+      args: { leagueId: { type: GraphQLID } },
+      resolve(parentValue, { teamId }) {
+        return League.deleteTeamsAndDestroy(leagueId);
+      }
+    },
+    // adding statics to team for these two
+    addTeamToLeague: {
+      type: TeamType,
+      args: {
+        leagueId: { type: GraphQLID },
+        teamId: { type: GraphQLID }
+      },
+      resolve(parentValue, { leagueId, teamId }) {
+        return Team.addTeamToLeague(leagueId, teamId);
+      }
+    },
+    // removes team from a league and deletes that team
+    removeTeamFromLeague: {
+      type: TeamType,
+      args: {
+        leagueId: { type: GraphQLID },
+        teamId: { type: GraphQLID }
+      },
+      resolve(parentValue, { leagueId, teamId }) {
+        return Team.removeAndDeleteTeamFromLeague(leagueId, teamId);
+      }
+    },
   }
 });
 

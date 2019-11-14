@@ -9,6 +9,12 @@ const TeamSchema = new Schema({
     ref: "user",
     required: true
   },
+  league:
+  {
+    type: Schema.Types.ObjectId,
+    ref: "league",
+    required: true
+  },
   name: {
     type: String,
     required: false,
@@ -61,5 +67,43 @@ TeamSchema.statics.removePlayersAndDestroy= (teamId) => {
   return Promise.all(promiseArr).then(
     (teamId) => console.log("complete"))
 }
+
+TeamSchema.statics.addteamToLeague = (teamId, leagueId) => {
+  const Team = mongoose.model("team");
+  const League = mongoose.model("league");
+
+  return Team.findById(teamId).then(team => {
+    return League.findById(leagueId).then(newleague => {
+      team.league = newleague;
+      newleague.teams.push(team);
+
+      return Promise.all([team.save(), newleague.save()]).then(
+        ([team, newleague]) => team
+      );
+    });
+  });
+};
+
+TeamSchema.statics.removeAndDeleteTeamFromLeague = (teamId, LeagueId) => {
+  const Team = mongoose.model("team");
+  const League = mongoose.model("league");
+  let promiseArr = [];
+
+  Team.findById(teamId).then(team => {
+    if (team.league) {
+      // find the old League and remove this team from it's teams
+      League.findById(team.league).then(league => {
+        league.teams.pull(team);
+        promiseArr.push(league.save());
+        promiseArr.push(Team.removePlayersAndDestroy(teamId))
+      });
+    }
+    //return team to available teams field
+    return Promise.all(promiseArr).then(
+      () => console.log("complete")
+    );
+  });
+};
+
 
 module.exports = mongoose.model("team", TeamSchema);

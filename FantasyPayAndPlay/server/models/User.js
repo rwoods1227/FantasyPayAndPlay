@@ -32,6 +32,12 @@ const UserSchema = new Schema({
       ref: "team"
     }
   ],
+  leagues: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "league"
+    }
+  ],
 });
 
 UserSchema.statics.fetchUsersUserBets = UserId => {
@@ -46,6 +52,13 @@ UserSchema.statics.fetchUsersTeams = UserId => {
   return User.findById(UserId)
     .populate("teams")
     .then(user => user.teams);
+};
+
+UserSchema.statics.fetchUsersLeagues = UserId => {
+  const User = mongoose.model("user");
+  return User.findById(UserId)
+    .populate("leagues")
+    .then(user => user.leagues);
 };
 
 module.exports = mongoose.model("user", UserSchema);
