@@ -142,6 +142,7 @@ const mutation = new GraphQLObjectType({
                let MoneyLineAwayBet = new Bet({
                 description: description,
                 details: MoneylineAwayDetails,
+                 wagerType: "Moneyline Away",
                 date: date,
                 line: MoneylineAwayLine,
                 scoreId: scoreId,
@@ -151,6 +152,7 @@ const mutation = new GraphQLObjectType({
               let MoneyLineHomeBet = new Bet({
                 description: description,
                 details: MoneylineHomeDetails,
+                wagerType: "Moneyline Home",
                 date: date,
                 line: MoneylineHomeLine,
                 scoreId: scoreId,
@@ -160,6 +162,7 @@ const mutation = new GraphQLObjectType({
               let OverBet = new Bet({
                 description: description,
                 details: OverUnderDetails,
+                wagerType: "Over/under Over",
                 date: date,
                 line: OverLine,
                 scoreId: scoreId,
@@ -169,6 +172,7 @@ const mutation = new GraphQLObjectType({
               let UnderBet = new Bet({
                 description: description,
                 details: OverUnderDetails,
+                wagerType: "Over/under Under",
                 date: date,
                 line: UnderLine,
                 scoreId: scoreId,
@@ -178,15 +182,17 @@ const mutation = new GraphQLObjectType({
                 let SpreadAwayBet = new Bet({
                 description: description,
                 details: SpreadDetails,
+                wagerType: "Spread Away",
                 date: date,
                 line: SpreadAwayLine,
-                  scoreId: scoreId,
+                scoreId: scoreId,
                 win: win
               }).save();
 
               let SpreadHomeBet = new Bet({
                 description: description,
                 details: SpreadDetails,
+                wagerType: "Spread Home",
                 date: date,
                 line: SpreadHomeLine,
                 scoreId: scoreId,
