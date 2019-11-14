@@ -252,13 +252,12 @@ const mutation = new GraphQLObjectType({
     },
     determineWinValue: {
       type: BetType,
-      resolve() {
-        const promiseArr = [];
-        promiseArr.push(
-          axios(weeklyGameScores).then(res => {
-            console.log(res)
-          })
-        );
+      args: { 
+        _id: { type: GraphQLID }
+        // win: { type: GraphQLInt } 
+      },
+      resolve(_, { _id, win }) {
+        return Bet.changeWinValue(_id)
       }
     },
     createAllPlayers: {
