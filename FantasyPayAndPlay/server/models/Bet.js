@@ -57,70 +57,128 @@ BetSchema.statics.changeWinValue = function(betId) {
     }
   };
 
-  // const promiseArr = [];
-  // promiseArr.push(this.findOne({ bet: betId }));
-  // const betGameID = promiseArr[0].scoreId
-  const bet = this.findOne({ bet: betId })
+  // const bet = this.findOne({ bet: betId })
+  const bet = this.findById(betId);
+  console.log(betId)
+  console.log("bet:")
+  console.log(bet)
   const betGameID = bet.scoreId;
+  console.log(betGameID)
+  console.log(weeklyGameScores.length);
   
   for(let i = 0; i < weeklyGameScores.length; i ++) {
     if (weeklyGameScores[i].scoreId === betGameID) {
       const thisGame = weeklyGameScores[i]
+      const homeScore = thisGame.HomeScore;
+      const awayScore = thisGame.AwayScore;
+      let overUnder = thisGame.PregameOdds.OverUnder;
+      let totalPoints = thisGame.HomeScore + thisGame.AwayScore;
+      let detailsArr = bet.details.split(" ")
+      let detailsArrNumber = detailsArr.pop()
+      let pointSpread = Number(detailsArrNumber)
+
       switch (bet.wagerType) {
         case "Moneyline Away":
-          if (thisGame.AwayScore > thisGame.HomeScore) {
-            bet.win = 1
-          } else if (thisGame.AwayScore === thisGame.HomeScore) {
-            bet.win = 0
+          if (awayScore > homeScore) {
+            bet.win = 1;
+            break;
+          } else if (awayScore === homeScore) {
+            bet.win = 0;
+            break;
           } else {
-            bet.win = -1
+            bet.win = -1;
+            break;
           }
         case "Moneyline Home":
-           if (thisGame.HomeScore > thisGame.AwayScore) {
-            bet.win = 1
-          } else if (thisGame.HomeScore === thisGame.HomeScore) {
-            bet.win = 0
+          if (homeScore > awayScore) {
+            bet.win = 1;
+            break;
+          } else if (homeScore === awayScore) {
+            bet.win = 0;
+            break;
           } else {
-            bet.win = -1
+            bet.win = -1;
+            break;
           }
         case "Spread Home":
-
+          if (pointSpread > 0) {
+            let beatSpread = awayScore + pointSpread
+            if (homeScore > beatSpread) {
+              bet.win = 1;
+              break;
+            } else if (homeScore === beatSpread) {
+              bet.win = 0;
+              break;
+            } else {
+              bet.win = -1;
+              break;
+            }
+          } else if (pointSpread < 0) {
+              let beatSpread = homeScore + pointSpread
+              if (awayScore > beatSpread) {
+                bet.win = -1
+                break;
+              } else if (awayScore === beatSpread) {
+                bet.win = 0
+                break;
+              } else {
+                bet.win = 1
+                break;
+              }
+            }       
         case "Spread Away":
+          if (pointSpread > 0) {
+            let beatSpread = awayScore + pointSpread
+            if (homeScore < beatSpread) {
+              bet.win = 1;
+              break;
+            } else if (homeScore === beatSpread) {
+              bet.win = 0;
+              break;
+            } else {
+              bet.win = -1;
+              break;
+            }
+          } else if (pointSpread < 0) {
+            let beatSpread = homeScore + pointSpread
+            if (awayScore > beatSpread) {
+              bet.win = -1
+              break;
+            } else if (awayScore === beatSpread) {
+              bet.win = 0
+              break;
+            } else {
+              bet.win = 1
+              break;
+            }
+          } 
 
         case "Over/under Over":
-
+          if (overUnder < totalPoints) {
+            bet.win = 1;
+            break
+          } else if (overUnder === totalPoints) {
+            bet.win = 0;
+            break;
+          } else {
+            bet.win = -1;
+            break;
+          }
         case "Over/under Under":
+          if (overUnder > totalPoints) {
+            bet.win = 1;
+            break;
+          } else if (overUnder === totalPoints) {
+            bet.win = 0;
+            break;
+          } else {
+            bet.win = -1;
+            break;
+          }
       }
+      return bet.save();
     }
   }
-
-
-  // promiseArr.push(weeklyGameScores.findOne({ scoreId: betGameID }));
-  // return promiseArr
-  return Promise.all(promiseArr).then(([bet, game]) => {
-    
-  })
-
-
-  //  promiseArr.push(User.findById(userId));
-  //  promiseArr.push(Bet.findById(betId));
-  //  return Promise.all(promiseArr).then(([userBet, user, bet]) => {
-  //    if (bet.win === -1) {
-  //      user.balance = user.balance - userBet.value;
-  //    } else if (bet.win === 0) {
-  //      userBet.payout = true;
-  //      return userBet.save();
-  //    } else {
-  //      const moneyLineBet = bet.line;
-  //      const betValue = userBet.value;
-  //      const calculateWinnings = (100 / moneyLineBet) * 1.0 * betValue;
-  //      user.balance = user.balance + calculateWinnings;
-  //    }
-  //    return user.save().then(() => {
-  //      userBet.payout = true;
-  //      return userBet.save();
-  //    });
-  //  });
 }
 
 module.exports = mongoose.model("bet", BetSchema);

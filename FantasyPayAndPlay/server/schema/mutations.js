@@ -135,17 +135,17 @@ const mutation = new GraphQLObjectType({
 
 
               let MoneylineAwayDetails = `Moneyline for ${game.AwayTeamName}` 
-                let MoneylineAwayLine = game.PregameOdds[0].AwayMoneyLine;
+              let MoneylineAwayLine = game.PregameOdds[0].AwayMoneyLine;
               let MoneylineHomeDetails = `Moneyline for ${game.HomeTeamName}`
-                let MoneylineHomeLine = game.PregameOdds[0].HomeMoneyLine;
+              let MoneylineHomeLine = game.PregameOdds[0].HomeMoneyLine;
 
               let OverUnderDetails = `Over/Under for ${description} is ${Math.round(game.PregameOdds[0].OverUnder)}`
-                let OverLine = game.PregameOdds[0].OverPayout;
-                let UnderLine = game.PregameOdds[0].UnderPayout;
+              let OverLine = game.PregameOdds[0].OverPayout;
+              let UnderLine = game.PregameOdds[0].UnderPayout;
 
-              let SpreadDetails = `Spread for ${game.HomeTeamName} is ${Math.ceil(game.PregameOdds[0].HomePointSpread)}`
-                let SpreadAwayLine = game.PregameOdds[0].AwayPointSpreadPayout;
-                let SpreadHomeLine = game.PregameOdds[0].HomePointSpreadPayout;
+              let SpreadDetails = `Spread for ${game.HomeTeamName} is ${Math.ceil(game.PregameOdds[0].HomePointSpread + 0.5)}`
+              let SpreadAwayLine = game.PregameOdds[0].AwayPointSpreadPayout;
+              let SpreadHomeLine = game.PregameOdds[0].HomePointSpreadPayout;
 
                let MoneyLineAwayBet = new Bet({
                 description: description,
@@ -262,7 +262,7 @@ const mutation = new GraphQLObjectType({
         _id: { type: GraphQLID }
         // win: { type: GraphQLInt } 
       },
-      resolve(_, { _id, win }) {
+      resolve(_, { _id }) {
         return Bet.changeWinValue(_id)
       }
     },
