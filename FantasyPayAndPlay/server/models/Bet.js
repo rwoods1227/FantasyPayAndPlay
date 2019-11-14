@@ -65,13 +65,32 @@ BetSchema.statics.changeWinValue = function(betId) {
   
   for(let i = 0; i < weeklyGameScores.length; i ++) {
     if (weeklyGameScores[i].scoreId === betGameID) {
-      // switch() {
-      //   case:
+      const thisGame = weeklyGameScores[i]
+      switch (bet.wagerType) {
+        case "Moneyline Away":
+          if (thisGame.AwayScore > thisGame.HomeScore) {
+            bet.win = 1
+          } else if (thisGame.AwayScore === thisGame.HomeScore) {
+            bet.win = 0
+          } else {
+            bet.win = -1
+          }
+        case "Moneyline Home":
+           if (thisGame.HomeScore > thisGame.AwayScore) {
+            bet.win = 1
+          } else if (thisGame.HomeScore === thisGame.HomeScore) {
+            bet.win = 0
+          } else {
+            bet.win = -1
+          }
+        case "Spread Home":
 
-      //   case:
+        case "Spread Away":
 
-      //   case:
-      // }
+        case "Over/under Over":
+
+        case "Over/under Under":
+      }
     }
   }
 
