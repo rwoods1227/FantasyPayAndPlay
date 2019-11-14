@@ -9,6 +9,7 @@ const BetType = new GraphQLObjectType({
     _id: { type: GraphQLID },
     details: { type: GraphQLString },
     description: { type: GraphQLString },
+    wagerType: { type: GraphQLString },
     date: { type: GraphQLString },
     line: { type: GraphQLInt },
     scoreId: { type: GraphQLInt },

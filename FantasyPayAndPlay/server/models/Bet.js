@@ -22,6 +22,10 @@ const BetSchema = new Schema({
     type: String,
     required: false,
   },
+  wagerType: {
+    type: String,
+    required: false,
+  },
   line: {
     type: Number,
     required: false,
