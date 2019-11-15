@@ -49,7 +49,7 @@ BetSchema.statics.fetchBetsUserBets = BetId => {
 
 BetSchema.statics.changeWinValue = function(betId) {
   const Bet = mongoose.model("bet")
-  const weeklyGameScores = {
+  const weeklyGameScoresAPI = {
     method: "GET",
     url: "https://api.sportsdata.io/v3/nfl/scores/json/ScoresByWeek/2019/10",
     headers: {
@@ -57,128 +57,140 @@ BetSchema.statics.changeWinValue = function(betId) {
     }
   };
 
-  // const bet = this.findOne({ bet: betId })
-  const bet = this.findById(betId);
-  console.log(betId)
-  console.log("bet:")
-  console.log(bet)
-  const betGameID = bet.scoreId;
-  console.log(betGameID)
-  console.log(weeklyGameScores.length);
-  
-  for(let i = 0; i < weeklyGameScores.length; i ++) {
-    if (weeklyGameScores[i].scoreId === betGameID) {
-      const thisGame = weeklyGameScores[i]
-      const homeScore = thisGame.HomeScore;
-      const awayScore = thisGame.AwayScore;
-      let overUnder = thisGame.PregameOdds.OverUnder;
-      let totalPoints = thisGame.HomeScore + thisGame.AwayScore;
-      let detailsArr = bet.details.split(" ")
-      let detailsArrNumber = detailsArr.pop()
-      let pointSpread = Number(detailsArrNumber)
-
-      switch (bet.wagerType) {
-        case "Moneyline Away":
-          if (awayScore > homeScore) {
-            bet.win = 1;
-            break;
-          } else if (awayScore === homeScore) {
-            bet.win = 0;
-            break;
-          } else {
-            bet.win = -1;
-            break;
-          }
-        case "Moneyline Home":
-          if (homeScore > awayScore) {
-            bet.win = 1;
-            break;
-          } else if (homeScore === awayScore) {
-            bet.win = 0;
-            break;
-          } else {
-            bet.win = -1;
-            break;
-          }
-        case "Spread Home":
-          if (pointSpread > 0) {
-            let beatSpread = awayScore + pointSpread
-            if (homeScore > beatSpread) {
-              bet.win = 1;
-              break;
-            } else if (homeScore === beatSpread) {
-              bet.win = 0;
-              break;
-            } else {
-              bet.win = -1;
-              break;
-            }
-          } else if (pointSpread < 0) {
-              let beatSpread = homeScore + pointSpread
-              if (awayScore > beatSpread) {
-                bet.win = -1
+  return axios(weeklyGameScoresAPI).then(res => {
+    return res.data
+  }).then(gameData => {
+    const weeklyGameScores = gameData
+    Bet.findById(betId).then((bet) => {
+      const betGameID = bet.scoreId;
+      for(let i = 0; i < weeklyGameScores.length; i ++) {
+        if (weeklyGameScores[i].ScoreID === betGameID) {
+          const thisGame = weeklyGameScores[i]
+          const homeScore = thisGame.HomeScore;
+          const awayScore = thisGame.AwayScore;
+          let overUnder = thisGame.OverUnder;
+          let totalPoints = thisGame.HomeScore + thisGame.AwayScore;
+          let detailsArr;
+          let detailsArrNumber;
+          let pointSpread;
+          console.log(bet.details)
+          
+    
+          switch (bet.wagerType) {
+            case "Moneyline Away":
+              if (awayScore > homeScore) {
+                bet.win = 1;
                 break;
-              } else if (awayScore === beatSpread) {
-                bet.win = 0
+              } else if (awayScore === homeScore) {
+                bet.win = 0;
                 break;
               } else {
-                bet.win = 1
+                bet.win = -1;
                 break;
               }
-            }       
-        case "Spread Away":
-          if (pointSpread > 0) {
-            let beatSpread = awayScore + pointSpread
-            if (homeScore < beatSpread) {
-              bet.win = 1;
-              break;
-            } else if (homeScore === beatSpread) {
-              bet.win = 0;
-              break;
-            } else {
-              bet.win = -1;
-              break;
-            }
-          } else if (pointSpread < 0) {
-            let beatSpread = homeScore + pointSpread
-            if (awayScore > beatSpread) {
-              bet.win = -1
-              break;
-            } else if (awayScore === beatSpread) {
-              bet.win = 0
-              break;
-            } else {
-              bet.win = 1
-              break;
-            }
-          } 
-
-        case "Over/under Over":
-          if (overUnder < totalPoints) {
-            bet.win = 1;
-            break
-          } else if (overUnder === totalPoints) {
-            bet.win = 0;
-            break;
-          } else {
-            bet.win = -1;
-            break;
+            case "Moneyline Home":
+              if (homeScore > awayScore) {
+                bet.win = 1;
+                break;
+              } else if (homeScore === awayScore) {
+                bet.win = 0;
+                break;
+              } else {
+                bet.win = -1;
+                break;
+              }
+            case "Spread Home":
+              detailsArr = bet.details.split(" ");
+              detailsArrNumber = detailsArr.pop();
+              console.log(detailsArrNumber);
+              pointSpread = Number(detailsArrNumber);
+              console.log(pointSpread);
+              if (pointSpread > 0) {
+                let beatSpread = awayScore + pointSpread
+                if (homeScore > beatSpread) {
+                  bet.win = 1;
+                  break;
+                } else if (homeScore === beatSpread) {
+                  bet.win = 0;
+                  break;
+                } else {
+                  bet.win = -1;
+                  break;
+                }
+              } else if (pointSpread < 0) {
+                  let beatSpread = homeScore + pointSpread
+                  if (awayScore > beatSpread) {
+                    bet.win = -1
+                    break;
+                  } else if (awayScore === beatSpread) {
+                    bet.win = 0
+                    break;
+                  } else {
+                    bet.win = 1
+                    break;
+                  }
+                }       
+            case "Spread Away":
+              detailsArr = bet.details.split(" ");
+              detailsArrNumber = detailsArr.pop();
+              pointSpread = Number(detailsArrNumber);
+              if (pointSpread > 0) {
+                let beatSpread = awayScore + pointSpread
+                if (homeScore < beatSpread) {
+                  bet.win = 1;
+                  break;
+                } else if (homeScore === beatSpread) {
+                  bet.win = 0;
+                  break;
+                } else {
+                  bet.win = -1;
+                  break;
+                }
+              } else if (pointSpread < 0) {
+                let beatSpread = homeScore + pointSpread
+                if (awayScore > beatSpread) {
+                  bet.win = -1
+                  break;
+                } else if (awayScore === beatSpread) {
+                  bet.win = 0
+                  break;
+                } else {
+                  bet.win = 1
+                  break;
+                }
+              } 
+    
+            case "Over/under Over":
+              if (overUnder < totalPoints) {
+                bet.win = 1;
+                break
+              } else if (overUnder === totalPoints) {
+                bet.win = 0;
+                break;
+              } else {
+                bet.win = -1;
+                break;
+              }
+            case "Over/under Under":
+              if (overUnder > totalPoints) {
+                bet.win = 1;
+                break;
+              } else if (overUnder === totalPoints) {
+                bet.win = 0;
+                break;
+              } else {
+                bet.win = -1;
+                break;
+              }
           }
-        case "Over/under Under":
-          if (overUnder > totalPoints) {
-            bet.win = 1;
-            break;
-          } else if (overUnder === totalPoints) {
-            bet.win = 0;
-            break;
-          } else {
-            bet.win = -1;
-            break;
-          }
+        }
+        console.log(bet.win)
+        return bet.save();
       }
-      return bet.save();
-    }
-  }
+    }).catch(err => {
+      console.log(err)
+    });
+  })
 }
 
 module.exports = mongoose.model("bet", BetSchema);
