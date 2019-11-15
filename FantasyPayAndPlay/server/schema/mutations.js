@@ -248,12 +248,11 @@ const mutation = new GraphQLObjectType({
     updateUserBalance: {
       type: UserBetType,
       args: {
-        _id: { type: GraphQLID },
         bet: { type: GraphQLID },
         user: { type: GraphQLID }
       },
-      resolve(_, { _id, bet, user }) {
-        return UserBet.updateTheUserBalance(_id, bet, user);
+      resolve(_, { bet, user }) {
+        return UserBet.updateTheUserBalance(bet, user);
       }
     },
     determineWinValue: {
