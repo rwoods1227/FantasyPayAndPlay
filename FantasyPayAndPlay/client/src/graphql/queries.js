@@ -42,4 +42,77 @@ export default {
       }
     }
   `,
+  FETCH_PLAYERS: gql`
+    query FetchPlayers {
+      players {
+        _id
+        name
+        team
+        position
+
+        projSFantasyPoints
+        seasonFantasyPoints
+        averageDraftPosition
+
+        projSRushingAttempts
+        projSRushingYards
+        projSRushingTouchdowns
+
+        projSReceptions
+        projSReceivingTargets
+        projSReceivingYards
+        projSReceivingTouchdowns
+
+        projSPassingCompletions
+        projSPassingAttempts
+        projSPassingYards
+        projSPassingTouchdowns
+
+        seasonRushingAttempts
+        seasonRushingYards
+        seasonRushingTouchdowns
+
+        seasonReceptions        
+        seasonReceivingTargets
+        seasonReceivingYards
+        seasonReceivingTouchdowns
+
+        seasonPassingCompletions
+        seasonPassingAttempts
+        seasonPassingYards
+        seasonPassingTouchdowns
+
+        projWFantasyPoints
+        weeklyFantasyPoints
+
+        projWRushingAttempts
+        projWRushingYards
+        projWRushingTouchdowns
+
+        projWReceptions
+        projWReceivingTargets
+        projWReceivingYards
+        projWReceivingTouchdowns
+
+        projWPassingCompletions
+        projWPassingAttempts
+        projWPassingYards
+        projWPassingTouchdowns
+
+        weeklyRushingAttempts
+        weeklyRushingYards
+        weeklyRushingTouchdowns
+
+        weeklyReceptions
+        weeklyReceivingTargets
+        weeklyReceivingYards
+        weeklyReceivingTouchdowns
+
+        weeklyPassingCompletions
+        weeklyPassingAttempts
+        weeklyPassingYards
+        weeklyPassingTouchdowns
+      }
+    }
+  `
 };
