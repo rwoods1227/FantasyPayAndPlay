@@ -65,8 +65,14 @@ UserBetSchema.statics.updateTheUserBalance = function(betId, userId) {
     } else {
       const moneyLineBet = bet.line;
       const betValue = userBet.value;
-      const calculateWinnings = (100 / moneyLineBet) * 1.0 * betValue;
-      user.balance = Math.ceil(user.balance + calculateWinnings);
+      let calculateWinnings;
+      if (moneyLineBet > 0) {
+        calculateWinnings = (100 / moneyLineBet) * 1.0 * betValue;
+        user.balance = Math.ceil(user.balance + calculateWinnings);
+      } else if (moneyLineBet < 0) {
+        calculateWinnings = (100 / moneyLineBet) * -1.0 * betValue;
+        user.balance = Math.ceil(user.balance + calculateWinnings);
+      }
     }
     return user.save().then(() => {
       userBet.payout = true;
