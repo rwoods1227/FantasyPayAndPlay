@@ -47,34 +47,38 @@ UserBetSchema.statics.makeUserBet = function(betId, userId, value) {
 // change context to get userBet? best way to access bet.userBet?
 // return user or userBet when mutating user balance?
 
-UserBetSchema.statics.updateTheUserBalance = function(userId, betId) {
+UserBetSchema.statics.updateTheUserBalance = function(betId, userId) {
   const User = mongoose.model("user");
-  const Bet = mongoose.model("bet"); 
+  const Bet = mongoose.model("bet");
+  const UserBet = mongoose.model("userbet");
 
   const promiseArr = [];
-  promiseArr.push(this.findOne({ bet: betId }))
-  promiseArr.push(User.findById(userId))
-  promiseArr.push(Bet.findById(betId))
+  promiseArr.push(this.findOne({ bet: betId }));
+  promiseArr.push(User.findById(userId));
+  promiseArr.push(Bet.findById(betId));
   return Promise.all(promiseArr).then(([userBet, user, bet]) => {
     if (bet.win === -1) {
-      user.balance = (user.balance - userBet.value)
+      user.balance = Math.ceil(user.balance - userBet.value);
     } else if (bet.win === 0) {
-      userBet.payout = true
-      return userBet.save()
+      userBet.payout = true;
+      return userBet.save();
     } else {
-      const moneyLineBet = bet.line
-      const betValue = userBet.value
-      const calculateWinnings = ((100 / moneyLineBet) * 1.0) * betValue 
-      user.balance = (user.balance + calculateWinnings)
-    }
-    return user.save().then(
-      () => {
-        userBet.payout = true
-        return userBet.save();
+      const moneyLineBet = bet.line;
+      const betValue = userBet.value;
+      let calculateWinnings;
+      if (moneyLineBet > 0) {
+        calculateWinnings = (100 / moneyLineBet) * 1.0 * betValue;
+        user.balance = Math.ceil(user.balance + calculateWinnings);
+      } else if (moneyLineBet < 0) {
+        calculateWinnings = (100 / moneyLineBet) * -1.0 * betValue;
+        user.balance = Math.ceil(user.balance + calculateWinnings);
       }
-    )
-    
-  })
-  };
+    }
+    return user.save().then(() => {
+      userBet.payout = true;
+      return userBet.save();
+    });
+  });
+};
 
 module.exports = mongoose.model("userbet", UserBetSchema);
