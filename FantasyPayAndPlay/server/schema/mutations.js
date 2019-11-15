@@ -29,7 +29,7 @@ const Team = mongoose.model("team");
 const authOptions = {
   method: "GET",
   url:
-    "https://api.sportsdata.io/v3/nfl/odds/json/GameOddsByWeek/2019/10",
+    "https://api.sportsdata.io/v3/nfl/odds/json/GameOddsByWeek/2019/11",
   headers: {
     "Ocp-Apim-Subscription-Key": NFLKey
   },
