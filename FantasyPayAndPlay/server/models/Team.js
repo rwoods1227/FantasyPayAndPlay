@@ -41,7 +41,7 @@ TeamSchema.statics.fetchTeamPlayers = TeamId => {
     .then(team=> team.players);
 };
 
-
+// this gets rid of association to players and to the user associated though the name is semi confusing
 TeamSchema.statics.removePlayersAndDestroy= (teamId) => {
   const Player = mongoose.model("player");
   const Team = mongoose.model("team");
@@ -68,39 +68,43 @@ TeamSchema.statics.removePlayersAndDestroy= (teamId) => {
     (teamId) => console.log("complete"))
 }
 
-TeamSchema.statics.addTeamToLeague = (teamId, leagueId) => {
+// TeamSchema.statics.addTeamToLeague = (teamId, leagueId) => {
+//   const Team = mongoose.model("team");
+//   const League = mongoose.model("league");
+
+//   return Team.findById(teamId).then(team => {
+//     console.log(team)
+//     return League.findById(leagueId).then(newleague => {
+//       console.log(newleague)
+//       team.league = newleague;
+//       newleague.teams.push(team);
+
+//       return Promise.all([team.save(), newleague.save()]).then(
+//         ([team, newleague]) => team
+//       );
+//     });
+//   });
+// };
+
+TeamSchema.statics.removeTeamAndUserFromLeague = (teamId, LeagueId) => {
   const Team = mongoose.model("team");
   const League = mongoose.model("league");
-
-  return Team.findById(teamId).then(team => {
-    console.log(team)
-    return League.findById(leagueId).then(newleague => {
-      console.log(newleague)
-      team.league = newleague;
-      newleague.teams.push(team);
-
-      return Promise.all([team.save(), newleague.save()]).then(
-        ([team, newleague]) => team
-      );
-    });
-  });
-};
-
-TeamSchema.statics.removeAndDeleteTeamFromLeague = (teamId, LeagueId) => {
-  const Team = mongoose.model("team");
-  const League = mongoose.model("league");
+  const User = mongoose.model("user");
   let promiseArr = [];
 
   Team.findById(teamId).then(team => {
+    User.findById(team.user).then(user => {
     if (team.league) {
-      // find the old League and remove this team from it's teams
       League.findById(team.league).then(league => {
         league.teams.pull(team);
+        league.users.pull(user);
+        user.leagues.pull(league);
+        promiseArr.push(user.save());
         promiseArr.push(league.save());
         promiseArr.push(Team.removePlayersAndDestroy(teamId))
       });
     }
-    //return team to available teams field
+    });
     return Promise.all(promiseArr).then(
       () => console.log("complete")
     );

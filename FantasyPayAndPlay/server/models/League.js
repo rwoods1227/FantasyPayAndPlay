@@ -4,12 +4,18 @@ const Schema = mongoose.Schema;
 //shoot gonna have to make league specific player ownage don't I :(
 const LeagueSchema = new Schema({
   // user is like league creator
-  user:
+  comissioner:
   {
     type: Schema.Types.ObjectId,
     ref: "user",
     required: true
   },
+  users: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "team"
+    }
+  ],
   name: {
     type: String,
     required: false,
@@ -28,6 +34,12 @@ const LeagueSchema = new Schema({
     type: String,
     required: false,
   },
+  ownedPlayers: [
+    {
+      playerID: { type: String },
+      leagueOwned: { type: Boolean, default: false }
+    }
+  ]
 
   //need to add a league association to the team model, also think about have individual instances of players for each league
 });
@@ -40,6 +52,21 @@ LeagueSchema.statics.fetchLeagueTeams = LeagueId => {
     .then(league => league.teams);
 };
 
+LeagueSchema.statics.fetchLeagueUsers = LeagueId => {
+  const League = mongoose.model("league");
+  return League.findById(LeagueId)
+    .populate("users")
+    .then(league => league.users);
+};
+
+LeagueSchema.statics.fetchLeagueOwnedPlayers = LeagueId => {
+  const League = mongoose.model("league");
+  return League.findById(LeagueId)
+    .populate("ownedPlayers")
+    .then(league => league.ownedPlayers);
+};
+
+
 LeagueSchema.statics.deleteTeamsAndDestroy = (leagueId) => {
   const Team = mongoose.model("team");
   const League = mongoose.model("league");
@@ -47,9 +74,9 @@ LeagueSchema.statics.deleteTeamsAndDestroy = (leagueId) => {
   // may need promise stuff unsure
   let promiseArr = [];
   League.findById(leagueId).then(league => {
-    User.findById(league.user).then((user) => {
-      user.leagues.pull(league);
-      promiseArr.push(user.save())
+    User.findById(league.comissioner).then((comissioner) => {
+      comissioner.leagues.pull(league);
+      promiseArr.push(comissioner.save())
     })
     league.teams.forEach(teamId => {
       promiseArr.push(Team.removePlayersAndDestroy(teamId))

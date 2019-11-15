@@ -572,10 +572,10 @@ const mutation = new GraphQLObjectType({
       args: {
         name: { type: GraphQLString },
         description: { type: GraphQLString },
-        user: { type: GraphQLID }
+        comissioner: { type: GraphQLID }
       },
-      resolve(parentValue, { name, description, user }) {
-        return new League({ name, description, user }).save();
+      resolve(parentValue, { name, description, comissioner }) {
+        return new League({ name, description, comissioner }).save();
       }
     },
     // add dependent delete of associated teams on League, also maybe players later on depending on how that is implemented
@@ -586,26 +586,27 @@ const mutation = new GraphQLObjectType({
         return League.deleteTeamsAndDestroy(leagueId);
       }
     },
-    // adding statics to team for these two
-    addTeamToLeague: {
-      type: TeamType,
+    // fix this(think its good)
+    addUserToLeagueAndCreateTeam: {
+      type: UserType,
       args: {
-        leagueId: { type: GraphQLID },
-        teamId: { type: GraphQLID }
+        userId: { type: GraphQLID },
+        leagueId: { type: GraphQLID }
       },
-      resolve(parentValue, { teamId, leagueId }) {
-        return Team.addTeamToLeague(teamId, leagueId);
+      resolve(parentValue, { userId, leagueId }) {
+        return User.addTeamToLeague(userId, leagueId);
       }
     },
-    // removes team from a league and deletes that team
-    removeTeamFromLeague: {
+    // removes team from a league and deletes that team <- this also does the players and user from team so need to remove user from league as well
+    // pass in team and leaugeId and use the team to find the user I think
+    removeTeamAndUserFromLeague: {
       type: TeamType,
       args: {
-        leagueId: { type: GraphQLID },
-        teamId: { type: GraphQLID }
+        teamId: { type: GraphQLID },
+        leagueId: { type: GraphQLID }
       },
       resolve(parentValue, { teamId, leagueId }) {
-        return Team.removeAndDeleteTeamFromLeague(teamId, leagueId);
+        return Team.removeTeamAndUserFromLeague(teamId, leagueId);
       }
     },
   }
