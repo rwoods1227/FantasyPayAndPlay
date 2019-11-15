@@ -63,7 +63,12 @@ BetSchema.statics.changeWinValue = function(betId) {
     const weeklyGameScores = gameData
     Bet.findById(betId).then((bet) => {
       const betGameID = bet.scoreId;
-      for(let i = 0; i < weeklyGameScores.length; i ++) {
+      console.log("1")
+      console.log(weeklyGameScores.length)
+      for(let i = 0; i < weeklyGameScores.length; i++) {
+        console.log(i)
+        console.log(weeklyGameScores[i].ScoreID);
+        console.log(betGameID)
         if (weeklyGameScores[i].ScoreID === betGameID) {
           const thisGame = weeklyGameScores[i]
           const homeScore = thisGame.HomeScore;
@@ -74,7 +79,7 @@ BetSchema.statics.changeWinValue = function(betId) {
           let detailsArrNumber;
           let pointSpread;
           console.log(bet.details)
-          
+          console.log("here")
     
           switch (bet.wagerType) {
             case "Moneyline Away":
@@ -102,9 +107,7 @@ BetSchema.statics.changeWinValue = function(betId) {
             case "Spread Home":
               detailsArr = bet.details.split(" ");
               detailsArrNumber = detailsArr.pop();
-              console.log(detailsArrNumber);
               pointSpread = Number(detailsArrNumber);
-              console.log(pointSpread);
               if (pointSpread > 0) {
                 let beatSpread = awayScore + pointSpread
                 if (homeScore > beatSpread) {
@@ -184,9 +187,9 @@ BetSchema.statics.changeWinValue = function(betId) {
               }
           }
         }
-        console.log(bet.win)
-        return bet.save();
+        // console.log(bet.win)
       }
+      return bet.save();
     }).catch(err => {
       console.log(err)
     });
