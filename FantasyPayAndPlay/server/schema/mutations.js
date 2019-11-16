@@ -6,7 +6,8 @@ const {
   GraphQLNonNull,
   GraphQLID,
   GraphQLFloat,
-  GraphQLList
+  GraphQLList,
+  GraphQLBoolean
 } = graphql;
 const mongoose = require("mongoose");
 const sortJsonArray = require('sort-json-array');
@@ -26,6 +27,9 @@ const TeamType = require("./types/team_type");
 const Team = mongoose.model("team");
 const LeagueType = require("./types/league_type");
 const League = mongoose.model("league");
+const OwnedPlayer = mongoose.model("ownedPlayer");
+const OwnedPlayerType = require("./types/owned_player_type");
+
 
 
 const authOptions = {
@@ -594,7 +598,7 @@ const mutation = new GraphQLObjectType({
         leagueId: { type: GraphQLID }
       },
       resolve(parentValue, { userId, leagueId }) {
-        return User.addTeamToLeague(userId, leagueId);
+        return User.addUserToLeagueAndCreateTeam(userId, leagueId);
       }
     },
     // removes team from a league and deletes that team <- this also does the players and user from team so need to remove user from league as well
@@ -609,6 +613,51 @@ const mutation = new GraphQLObjectType({
         return Team.removeTeamAndUserFromLeague(teamId, leagueId);
       }
     },
+    createAllLeaguePlayers: {
+      type: LeagueType,
+      args: {
+        leagueId: { type: GraphQLID }
+      },
+      resolve(parentValue, { leagueId }) {
+        let promiseArr = [];
+        // League.findById(leagueId).then(league => {
+          // console.log(league)
+          return Player.find({}).then(players => {
+            return League.findById(leagueId).then(league => {
+            players.forEach(player => {
+
+              promiseArr.push(new OwnedPlayer({
+                playerId: player._id,
+                leagueOwned: false,
+                leagueId: league._id
+              }).save());
+              //  console.log(ownedPlayerObject)
+              // promiseArr.push(ownedPlayerObject.save())
+              // promiseArr.push(league.ownedPlayers.push(ownedPlayerObject));
+            });
+            return Promise.all(promiseArr).then((ownedPlayers) => {
+              // let promiseArr = [];
+              console.log(ownedPlayers)
+                  ownedPlayers.forEach(ownedPlayer => {
+                   league.ownedPlayers.push(ownedPlayer._id)
+                  })
+                  return league.save();
+                  // return Promise.all(promiseArr).then(resultArr => {
+                  //   // console.log(resultArr)
+                  //   return resultArr
+                  // })
+                })
+ 
+              
+            })
+          })
+          // console.log(league.ownedPlayers);
+        // })
+        
+
+       
+      }
+    }
   }
 });
 

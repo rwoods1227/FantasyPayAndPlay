@@ -68,24 +68,6 @@ TeamSchema.statics.removePlayersAndDestroy= (teamId) => {
     (teamId) => console.log("complete"))
 }
 
-// TeamSchema.statics.addTeamToLeague = (teamId, leagueId) => {
-//   const Team = mongoose.model("team");
-//   const League = mongoose.model("league");
-
-//   return Team.findById(teamId).then(team => {
-//     console.log(team)
-//     return League.findById(leagueId).then(newleague => {
-//       console.log(newleague)
-//       team.league = newleague;
-//       newleague.teams.push(team);
-
-//       return Promise.all([team.save(), newleague.save()]).then(
-//         ([team, newleague]) => team
-//       );
-//     });
-//   });
-// };
-
 TeamSchema.statics.removeTeamAndUserFromLeague = (teamId, LeagueId) => {
   const Team = mongoose.model("team");
   const League = mongoose.model("league");
@@ -105,10 +87,9 @@ TeamSchema.statics.removeTeamAndUserFromLeague = (teamId, LeagueId) => {
       });
     }
     });
-    return Promise.all(promiseArr).then(
-      () => console.log("complete")
-    );
   });
+  return Promise.all(promiseArr).then(
+  () => console.log("complete"));
 };
 
 

@@ -2,15 +2,7 @@ const mongoose = require("mongoose");
 const graphql = require("graphql");
 const { GraphQLObjectType, GraphQLString, GraphQLID, GraphQLInt, GraphQLBoolean, GraphQLList } = graphql;
 const League = mongoose.model("league");
-
-
-let ownedPlayerType = new GraphQLObjectType({
-  name: 'ownedPlayerType',
-  fields: {
-    name: { type: GraphQLString },
-    leagueOwned: { type: GraphQLBoolean }
-  }
-});
+// const OwnedPlayerType = require("./owned_player_type")
 
 
 const LeagueType = new GraphQLObjectType({
@@ -36,7 +28,7 @@ const LeagueType = new GraphQLObjectType({
       }
     },
     ownedPlayers: {
-      type: new GraphQLList(ownedPlayerType),
+      type: new GraphQLList(require('./owned_player_type')),
       resolve(parentValue) {
         return League.fetchLeagueOwnedPlayers(parentValue.id)
       }

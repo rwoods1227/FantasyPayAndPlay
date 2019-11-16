@@ -13,7 +13,7 @@ const LeagueSchema = new Schema({
   users: [
     {
       type: Schema.Types.ObjectId,
-      ref: "team"
+      ref: "user"
     }
   ],
   name: {
@@ -36,10 +36,10 @@ const LeagueSchema = new Schema({
   },
   ownedPlayers: [
     {
-      playerID: { type: String },
-      leagueOwned: { type: Boolean, default: false }
+      type: Schema.Types.ObjectId,
+      ref: "ownedPlayer"
     }
-  ]
+  ],
 
   //need to add a league association to the team model, also think about have individual instances of players for each league
 });

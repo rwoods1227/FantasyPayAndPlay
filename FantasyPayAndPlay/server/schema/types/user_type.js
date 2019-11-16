@@ -33,7 +33,7 @@ const UserType = new GraphQLObjectType({
         return User.fetchUsersTeams(parentValue.id)
       }
     },
-    league: {
+    leagues: {
       type: new GraphQLList(require('./league_type')),
       resolve(parentValue) {
         return User.fetchUsersLeagues(parentValue.id)

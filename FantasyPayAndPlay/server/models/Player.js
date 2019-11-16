@@ -341,17 +341,6 @@ PlayerSchema.statics.addPlayerToTeam = (playerId, teamId) => {
   const Team = mongoose.model("team");
 
   return Player.findById(playerId).then(player => {
-    // if the player already had a category
-    // if (player.team) {
-    //   // find the old team and remove this player from it's players
-    //   Team.findById(player.team).then(oldTeam => {
-    //     oldTeam.players.pull(player);
-    //     return oldTeam.save();
-    //   });
-    // }
-      // will probably need to add a thing where owned players cannot be added but for now its whatever, becuase I think people won't have access tp them
-
-    //  find the team and push this player in, as well as set this player's team
     return Team.findById(teamId).then(newTeam => {
       player.userTeam = newTeam;
       player.owned = true;
