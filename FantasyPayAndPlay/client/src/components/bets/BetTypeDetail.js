@@ -1,5 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { Formik, Form, Field } from 'formik';
+import { Mutation } from "react-apollo";
+
+import Mutations from "../../graphql/mutations";
+const { CREATE_USER_BET } = Mutations;
 
 const BetTypeDetail = ({bets, selected}) => {
   return (
@@ -10,10 +15,27 @@ const BetTypeDetail = ({bets, selected}) => {
           <span>{bet.line}</span>
           <div className="bet-placement">
             <h3>Place a bet</h3>
-            <form className="bet-placement-form">
-              <input type="number" placeholder="Enter bet"/>
-              <button>PLACE BET</button>
-            </form>
+            <Mutation mutation={CREATE_USER_BET}>
+              {(createUserBet, data) => (
+                <Formik
+                  initialValues={{
+                    value: 0
+                  }}
+                  onSubmit={values =>
+                    createUserBet({ variables: {
+                      userId: localStorage.getItem("currentUserId"),
+                      betId: bet._id,
+                      value: values.value
+                    }})
+                  }
+                >
+                  <Form className="bet-placement-form">
+                    <Field name="value" type="number" placeholder="Enter bet"/>
+                    <button type="submit">PLACE BET</button>
+                  </Form>
+                </Formik>
+              )}
+            </Mutation>
           </div>
         </div>
       ))}
