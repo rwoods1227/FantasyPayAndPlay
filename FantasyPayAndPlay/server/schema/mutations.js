@@ -6,7 +6,8 @@ const {
   GraphQLNonNull,
   GraphQLID,
   GraphQLFloat,
-  GraphQLList
+  GraphQLList,
+  GraphQLBoolean
 } = graphql;
 const mongoose = require("mongoose");
 const sortJsonArray = require('sort-json-array');
@@ -24,6 +25,11 @@ const PlayerType = require("./types/player_type");
 const Player = mongoose.model("player");
 const TeamType = require("./types/team_type");
 const Team = mongoose.model("team");
+const LeagueType = require("./types/league_type");
+const League = mongoose.model("league");
+const OwnedPlayer = mongoose.model("ownedPlayer");
+const OwnedPlayerType = require("./types/owned_player_type");
+
 
 
 const authOptions = {
@@ -667,10 +673,11 @@ const mutation = new GraphQLObjectType({
       args: {
         name: { type: GraphQLString },
         description: { type: GraphQLString },
-        user: { type: GraphQLID }
+        user: { type: GraphQLID },
+        league: { type: GraphQLID }
       },
-      resolve(parentValue, { name, description, user}) {
-        return new Team({ name, description, user }).save();
+      resolve(parentValue, { name, description, user, league}) {
+        return new Team({ name, description, user, league }).save();
       }
     },
     // add dependent removal of players on team
@@ -701,6 +708,93 @@ const mutation = new GraphQLObjectType({
       },
       resolve(parentValue, { playerId, teamId }) {
         return Player.removePlayerFromTeam(playerId, teamId);
+      }
+    },
+    newLeague: {
+      type: LeagueType,
+      args: {
+        name: { type: GraphQLString },
+        description: { type: GraphQLString },
+        comissioner: { type: GraphQLID }
+      },
+      resolve(parentValue, { name, description, comissioner }) {
+        return new League({ name, description, comissioner }).save();
+      }
+    },
+    // add dependent delete of associated teams on League, also maybe players later on depending on how that is implemented
+    deleteLeague: {
+      type: LeagueType,
+      args: { leagueId: { type: GraphQLID } },
+      resolve(parentValue, { leagueId }) {
+        return League.deleteTeamsAndDestroy(leagueId);
+      }
+    },
+    // fix this(think its good)
+    addUserToLeagueAndCreateTeam: {
+      type: UserType,
+      args: {
+        userId: { type: GraphQLID },
+        leagueId: { type: GraphQLID }
+      },
+      resolve(parentValue, { userId, leagueId }) {
+        return User.addUserToLeagueAndCreateTeam(userId, leagueId);
+      }
+    },
+    // removes team from a league and deletes that team <- this also does the players and user from team so need to remove user from league as well
+    // pass in team and leaugeId and use the team to find the user I think
+    removeTeamAndUserFromLeague: {
+      type: TeamType,
+      args: {
+        teamId: { type: GraphQLID },
+        leagueId: { type: GraphQLID }
+      },
+      resolve(parentValue, { teamId, leagueId }) {
+        return Team.removeTeamAndUserFromLeague(teamId, leagueId);
+      }
+    },
+    createAllLeaguePlayers: {
+      type: LeagueType,
+      args: {
+        leagueId: { type: GraphQLID }
+      },
+      resolve(parentValue, { leagueId }) {
+        let promiseArr = [];
+        // League.findById(leagueId).then(league => {
+          // console.log(league)
+          return Player.find({}).then(players => {
+            return League.findById(leagueId).then(league => {
+            players.forEach(player => {
+
+              promiseArr.push(new OwnedPlayer({
+                playerId: player._id,
+                leagueOwned: false,
+                leagueId: league._id
+              }).save());
+              //  console.log(ownedPlayerObject)
+              // promiseArr.push(ownedPlayerObject.save())
+              // promiseArr.push(league.ownedPlayers.push(ownedPlayerObject));
+            });
+            return Promise.all(promiseArr).then((ownedPlayers) => {
+              // let promiseArr = [];
+              console.log(ownedPlayers)
+                  ownedPlayers.forEach(ownedPlayer => {
+                   league.ownedPlayers.push(ownedPlayer._id)
+                  })
+                  return league.save();
+                  // return Promise.all(promiseArr).then(resultArr => {
+                  //   // console.log(resultArr)
+                  //   return resultArr
+                  // })
+                })
+ 
+              
+            })
+          })
+          // console.log(league.ownedPlayers);
+        // })
+        
+
+       
       }
     }
   }
