@@ -300,40 +300,40 @@ const mutation = new GraphQLObjectType({
                 }
 
                 allPlayers[`${player.PlayerID}`]["seasonPassingAttempts"] =
-                  player.PassingAttempts;
+                  Math.round(player.PassingAttempts);
                 allPlayers[`${player.PlayerID}`]["seasonPassingCompletions"] =
-                  player.PassingCompletions;
+                  Math.round(player.PassingCompletions);
                 allPlayers[`${player.PlayerID}`]["seasonPassingYards"] =
-                  player.PassingYards;
+                  Math.round(player.PassingYards);
                 allPlayers[`${player.PlayerID}`]["seasonPassingTouchdowns"] =
-                  player.PassingTouchdowns;
+                  Math.round(player.PassingTouchdowns);
                 allPlayers[`${player.PlayerID}`]["seasonPassingInterceptions"] =
-                  player.PassingInterceptions;
+                  Math.round(player.PassingInterceptions);
                 allPlayers[`${player.PlayerID}`]["seasonRushingAttempts"] =
-                  player.RushingAttempts;
+                  Math.round(player.RushingAttempts);
                 allPlayers[`${player.PlayerID}`]["seasonRushingYards"] =
-                  player.RushingYards;
+                  Math.round(player.RushingYards);
                 allPlayers[`${player.PlayerID}`]["seasonRushingTouchdowns"] =
-                  player.RushingTouchdowns;
+                  Math.round(player.RushingTouchdowns);
                 allPlayers[`${player.PlayerID}`]["seasonFumblesLost"] =
-                  player.FumblesLost;
+                  Math.round(player.FumblesLost);
                 allPlayers[`${player.PlayerID}`]["seasonReceivingTargets"] =
-                  player.ReceivingTargets;
+                  Math.round(player.ReceivingTargets);
                 allPlayers[`${player.PlayerID}`]["seasonReceptions"] =
-                  player.Receptions;
+                  Math.round(player.Receptions);
                 allPlayers[`${player.PlayerID}`]["seasonReceivingYards"] =
-                  player.ReceivingYards;
+                  Math.round(player.ReceivingYards);
                 allPlayers[`${player.PlayerID}`]["seasonReceivingTouchdowns"] =
-                  player.ReceivingTouchdowns;
+                  Math.round(player.ReceivingTouchdowns);
                 allPlayers[`${player.PlayerID}`][
                   "seasonTwoPointConversionPasses"
-                ] = player.TwoPointConversionPasses;
+                ] = Math.round(player.TwoPointConversionPasses);
                 allPlayers[`${player.PlayerID}`][
                   "seasonTwoPointConversionRuns"
-                ] = player.TwoPointConversionRuns;
+                ] = Math.round(player.TwoPointConversionRuns);
                 allPlayers[`${player.PlayerID}`][
                   "seasonTwoPointConversionReceptions"
-                ] = player.TwoPointConversionReceptions;
+                ] = Math.round(player.TwoPointConversionReceptions);
                 allPlayers[`${player.PlayerID}`]["seasonFantasyPoints"] =
                   player.FantasyPoints;
                 allPlayers[`${player.PlayerID}`]["seasonFantasyPointsPPR"] =
@@ -368,40 +368,40 @@ const mutation = new GraphQLObjectType({
                 allPlayers[`${player.PlayerID}`]["isGameOver"] =
                   player.IsGameOver;
                 allPlayers[`${player.PlayerID}`]["weeklyPassingAttempts"] =
-                  player.PassingAttempts;
+                  Math.round(player.PassingAttempts);
                 allPlayers[`${player.PlayerID}`]["weeklyPassingCompletions"] =
-                  player.PassingCompletions;
+                  Math.round(player.PassingCompletions);
                 allPlayers[`${player.PlayerID}`]["weeklyPassingYards"] =
-                  player.PassingYards;
+                  Math.round(player.PassingYards);
                 allPlayers[`${player.PlayerID}`]["weeklyPassingTouchdowns"] =
-                  player.PassingTouchdowns;
+                  Math.round(player.PassingTouchdowns);
                 allPlayers[`${player.PlayerID}`]["weeklyPassingInterceptions"] =
-                  player.PassingInterceptions;
+                  Math.round(player.PassingInterceptions);
                 allPlayers[`${player.PlayerID}`]["weeklyRushingAttempts"] =
-                  player.RushingAttempts;
+                  Math.round(player.RushingAttempts);
                 allPlayers[`${player.PlayerID}`]["weeklyRushingYards"] =
-                  player.RushingYards;
+                  Math.round(player.RushingYards);
                 allPlayers[`${player.PlayerID}`]["weeklyRushingTouchdowns"] =
-                  player.RushingTouchdowns;
+                  Math.round(player.RushingTouchdowns);
                 allPlayers[`${player.PlayerID}`]["weeklyFumblesLost"] =
-                  player.FumblesLost;
+                  Math.round(player.FumblesLost);
                 allPlayers[`${player.PlayerID}`]["weeklyReceivingTargets"] =
-                  player.ReceivingTargets;
+                  Math.round(player.ReceivingTargets);
                 allPlayers[`${player.PlayerID}`]["weeklyReceptions"] =
-                  player.Receptions;
+                  Math.round(player.Receptions);
                 allPlayers[`${player.PlayerID}`]["weeklyReceivingYards"] =
-                  player.ReceivingYards;
+                  Math.round(player.ReceivingYards);
                 allPlayers[`${player.PlayerID}`]["weeklyReceivingTouchdowns"] =
-                  player.ReceivingTouchdowns;
+                  Math.round(player.ReceivingTouchdowns);
                 allPlayers[`${player.PlayerID}`][
                   "weeklyTwoPointConversionPasses"
-                ] = player.TwoPointConversionPasses;
+                ] = Math.round(player.TwoPointConversionPasses);
                 allPlayers[`${player.PlayerID}`][
                   "weeklyTwoPointConversionRuns"
-                ] = player.TwoPointConversionRuns;
+                ] = Math.round(player.TwoPointConversionRuns);
                 allPlayers[`${player.PlayerID}`][
                   "weeklyTwoPointConversionReceptions"
-                ] = player.TwoPointConversionReceptions;
+                ] = Math.round(player.TwoPointConversionReceptions);
                 allPlayers[`${player.PlayerID}`]["weeklyFantasyPoints"] =
                   player.FantasyPoints;
                 allPlayers[`${player.PlayerID}`]["weeklyFantasyPointsPPR"] =
@@ -554,7 +554,7 @@ const mutation = new GraphQLObjectType({
           let promiseArr = [];
           // console.log("begin 2", allPlayers)
           Object.values(allPlayers).forEach(player => {
-            console.log("endpoint-player", player);
+            // console.log("endpoint-player", player);
             promiseArr.push(
               new Player({
                 name: player.name,

@@ -14,7 +14,6 @@ const PlayerType = new GraphQLObjectType({
     // not populated can do that if need be
     userTeam: { type: GraphQLID },
     name: { type: GraphQLString },
-    owned: { type: GraphQLBoolean },
     team: { type: GraphQLString },
     position: { type: GraphQLString },
     IsGameOver: { type: GraphQLBoolean },
@@ -98,14 +97,14 @@ const PlayerType = new GraphQLObjectType({
     projSFantasyPointsPPR: { type: GraphQLFloat },
 
     averageDraftPosition: { type: GraphQLFloat },
-    averageDraftPositionPPR: { type: GraphQLFloat },
+    averageDraftPositionPPR: { type: GraphQLFloat }
 //this user relation will be changed abit I think
-    user: {
-      type: UserType,
-      resolve(parentValue) {
-        return User.findById(parentValue.user).then((user) => user);
-      }
-    },
+    // user: {
+    //   type: UserType,
+    //   resolve(parentValue) {
+    //     return User.findById(parentValue.user).then((user) => user);
+    //   }
+    // },
   }),
 });
 

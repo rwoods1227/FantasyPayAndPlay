@@ -13,7 +13,7 @@ const OwnedPlayerSchema = new Schema({
     ref: "league",
     required: false
   },
-  owned: {
+  leagueOwned: {
     type: Boolean,
     default: false
   }
