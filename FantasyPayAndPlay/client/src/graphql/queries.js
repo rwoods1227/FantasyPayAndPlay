@@ -42,15 +42,6 @@ export default {
       }
     }
   `,
-  FETCH_USER: gql`
-    query FetchUser($id: ID!) {
-      user(id: $id) {
-        username
-        balance
-        email
-      }
-    }
-  `,
   FETCH_USERS: gql`
     query FetchUsers {
       users {

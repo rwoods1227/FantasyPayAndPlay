@@ -15,13 +15,17 @@ const UserIndex = props => {
           let userBase = data.users.map(user => {  
             return (
               <div className="bets-item" key={user._id}>
-                <Link to={`users/${user._id}`}>
+                <Link to={{
+                  pathname: `users/${user._id}`,
+                  state: { user: user }
+                }}>
                   <h1 className="bet-item-date">{user.username}</h1>
                   {console.log(user)}
                 </Link>
               </div>
             );
           })
+
           return (
             <div className="bets-container">
               <h1>Users</h1>
