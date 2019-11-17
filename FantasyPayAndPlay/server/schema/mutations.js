@@ -662,6 +662,302 @@ const mutation = new GraphQLObjectType({
         });
       }
     },
+
+
+    updateAllPlayers: {
+      type: new GraphQLList(PlayerType),
+      resolve() {
+        const promiseArr = [];
+        const allPlayers = {};
+
+        promiseArr.push(
+          axios(seasonStats).then(res => {
+            let seasonStatsArr = res.data;
+            sortJsonArray(seasonStatsArr, "PlayerID");
+            // console.log(seasonStatsArr[0].PlayerID);
+            seasonStatsArr.forEach(player => {
+              if (
+                player.Position === "QB" ||
+                player.Position === "RB" ||
+                player.Position === "WR" ||
+                player.Position === "TE"
+              ) {
+                // allPlayers[`${player.PlayerID}`] = {};
+                // console.log("4");
+                if (allPlayers[`${player.PlayerID}`] === undefined) {
+                  allPlayers[`${player.PlayerID}`] = {};
+                  allPlayers[`${player.PlayerID}`]["name"] = player.Name;
+                  allPlayers[`${player.PlayerID}`]["team"] = player.Team;
+                  allPlayers[`${player.PlayerID}`]["position"] =
+                    player.Position;
+                }
+
+                allPlayers[`${player.PlayerID}`]["seasonPassingAttempts"] =
+                  Math.round(player.PassingAttempts);
+                allPlayers[`${player.PlayerID}`]["seasonPassingCompletions"] =
+                  Math.round(player.PassingCompletions);
+                allPlayers[`${player.PlayerID}`]["seasonPassingYards"] =
+                  Math.round(player.PassingYards);
+                allPlayers[`${player.PlayerID}`]["seasonPassingTouchdowns"] =
+                  Math.round(player.PassingTouchdowns);
+                allPlayers[`${player.PlayerID}`]["seasonPassingInterceptions"] =
+                  Math.round(player.PassingInterceptions);
+                allPlayers[`${player.PlayerID}`]["seasonRushingAttempts"] =
+                  Math.round(player.RushingAttempts);
+                allPlayers[`${player.PlayerID}`]["seasonRushingYards"] =
+                  Math.round(player.RushingYards);
+                allPlayers[`${player.PlayerID}`]["seasonRushingTouchdowns"] =
+                  Math.round(player.RushingTouchdowns);
+                allPlayers[`${player.PlayerID}`]["seasonFumblesLost"] =
+                  Math.round(player.FumblesLost);
+                allPlayers[`${player.PlayerID}`]["seasonReceivingTargets"] =
+                  Math.round(player.ReceivingTargets);
+                allPlayers[`${player.PlayerID}`]["seasonReceptions"] =
+                  Math.round(player.Receptions);
+                allPlayers[`${player.PlayerID}`]["seasonReceivingYards"] =
+                  Math.round(player.ReceivingYards);
+                allPlayers[`${player.PlayerID}`]["seasonReceivingTouchdowns"] =
+                  Math.round(player.ReceivingTouchdowns);
+                allPlayers[`${player.PlayerID}`][
+                  "seasonTwoPointConversionPasses"
+                ] = Math.round(player.TwoPointConversionPasses);
+                allPlayers[`${player.PlayerID}`][
+                  "seasonTwoPointConversionRuns"
+                ] = Math.round(player.TwoPointConversionRuns);
+                allPlayers[`${player.PlayerID}`][
+                  "seasonTwoPointConversionReceptions"
+                ] = Math.round(player.TwoPointConversionReceptions);
+                allPlayers[`${player.PlayerID}`]["seasonFantasyPoints"] =
+                  player.FantasyPoints;
+                allPlayers[`${player.PlayerID}`]["seasonFantasyPointsPPR"] =
+                  player.FantasyPointsPPR;
+              }
+            });
+          })
+        );
+
+        promiseArr.push(
+          axios(weeklyStats).then(res => {
+            let weeklyStatsArr = res.data;
+            sortJsonArray(weeklyStatsArr, "PlayerID");
+            // console.log(weeklyStatsArr[0].PlayerID);
+            weeklyStatsArr.forEach(player => {
+              if (
+                player.Position === "QB" ||
+                player.Position === "RB" ||
+                player.Position === "WR" ||
+                player.Position === "TE"
+              ) {
+                // allPlayers[`${player.PlayerID}`] = {};
+                if (allPlayers[`${player.PlayerID}`] === undefined) {
+                  allPlayers[`${player.PlayerID}`] = {};
+                  allPlayers[`${player.PlayerID}`]["name"] = player.Name;
+                  allPlayers[`${player.PlayerID}`]["team"] = player.Team;
+                  allPlayers[`${player.PlayerID}`]["position"] =
+                    player.Position;
+                }
+
+                // console.log("3");
+                allPlayers[`${player.PlayerID}`]["isGameOver"] =
+                  player.IsGameOver;
+                allPlayers[`${player.PlayerID}`]["weeklyPassingAttempts"] =
+                  Math.round(player.PassingAttempts);
+                allPlayers[`${player.PlayerID}`]["weeklyPassingCompletions"] =
+                  Math.round(player.PassingCompletions);
+                allPlayers[`${player.PlayerID}`]["weeklyPassingYards"] =
+                  Math.round(player.PassingYards);
+                allPlayers[`${player.PlayerID}`]["weeklyPassingTouchdowns"] =
+                  Math.round(player.PassingTouchdowns);
+                allPlayers[`${player.PlayerID}`]["weeklyPassingInterceptions"] =
+                  Math.round(player.PassingInterceptions);
+                allPlayers[`${player.PlayerID}`]["weeklyRushingAttempts"] =
+                  Math.round(player.RushingAttempts);
+                allPlayers[`${player.PlayerID}`]["weeklyRushingYards"] =
+                  Math.round(player.RushingYards);
+                allPlayers[`${player.PlayerID}`]["weeklyRushingTouchdowns"] =
+                  Math.round(player.RushingTouchdowns);
+                allPlayers[`${player.PlayerID}`]["weeklyFumblesLost"] =
+                  Math.round(player.FumblesLost);
+                allPlayers[`${player.PlayerID}`]["weeklyReceivingTargets"] =
+                  Math.round(player.ReceivingTargets);
+                allPlayers[`${player.PlayerID}`]["weeklyReceptions"] =
+                  Math.round(player.Receptions);
+                allPlayers[`${player.PlayerID}`]["weeklyReceivingYards"] =
+                  Math.round(player.ReceivingYards);
+                allPlayers[`${player.PlayerID}`]["weeklyReceivingTouchdowns"] =
+                  Math.round(player.ReceivingTouchdowns);
+                allPlayers[`${player.PlayerID}`][
+                  "weeklyTwoPointConversionPasses"
+                ] = Math.round(player.TwoPointConversionPasses);
+                allPlayers[`${player.PlayerID}`][
+                  "weeklyTwoPointConversionRuns"
+                ] = Math.round(player.TwoPointConversionRuns);
+                allPlayers[`${player.PlayerID}`][
+                  "weeklyTwoPointConversionReceptions"
+                ] = Math.round(player.TwoPointConversionReceptions);
+                allPlayers[`${player.PlayerID}`]["weeklyFantasyPoints"] =
+                  player.FantasyPoints;
+                allPlayers[`${player.PlayerID}`]["weeklyFantasyPointsPPR"] =
+                  player.FantasyPointsPPR;
+                allPlayers[`${player.PlayerID}`]["weeklyActive"] =
+                  player.Active;
+              }
+            });
+          })
+        );
+
+        promiseArr.push(
+          axios(projWeeklyStats).then(res => {
+            let projWeeklyStatsArr = res.data;
+            sortJsonArray(projWeeklyStatsArr, "PlayerID");
+            // console.log(projWeeklyStatsArr[0].PlayerID);
+            projWeeklyStatsArr.forEach(player => {
+              if (
+                player.Position === "QB" ||
+                player.Position === "RB" ||
+                player.Position === "WR" ||
+                player.Position === "TE"
+              ) {
+                if (allPlayers[`${player.PlayerID}`] === undefined) {
+                  allPlayers[`${player.PlayerID}`] = {};
+                  allPlayers[`${player.PlayerID}`]["name"] = player.Name;
+                  allPlayers[`${player.PlayerID}`]["team"] = player.Team;
+                  allPlayers[`${player.PlayerID}`]["position"] =
+                    player.Position;
+                }
+                // console.log("2");
+                allPlayers[`${player.PlayerID}`]["projWPassingAttempts"] =
+                  player.PassingAttempts;
+                allPlayers[`${player.PlayerID}`]["projWPassingCompletions"] =
+                  player.PassingCompletions;
+                allPlayers[`${player.PlayerID}`]["projWPassingYards"] =
+                  player.PassingYards;
+                allPlayers[`${player.PlayerID}`]["projWPassingTouchdowns"] =
+                  player.PassingTouchdowns;
+                allPlayers[`${player.PlayerID}`]["projWPassingInterceptions"] =
+                  player.PassingInterceptions;
+                allPlayers[`${player.PlayerID}`]["projWRushingAttempts"] =
+                  player.RushingAttempts;
+                allPlayers[`${player.PlayerID}`]["projWRushingYards"] =
+                  player.RushingYards;
+                allPlayers[`${player.PlayerID}`]["projWRushingTouchdowns"] =
+                  player.RushingTouchdowns;
+                allPlayers[`${player.PlayerID}`]["projWFumblesLost"] =
+                  player.FumblesLost;
+                allPlayers[`${player.PlayerID}`]["projWReceivingTargets"] =
+                  player.ReceivingTargets;
+                allPlayers[`${player.PlayerID}`]["projWReceptions"] =
+                  player.Receptions;
+                allPlayers[`${player.PlayerID}`]["projWReceivingYards"] =
+                  player.ReceivingYards;
+                allPlayers[`${player.PlayerID}`]["projWReceivingTouchdowns"] =
+                  player.ReceivingTouchdowns;
+                allPlayers[`${player.PlayerID}`][
+                  "projWTwoPointConversionPasses"
+                ] = player.TwoPointConversionPasses;
+                allPlayers[`${player.PlayerID}`][
+                  "projWTwoPointConversionRuns"
+                ] = player.TwoPointConversionRuns;
+                allPlayers[`${player.PlayerID}`][
+                  "projWTwoPointConversionReceptions"
+                ] = player.TwoPointConversionReceptions;
+                allPlayers[`${player.PlayerID}`]["projWFantasyPoints"] =
+                  player.FantasyPoints;
+                allPlayers[`${player.PlayerID}`]["projWFantasyPointsPPR"] =
+                  player.FantasyPointsPPR;
+                allPlayers[`${player.PlayerID}`]["projWActive"] = player.Active;
+              }
+            });
+          })
+        );
+
+
+        console.log("finish 1", promiseArr);
+
+        return Promise.all(promiseArr).then(() => {
+          let promiseArr = [];
+          // console.log("begin 2", allPlayers)
+          return Player.find({}).then(oldPlayers => {
+            oldPlayers.forEach(oldPlayer => {
+            Object.values(allPlayers).forEach(player => {
+           
+              
+                
+              if (player.name === oldPlayer.name && player.team === oldPlayer.team ){
+                  console.log(`found one, ${oldPlayer.name}`)
+                  oldPlayer.weeklyPassingAttempts = player.weeklyPassingAttempts;
+
+                oldPlayer.weeklyPassingCompletions = player.weeklyPassingCompletions;
+                oldPlayer.weeklyPassingYards = player.weeklyPassingYards;
+                oldPlayer.weeklyPassingTouchdowns = player.weeklyPassingTouchdowns;
+                oldPlayer.weeklyPassingInterceptions = player.weeklyPassingInterceptions;
+                oldPlayer.weeklyRushingAttempts = player.weeklyRushingAttempts;
+                oldPlayer.weeklyRushingYards = player.weeklyRushingYards;
+                oldPlayer.weeklyRushingTouchdowns = player.weeklyRushingTouchdowns;
+                oldPlayer.weeklyFumblesLost = player.weeklyFumblesLost;
+                oldPlayer.weeklyReceivingTargets = player.weeklyReceivingTargets;
+                oldPlayer.weeklyReceptions = player.weeklyReceptions;
+                oldPlayer.weeklyReceivingYards = player.weeklyReceivingYards;
+                oldPlayer.weeklyReceivingTouchdowns = player.weeklyReceivingTouchdowns;
+                oldPlayer.weeklyTwoPointConversionPasses = player.weeklyTwoPointConversionPasses;
+                oldPlayer.weeklyTwoPointConversionRuns = player.weeklyTwoPointConversionRuns;
+                oldPlayer.weeklyTwoPointConversionReceptions = player.weeklyTwoPointConversionReceptions;
+                oldPlayer.weeklyFantasyPoints = player.weeklyFantasyPoints;
+                oldPlayer.weeklyFantasyPointsPPR = player.weeklyFantasyPointsPPR;
+                oldPlayer.weeklyActive = player.weeklyActive;
+
+                oldPlayer.projWPassingAttempts = player.projWPassingAttempts;
+                oldPlayer.projWPassingCompletions = player.projWPassingCompletions;
+                oldPlayer.projWPassingYards = player.projWPassingYards;
+                oldPlayer.projWPassingTouchdowns = player.projWPassingTouchdowns;
+                oldPlayer.projWPassingInterceptions = player.projWPassingInterceptions;
+                oldPlayer.projWRushingAttempts = player.projWRushingAttempts;
+                oldPlayer.projWRushingYards = player.projWRushingYards;
+                oldPlayer.projWRushingTouchdowns = player.projWRushingTouchdowns;
+                oldPlayer.projWFumblesLost = player.projWFumblesLost;
+                oldPlayer.projWReceivingTargets = player.projWReceivingTargets;
+                oldPlayer.projWReceptions = player.projWReceptions;
+                oldPlayer.projWReceivingYards = player.projWReceivingYards;
+                oldPlayer.projWReceivingTouchdowns = player.projWReceivingTouchdowns;
+                oldPlayer.projWTwoPointConversionPasses = player.projWTwoPointConversionPasses;
+                oldPlayer.projWTwoPointConversionRuns = player.projWTwoPointConversionRuns;
+                oldPlayer.projWTwoPointConversionReceptions = player.projWTwoPointConversionReceptions;
+                oldPlayer.projWFantasyPoints = player.projWFantasyPoints;
+                oldPlayer.projWFantasyPointsPPR = player.projWFantasyPointsPPR;
+                oldPlayer.projWActive = player.projWActive;
+
+                oldPlayer.seasonPassingAttempts = player.seasonPassingAttempts;
+                oldPlayer.seasonPassingCompletions = player.seasonPassingCompletions;
+                oldPlayer.seasonPassingYards = player.seasonPassingYards;
+                oldPlayer.seasonPassingTouchdowns = player.seasonPassingTouchdowns;
+                oldPlayer.seasonPassingInterceptions = player.seasonPassingInterceptions;
+                oldPlayer.seasonRushingAttempts = player.seasonRushingAttempts;
+                oldPlayer.seasonRushingYards = player.seasonRushingYards;
+                oldPlayer.seasonRushingTouchdowns = player.seasonRushingTouchdowns;
+                oldPlayer.seasonFumblesLost = player.seasonFumblesLost;
+                oldPlayer.seasonReceivingTargets = player.seasonReceivingTargets;
+                oldPlayer.seasonReceptions = player.seasonReceptions;
+                oldPlayer.seasonReceivingYards = player.seasonReceivingYards;
+                oldPlayer.seasonReceivingTouchdowns = player.seasonReceivingTouchdowns;
+                oldPlayer.seasonTwoPointConversionPasses = player.seasonTwoPointConversionPasses;
+                oldPlayer.seasonTwoPointConversionRuns = player.seasonTwoPointConversionRuns;
+                oldPlayer.seasonTwoPointConversionReceptions = player.seasonTwoPointConversionReceptions;
+                oldPlayer.seasonFantasyPoints = player.seasonFantasyPoints;
+                oldPlayer.seasonFantasyPointsPPR = player.seasonFantasyPointsPPR;
+
+                  promiseArr.push(oldPlayer.save());
+                }
+              })
+            });
+                return Promise.all(promiseArr).then(resultArr => {
+                  // console.log(resultArr)
+                  return resultArr;
+              // console.log("endpoint-player", player);
+              });
+          });
+        });
+      }
+    },
     deleteAllPlayers: {
       type: PlayerType,
       resolve() {
