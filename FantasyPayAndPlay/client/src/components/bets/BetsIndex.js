@@ -16,8 +16,13 @@ const BetsIndex = ({ changeMain }) => {
 
   return (
     <div className="bets-container">
-      <h1>Bets</h1>
-      <span>All of this weeks matches</span>
+      <div className="header">
+        <div className="bets-icon"></div>
+        <div className="header-content">
+          <h1>Bets</h1>
+          <span>All of this weeks matches</span>
+        </div>
+      </div>
       <div className="bets-tabs-container">
         <div 
           className={tab.matchType === "upcoming" ? "tab selected" : "tab"}

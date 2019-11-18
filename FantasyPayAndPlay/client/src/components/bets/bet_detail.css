@@ -4,6 +4,7 @@ div.bet-detail-container {
 }
 
 div.bet-detail-container > h1 {
+  display: flex;
   font-size: 24px;
   font-weight: 800;
   line-height: 32px;

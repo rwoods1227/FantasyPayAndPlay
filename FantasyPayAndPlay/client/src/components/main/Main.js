@@ -20,7 +20,7 @@ const Main = () => {
     <div className="main-page">
       <div className="sidebar-container">
         <Nav onAppPage={true} />
-        <SideBar />
+        <SideBar changeMain={changeMain} />
       </div>
       <div className="main-content">
         <main.mainComponent {...main.props} changeMain={changeMain} />

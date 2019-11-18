@@ -20,21 +20,14 @@ const BetsList = ({ matchType, changeMain }) => {
         
         return viewableGames.map(({ _id, description, details, date }) => (
           <li key={_id}>
-            {matchType === "upcoming" ? 
-              <div 
-                className="bets-item"
-                onClick={() => changeMain(BetDetail, { matchId: _id, changeMain})}
-              >
-                <span className="bet-item-date">{date.slice(0,10)}</span>
-                <span>{date.slice(11)}</span>
-                <span className="bet-item-description">{description}</span>
-              </div> :
-              <div className="bets-item">
-                <span className="bet-item-date">{date.slice(0, 10)}</span>
-                <span>{date.slice(11)}</span>
-                <span className="bet-item-description">{description}</span>
-              </div>
-            }
+            <div 
+              className={matchType === "upcoming" ? "bets-item clickable" : "bets-item"}
+              onClick={ matchType === "upcoming" ? () => changeMain(BetDetail, { matchId: _id, changeMain}) : null}
+            >
+              <span className="bet-item-date">{date.slice(0, 10)}</span>
+              <span>{date.slice(11)}</span>
+              <span className="bet-item-description">{description}</span>
+            </div>
           </li>
         ));
       }}
