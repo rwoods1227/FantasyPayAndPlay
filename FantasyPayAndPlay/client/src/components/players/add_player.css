@@ -1,0 +1,58 @@
+div.players-panel {
+  background: #1a1f2e;
+  color: white;
+  height: 564px;
+  width: 1140px;
+}
+
+div.players-panel > div.header-container { 
+  display: flex;
+  align-items: center;
+}
+
+div.players-panel > div.header-container > h2 {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 32px;
+  padding-bottom: 25px;
+  padding: 25px;
+}
+
+div.players-panel > div.header-container > i {
+  font-size: 20px;
+  color: #4b5a6f;
+  margin-left: -235px;
+}
+
+div.players-panel > div.header-container > input {
+  height: 40px;
+  border-radius: 20px;
+  border: none;
+  background: #293243;
+  font-size: 14px;
+  font-family: 'Muli';
+  line-height: 40px;
+  color: #fff;
+  padding-left: 46px;
+  outline: none;
+  min-width: 250px;
+  max-width: 450px;
+}
+
+div.players-panel > div.header-container > input::placeholder {
+  color: #4b5a6f;
+}
+
+div.filters-container {
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  color: #3a465b;
+  padding-left: 10px;
+  margin-right: 16px;
+  margin-bottom: 35px;
+}
+
+div.players-panel > div.filters-container > span:nth-of-type(n + 2) {
+  margin-left: 20px;
+}

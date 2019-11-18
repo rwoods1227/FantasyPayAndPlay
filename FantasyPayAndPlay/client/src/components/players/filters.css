@@ -1,0 +1,87 @@
+div.pill-selector {
+  background-color: rgb(16, 33, 49);
+  height: 33px;
+  width: 148px;
+  border: 1px solid #3c4556;
+  border-radius: 16px;
+  padding: 3px;
+  margin-left: 10px;
+}
+
+div.pill-selector.position {
+  width: 232px;
+}
+
+span.option-item {
+  height: 26px;
+  line-height: 26px;
+  padding-left: 13px;
+  padding-right: 13px;
+  border-radius: 13px;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  display: inline-block;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 2;
+  transition: all 0.1s ease;
+}
+
+div.selected-pill-background {
+  background-color: rgb(69, 232, 167);
+  box-shadow: rgb(69, 232, 167) 0px 0px 30px 1px;
+  height: 26px;
+  box-sizing: border-box;
+  top: 3px;
+  transition: all 0.1s ease;
+  z-index: 0;
+  border-radius: 13px;
+}
+
+div.app-dropdown-container {
+  z-index: 2;
+}
+
+div.app-dropdown {
+  position: absolute;
+  margin-left: 10px;
+  margin-top: -16px;
+}
+
+div.app-dropdown > div.selected-value {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 10px 10px 16px;
+  cursor: pointer;
+  background: #090d1c;
+  color: white;
+  font-weight: 900;
+  font-size: 10px;
+}
+
+div.app-dropdown > div.selected-value > i {
+  font-size: 11px;
+  margin-top: 2px;
+  margin-left: 20px;
+}
+
+div.app-dropdown > div.dropdown-items > div.app-dropdown-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 28px;
+  cursor: pointer;
+  background: #090d1c;
+  color: white;
+  font-weight: 900;
+  font-size: 10px;
+  position: relative;
+}
+
+div.app-dropdown > div.dropdown-items > div.app-dropdown-item:hover {
+  background: #293243;
+}
+
+div.app-dropdown > div.dropdown-items > div.app-dropdown-item.selected {
+  background: #293243;
+}

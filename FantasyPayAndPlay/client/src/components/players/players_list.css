@@ -1,0 +1,77 @@
+.player-table-container {
+  height: 414px;
+  overflow: auto;
+}
+
+.player-table {
+  background: #1a1f2e;
+  font-size: 12px;
+  color: #acbfe8;
+  border-collapse: collapse;
+  white-space: nowrap;
+  width: 1133px;
+}
+
+.player-table > thead {
+  display: table-header-group;
+  top: 10px;
+  color: white;
+  line-height: 1;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid #151a2a;
+}
+
+.player-table > thead > tr > th {
+  padding-top: 40px;
+  padding-bottom: 10px;
+}
+
+.player-table > thead > tr > th > span {
+  margin-top: -30px;
+  margin-left: -20px;
+  padding-bottom: 19px;
+  font-weight: 900;
+}
+
+.player-table > tbody {
+  height: 500px;
+  width: 1105px;
+  overflow: hidden;
+}
+
+.player-table > tbody > tr:hover {
+  background: #2e3544 !important;
+  box-shadow: 0 2px 16px 0 rgba(3,6,22,0.5);
+  border: solid 1px rgba(255,255,255,0.08);
+}
+
+.player-table > tbody > tr > td {
+  padding: 15px 10px;
+}
+
+.player-table > tbody > tr:nth-child(odd) {
+  background: #212635;
+}
+
+.player-table > tbody > tr > .player-name,
+.player-table > tbody > tr > .player-position {
+  color: white;
+  font-weight: 700;
+}
+
+.player-add-button {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  padding: 5px;
+  border-radius: 12px;
+  background: #282d3d;
+  cursor: pointer;
+  color: white;
+}
+
+.player-add-button > i {
+  margin-top: 2px;
+  margin-right: 20px;
+  color: #00cdb4;
+}
