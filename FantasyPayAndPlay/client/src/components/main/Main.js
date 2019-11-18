@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import SideBar from "../sidebar/sidebar";
 
 import BetsIndex from "../bets/BetsIndex";
-import BetDetail from "../bets/BetDetail";
+
+require("./main.css");
 
 const Main = () => {
   const [main, setMain] = useState({
@@ -15,7 +16,7 @@ const Main = () => {
   );
 
   return (
-    <div className="main-page-container">
+    <div className="main-page">
       <div className="sidebar-container">
         <SideBar />
       </div>

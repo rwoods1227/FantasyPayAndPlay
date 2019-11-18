@@ -6,7 +6,7 @@ const { FETCH_BET, FETCH_BET_TYPES } = Queries;
 
 require("./bet_detail.css");
 
-const BetDetail = props => {
+const BetDetail = ({ matchId, changeMain }) => {
   const [tab, setTab] = useState({
     betType: "Moneyline"
   });
@@ -17,7 +17,7 @@ const BetDetail = props => {
   };
 
   return (
-    <Query query={FETCH_BET} variables={{ _id: props.match.params.id }}>
+    <Query query={FETCH_BET} variables={{ _id: matchId }}>
       {({ loading, error, data }) => {
         if (loading) return <p>Loading...</p>;
         if (error) return <p>Error</p>;
@@ -52,6 +52,7 @@ const BetDetail = props => {
                       key={`bet-type-${currentTab}-${index}`} 
                       bets={data.betTypes.filter(bet => bet.details.startsWith(currentTab))} 
                       selected={tab.betType === currentTab}
+                      changeMain={changeMain}
                     />
                   ))}
                 </div>

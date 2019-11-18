@@ -1,0 +1,7 @@
+div.main-page {
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  background-color: #18202f;
+  color: white;
+}

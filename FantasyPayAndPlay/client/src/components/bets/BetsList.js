@@ -2,9 +2,10 @@ import React from 'react';
 import Queries from '../../graphql/queries';
 import { Query } from 'react-apollo';
 import { Link } from "react-router-dom";
+import BetDetail from "./BetDetail";
 const { FETCH_BETS } = Queries;
 
-const BetsList = ({ matchType }) => {
+const BetsList = ({ matchType, changeMain }) => {
   return (
     <ul className="bets-list">
       <Query query={FETCH_BETS}>{({ loading, error, data }) => {
@@ -21,13 +22,14 @@ const BetsList = ({ matchType }) => {
         return viewableGames.map(({ _id, description, details, date }) => (
           <li key={_id}>
             {matchType === "upcoming" ? 
-            <Link to={`/bets/${_id}`}>
-              <div className="bets-item">
+              <div 
+                className="bets-item"
+                onClick={() => changeMain(BetDetail, { matchId: _id, changeMain})}
+              >
                 <span className="bet-item-date">{date.slice(0,10)}</span>
                 <span>{date.slice(11)}</span>
                 <span className="bet-item-description">{description}</span>
-              </div>
-            </Link> :
+              </div> :
               <div className="bets-item">
                 <span className="bet-item-date">{date.slice(0, 10)}</span>
                 <span>{date.slice(11)}</span>

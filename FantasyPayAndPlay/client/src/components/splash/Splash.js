@@ -22,7 +22,7 @@ const Splash = props => {
           <h1>Start a fantasy team or <br />bet on matches today</h1>
           <h4>Start your fantasy for free in just 60 seconds.</h4>
           <div className="splash-callout">
-            <Link to="/bets">OPEN FANTASY PAY & PLAY</Link>
+            <Link to="/app">OPEN FANTASY PAY & PLAY</Link>
           </div>
           <div className="splash-gif-container">
             <img src={SplashGif} alt="splash-gif"></img>
