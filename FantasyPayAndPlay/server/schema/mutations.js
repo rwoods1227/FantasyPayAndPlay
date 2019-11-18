@@ -1006,6 +1006,15 @@ const mutation = new GraphQLObjectType({
         return Player.removePlayerFromTeam(playerId, teamId);
       }
     },
+    filteredPlayers: {
+      type: new GraphQLList(PlayerType),
+      args: {
+        leagueId: { type: GraphQLID }
+      },
+      resolve(parentValue, { leagueId }) {
+        return Player.filteredPlayers(leagueId);
+      }
+    },
     newLeague: {
       type: LeagueType,
       args: {
