@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import SideBar from "../sidebar/sidebar";
+import Nav from "../nav/Nav";
 
 import BetsIndex from "../bets/BetsIndex";
 
@@ -18,6 +19,7 @@ const Main = () => {
   return (
     <div className="main-page">
       <div className="sidebar-container">
+        <Nav onAppPage={true} />
         <SideBar />
       </div>
       <div className="main-content">
