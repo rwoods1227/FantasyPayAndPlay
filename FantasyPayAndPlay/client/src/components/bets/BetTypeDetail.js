@@ -1,12 +1,12 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { Formik, Form, Field } from 'formik';
 import { Mutation } from "react-apollo";
+import BetsIndex from "./BetsIndex";
 
 import Mutations from "../../graphql/mutations";
 const { CREATE_USER_BET } = Mutations;
 
-const BetTypeDetail = ({bets, selected}) => {
+const BetTypeDetail = ({ bets, selected, changeMain }) => {
   return (
     <div className={selected ? "bet-type" : "hidden"}>
       {bets.map(bet => (
@@ -40,7 +40,9 @@ const BetTypeDetail = ({bets, selected}) => {
         </div>
       ))}
       <div className="bet-detail-back-button">
-        <Link to="/bets"><span><i className="fas fa-undo"></i> back to matches</span></Link>
+        <span
+          onClick={() => changeMain(BetsIndex, { changeMain })}
+        ><i className="fas fa-undo"></i> back to matches</span>
       </div>
     </div>  
   )

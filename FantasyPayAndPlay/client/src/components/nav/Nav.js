@@ -7,7 +7,7 @@ const { IS_LOGGED_IN } = Queries;
 
 require("./nav.css");
 
-const Nav = props => {
+const Nav = ({ onAppPage }) => {
   const { data, client } = useQuery(IS_LOGGED_IN);
   const history = useHistory();
 
@@ -29,7 +29,7 @@ const Nav = props => {
       <h1 className="nav-header"><Link to="/">FantasyPay&Play</Link></h1>
       <div className="navbar-links">
         {logoutButton}
-        <Link to="/bets" id="splash-nav-open-link">OPEN</Link>
+        {onAppPage ? null : <Link to="/app" id="splash-nav-open-link">OPEN</Link>}
       </div>
     </nav>
   ) : (
