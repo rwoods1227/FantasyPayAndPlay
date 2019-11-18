@@ -2,15 +2,13 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const PlayerSchema = new Schema({
-  userTeam: 
+  userTeams: 
+  [
     {
       type: Schema.Types.ObjectId,
       ref: "team"
-    },
-  owned: {
-    type: Boolean,
-    default: false
-  },
+    }
+  ],
   name: {
     type: String,
     required: false,
@@ -339,27 +337,38 @@ const PlayerSchema = new Schema({
 PlayerSchema.statics.addPlayerToTeam = (playerId, teamId) => {
   const Player = mongoose.model("player");
   const Team = mongoose.model("team");
+  const League = mongoose.model("league");
+  const OwnedPlayer = mongoose.model("ownedPlayer");
+  let promiseArr = [];
 
   return Player.findById(playerId).then(player => {
-    // if the player already had a category
-    // if (player.team) {
-    //   // find the old team and remove this player from it's players
-    //   Team.findById(player.team).then(oldTeam => {
-    //     oldTeam.players.pull(player);
-    //     return oldTeam.save();
-    //   });
-    // }
-      // will probably need to add a thing where owned players cannot be added but for now its whatever, becuase I think people won't have access tp them
-
-    //  find the team and push this player in, as well as set this player's team
     return Team.findById(teamId).then(newTeam => {
-      player.userTeam = newTeam;
-      player.owned = true;
-      newTeam.players.push(player);
+      return League.findById(newTeam.league._id).then(newLeague => {
+       // console.log(newLeague.ownedPlayers[0].playerId)
+        //console.log(playerId);
+         newLeague.ownedPlayers.forEach(ownedPlayerId => {
+          OwnedPlayer.findById(ownedPlayerId).then(ownedPlayer => {
+           // console.log(`${ownedPlayer.playerId}` === `${playerId}`);
+            // console.log(playerId);
+             if(`${ownedPlayer.playerId}` === `${playerId}`){
+               console.log("found one")
+               ownedPlayer.leagueOwned = true;
+               promiseArr.push(ownedPlayer.save())
+             }
 
-      return Promise.all([player.save(), newTeam.save()]).then(
-        ([player, newTeam]) => player
-      );
+
+          })
+        });
+        
+        player.userTeams.push(newTeam);
+        newTeam.players.push(player);
+        promiseArr.push(player.save());
+        promiseArr.push(newTeam.save());
+        promiseArr.push(newLeague.save());
+        return Promise.all(promiseArr).then(
+          ([player, newTeam, ownedPlayer]) => player
+        );
+      });
     });
   });
 };
@@ -367,22 +376,39 @@ PlayerSchema.statics.addPlayerToTeam = (playerId, teamId) => {
 PlayerSchema.statics.removePlayerFromTeam = (playerId, teamId) => {
   const Player = mongoose.model("player");
   const Team = mongoose.model("team");
-  //not using teamId but leaving it in there in case needed later
+  const League = mongoose.model("league");
+  const OwnedPlayer = mongoose.model("ownedPlayer");
+  let promiseArr = [];
+
   return Player.findById(playerId).then(player => {
-    // if the player already had a category
-    if (player.userTeam) {
-      // find the old team and remove this player from it's players
-      Team.findById(player.userTeam).then(oldUserTeam => {
-        oldUserTeam.players.pull(player);
-        return oldUserTeam.save();
+    return Team.findById(teamId).then(newTeam => {
+      return League.findById(newTeam.league._id).then(newLeague => {
+        // console.log(newLeague.ownedPlayers[0].playerId)
+        //console.log(playerId);
+        newLeague.ownedPlayers.forEach(ownedPlayerId => {
+          OwnedPlayer.findById(ownedPlayerId).then(ownedPlayer => {
+            // console.log(`${ownedPlayer.playerId}` === `${playerId}`);
+            // console.log(playerId);
+            if (`${ownedPlayer.playerId}` === `${playerId}`) {
+              console.log("found one")
+              ownedPlayer.leagueOwned = false;
+              promiseArr.push(ownedPlayer.save())
+            }
+
+
+          })
+        });
+
+        player.userTeams.pull(newTeam);
+        newTeam.players.pull(player);
+        promiseArr.push(player.save());
+        promiseArr.push(newTeam.save());
+        promiseArr.push(newLeague.save());
+        return Promise.all(promiseArr).then(
+          ([player, newTeam, ownedPlayer]) => player
+        );
       });
-    }
-    //return player to available players field
-    player.userTeam = null;
-    player.owned = false;
-    return Promise.all([player.save()]).then(
-      ([player]) => player
-    );
+    });
   });
 };
 

@@ -32,6 +32,12 @@ const UserType = new GraphQLObjectType({
       resolve(parentValue) {
         return User.fetchUsersTeams(parentValue.id)
       }
+    },
+    leagues: {
+      type: new GraphQLList(require('./league_type')),
+      resolve(parentValue) {
+        return User.fetchUsersLeagues(parentValue.id)
+      }
     }
   })
 });

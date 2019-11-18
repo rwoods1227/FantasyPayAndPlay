@@ -9,6 +9,7 @@ const TeamType = new GraphQLObjectType({
   fields: () => ({
     _id: { type: GraphQLID },
     user: { type: GraphQLID },
+    league: { type: GraphQLID },
     name: { type: GraphQLString },
     description: { type: GraphQLString },
     players: {

@@ -38,7 +38,7 @@ const register = async data => {
     user.save();
     // we'll create a token for the user
     const token = jwt.sign({ id: user._id }, keys.secretOrKey);
-
+    
     // then return our created token, set loggedIn to be true, null their password, and send the rest of the user
     return { token, loggedIn: true, ...user._doc, password: null };
     // return user.update({ token, loggedIn: true, ...user._doc, password: null });

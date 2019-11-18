@@ -9,6 +9,12 @@ const TeamSchema = new Schema({
     ref: "user",
     required: true
   },
+  league:
+  {
+    type: Schema.Types.ObjectId,
+    ref: "league",
+    required: true
+  },
   name: {
     type: String,
     required: false,
@@ -35,7 +41,7 @@ TeamSchema.statics.fetchTeamPlayers = TeamId => {
     .then(team=> team.players);
 };
 
-
+// this gets rid of association to players and to the user associated though the name is semi confusing
 TeamSchema.statics.removePlayersAndDestroy= (teamId) => {
   const Player = mongoose.model("player");
   const Team = mongoose.model("team");
@@ -61,5 +67,30 @@ TeamSchema.statics.removePlayersAndDestroy= (teamId) => {
   return Promise.all(promiseArr).then(
     (teamId) => console.log("complete"))
 }
+
+TeamSchema.statics.removeTeamAndUserFromLeague = (teamId, LeagueId) => {
+  const Team = mongoose.model("team");
+  const League = mongoose.model("league");
+  const User = mongoose.model("user");
+  let promiseArr = [];
+
+  Team.findById(teamId).then(team => {
+    User.findById(team.user).then(user => {
+    if (team.league) {
+      League.findById(team.league).then(league => {
+        league.teams.pull(team);
+        league.users.pull(user);
+        user.leagues.pull(league);
+        promiseArr.push(user.save());
+        promiseArr.push(league.save());
+        promiseArr.push(Team.removePlayersAndDestroy(teamId))
+      });
+    }
+    });
+  });
+  return Promise.all(promiseArr).then(
+  () => console.log("complete"));
+};
+
 
 module.exports = mongoose.model("team", TeamSchema);
