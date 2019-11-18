@@ -884,7 +884,7 @@ const mutation = new GraphQLObjectType({
               
                 
               if (player.name === oldPlayer.name && player.team === oldPlayer.team ){
-                  console.log(`found one, ${oldPlayer.name}`)
+                  console.log(`found one, ${oldPlayer.name}`) //left in because I run other queries too fast
                   oldPlayer.weeklyPassingAttempts = player.weeklyPassingAttempts;
 
                 oldPlayer.weeklyPassingCompletions = player.weeklyPassingCompletions;

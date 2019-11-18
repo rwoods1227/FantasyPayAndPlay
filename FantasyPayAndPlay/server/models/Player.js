@@ -412,7 +412,48 @@ PlayerSchema.statics.removePlayerFromTeam = (playerId, teamId) => {
   });
 };
 
+PlayerSchema.statics.filteredPlayers = (leagueId) => {
+  const Player = mongoose.model("player");
+  const Team = mongoose.model("team");
+  const League = mongoose.model("league");
+  const OwnedPlayer = mongoose.model("ownedPlayer");
+  let promiseArr = [];
+  let ownedPlayerArr = [];
+  let availablePlayers = [];
 
+
+  return League.findById(newTeam.league._id).then(newLeague => {
+    newLeague.ownedPlayers.forEach(ownedPlayerId => {
+      OwnedPlayer.findById(ownedPlayerId).then(ownedPlayer => {
+        if (`${ownedPlayer.playerId}` === `${playerId}`) {
+          console.log("found one")
+          ownedPlayer.leagueOwned = true;
+          promiseArr.push(ownedPlayer.save())
+        }
+    
+    
+      })
+    });
+
+  return Player.findById(playerId).then(player => {
+    return Team.findById(teamId).then(newTeam => {
+        // console.log(newLeague.ownedPlayers[0].playerId)
+        //console.log(playerId);
+            // console.log(`${ownedPlayer.playerId}` === `${playerId}`);
+            // console.log(playerId);
+
+        player.userTeams.push(newTeam);
+        newTeam.players.push(player);
+        promiseArr.push(player.save());
+        promiseArr.push(newTeam.save());
+        promiseArr.push(newLeague.save());
+        return Promise.all(promiseArr).then(
+          ([player, newTeam, ownedPlayer]) => player
+        );
+      });
+    });
+  });
+};
 
 
 module.exports = mongoose.model("player", PlayerSchema);
