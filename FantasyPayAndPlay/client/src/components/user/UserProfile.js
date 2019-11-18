@@ -38,11 +38,11 @@ const UserProfile = (props) => {
           console.log(data)
           let userBetHistory = data.user.userBet.map(game => {
             return (
-              <div>
+              <div className="game-box">
                 <li>Matchup: {game.bet.description}</li>
-                <li>Details: {game.bet.details}</li>
-                <li>Amount wagered: {game.bet.value}</li>
-                <li>Won: {game.bet.win}</li>
+                <li>Bet Description: {game.bet.details}</li>
+                <li>Amount wagered: {game.value}</li>
+                <li>Won/Lost: {game.bet.win}</li>
                 <li>Line: {game.bet.line}</li>
               </div>
             )
@@ -53,8 +53,8 @@ const UserProfile = (props) => {
                 <h1 className="profile-info-text">Username: {data.user.username}</h1>
                 <h2 className="profile-info-text money-color">Balance: ${data.user.balance}</h2>
               </div>
-              <div>
-                <h1>Users Betting History</h1>
+              <div className="betting-history-div">
+                <h1 className="users-betting-history">Users Betting History</h1>
                 {userBetHistory}
               </div>
             </div>

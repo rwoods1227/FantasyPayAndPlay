@@ -15,7 +15,7 @@
 }
 
 .user-profile-info {
-  padding-top: 20px;
+  padding-top: 100px;
   padding-bottom: 10px;
 }
 
@@ -27,4 +27,26 @@
 
 .money-color {
   color: #21ce99;
+}
+
+.betting-history-div {
+  margin-left: 50px;
+  padding-top: 100px;
+}
+
+.users-betting-history {
+  font-size: 24px;
+  font-weight: 800;
+  line-height: 32px;
+}
+
+.game-box {
+  transition: all 0.2s ease;
+  cursor: pointer;
+  background-color: #283245;
+  /* border-bottom: 1px solid white; */
+  margin-top: 10px;
+  padding: 25px 10px 25px 10px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+
 }
