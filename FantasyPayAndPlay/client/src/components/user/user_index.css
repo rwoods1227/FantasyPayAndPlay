@@ -1,0 +1,30 @@
+.user-profile-index-h1 {
+  font-size: 24px;
+  font-weight: 800;
+  line-height: 32px;
+  color: white;
+  text-align: center;
+}
+
+.user-detail-container {
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    background-color: #18202f;
+    color: white;
+}
+
+.user-profile-info {
+  padding-top: 20px;
+  padding-bottom: 10px;
+}
+
+.profile-info-text {
+    font-size: 24px;
+    font-weight: 800;
+    line-height: 32px;
+}
+
+.money-color {
+  color: #21ce99;
+}

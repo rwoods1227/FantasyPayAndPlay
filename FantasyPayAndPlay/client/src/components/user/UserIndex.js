@@ -4,6 +4,7 @@ import { Query } from "react-apollo";
 import { Link } from "react-router-dom";
 import gql from "graphql-tag";
 const { FETCH_USERS } = Queries;
+require("./user_index.css")
 
 const UserIndex = props => {
   return (
@@ -19,7 +20,7 @@ const UserIndex = props => {
                   pathname: `users/${user._id}`,
                   state: { user: user }
                 }}>
-                  <h1 className="bet-item-date">{user.username}</h1>
+                  <h1 className="bet-item-date">{user.username}: {user.balance}</h1>
                   {console.log(user)}
                 </Link>
               </div>
@@ -28,7 +29,7 @@ const UserIndex = props => {
 
           return (
             <div className="bets-container">
-              <h1>Users</h1>
+              <h1 className="user-profile-index-h1">Users</h1>
               <span>Search for a username to view their stats</span>
               <div className="bets-tabs-container">
                 {userBase}
