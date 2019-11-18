@@ -113,6 +113,14 @@ export default {
         weeklyPassingYards
         weeklyPassingTouchdowns
       }
+  }`,
+  FETCH_USERS: gql`
+    query FetchUsers {
+      users {
+        _id
+        balance
+        username
+      }
     }
   `
 };

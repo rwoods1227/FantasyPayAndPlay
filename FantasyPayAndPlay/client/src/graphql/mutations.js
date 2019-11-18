@@ -41,4 +41,17 @@ export default {
       }
     }
   `,
+  CREATE_USER_BET: gql`
+    mutation CreateUserBet($betId: ID, $userId: ID, $value: Int) {
+      createUserBet(betId: $betId, userId: $userId, value: $value) {
+        bet {
+          _id
+        }
+        user {
+          _id
+        }
+        value
+      }
+    }
+  `
 };

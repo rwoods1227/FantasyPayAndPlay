@@ -11,6 +11,8 @@ const PlayerType = new GraphQLObjectType({
   // remember we wrap the fields in a thunk to avoid circular dependency issues
   fields: () => ({
     _id: { type: GraphQLID },
+    // not populated can do that if need be
+    userTeam: { type: GraphQLID },
     name: { type: GraphQLString },
     team: { type: GraphQLString },
     position: { type: GraphQLString },
@@ -95,14 +97,14 @@ const PlayerType = new GraphQLObjectType({
     projSFantasyPointsPPR: { type: GraphQLFloat },
 
     averageDraftPosition: { type: GraphQLFloat },
-    averageDraftPositionPPR: { type: GraphQLFloat },
+    averageDraftPositionPPR: { type: GraphQLFloat }
 //this user relation will be changed abit I think
-    user: {
-      type: UserType,
-      resolve(parentValue) {
-        return User.findById(parentValue.user).then((user) => user);
-      }
-    },
+    // user: {
+    //   type: UserType,
+    //   resolve(parentValue) {
+    //     return User.findById(parentValue.user).then((user) => user);
+    //   }
+    // },
   }),
 });
 

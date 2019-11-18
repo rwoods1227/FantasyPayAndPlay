@@ -8,8 +8,14 @@ const User = mongoose.model("user");
 const UserType = require("./user_type");
 const Bet = mongoose.model("bet");
 const BetType = require("./bet_type");
+const UserBetType = require("./user_bet_type");
+const UserBet = mongoose.model("userbet");
 const Player = mongoose.model("player");
 const PlayerType = require("./player_type");
+const Team = mongoose.model("team");
+const TeamType = require("./team_type");
+const League = mongoose.model("league");
+const LeagueType = require("./league_type");
 
 
 // const authOptions = {
@@ -52,6 +58,13 @@ const RootQueryType = new GraphQLObjectType({
         return Bet.findById(args._id);
       }
     },
+    userBet: {
+      type: UserBetType,
+      args: { _id: { type: GraphQLID } },
+      resolve(_, args) {
+        return UserBet.findById(args._id)
+      }
+    },
     betTypes: {
       type: new GraphQLList(BetType),
       args: { description: { type: new GraphQLNonNull(GraphQLString) } },
@@ -70,6 +83,32 @@ const RootQueryType = new GraphQLObjectType({
       args: { _id: { type: new GraphQLNonNull(GraphQLID) } },
       resolve(_, args) {
         return Player.findById(args._id);
+      }
+    },
+    teams: {
+      type: new GraphQLList(TeamType),
+      resolve() {
+        return Team.find({});
+      }
+    },
+    team: {
+      type: TeamType,
+      args: { _id: { type: new GraphQLNonNull(GraphQLID) } },
+      resolve(_, args) {
+        return Team.findById(args._id);
+      }
+    },
+    leagues: {
+      type: new GraphQLList(LeagueType),
+      resolve() {
+        return League.find({});
+      }
+    },
+    league: {
+      type: LeagueType,
+      args: { _id: { type: new GraphQLNonNull(GraphQLID) } },
+      resolve(_, args) {
+        return League.findById(args._id);
       }
     },
   })
