@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { Formik, Form, Field } from 'formik';
 import { Mutation } from "react-apollo";
 import BetsIndex from "./BetsIndex";
