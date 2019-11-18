@@ -29,7 +29,7 @@ const Nav = props => {
       <h1 className="nav-header"><Link to="/">FantasyPay&Play</Link></h1>
       <div className="navbar-links">
         {logoutButton}
-        <Link to="/bets" id="splash-nav-open-link">OPEN</Link>
+        <Link to="/app" id="splash-nav-open-link">OPEN</Link>
       </div>
     </nav>
   ) : (
