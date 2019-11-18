@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import BetsList from "./BetsList";
+import { Link } from "react-router-dom";
 
 require("./bets_list.css");
 require("./scrollbar.css");
@@ -14,19 +15,24 @@ const BetsIndex = () => {
     setTab(tab => ({ ...tab, matchType }));
   };
 
+  let signedInUser = localStorage.getItem("currentUserId");
+
   return (
     <div className="bets-page">
       <div className="bets-container">
-        <h1>Bets</h1>
-        <span>All of this weeks matches</span>
+            <h1>Bets</h1>
+            <span>All of this weeks matches</span>
+          <div className="link-to-user-profile">
+            <Link to={`users/${signedInUser}`}>My Profile</Link>
+          </div>
         <div className="bets-tabs-container">
-          <div 
+          <div
             className={tab.matchType === "upcoming" ? "tab selected" : "tab"}
             onClick={handletabChange("upcoming")}
           >
             <span>Upcoming</span>
           </div>
-          <div 
+          <div
             className={tab.matchType === "past" ? "tab selected" : "tab"}
             onClick={handletabChange("past")}
           >
@@ -36,7 +42,7 @@ const BetsIndex = () => {
         <BetsList matchType={tab.matchType} />
       </div>
     </div>
-  )
+  );
 }
 
 export default BetsIndex;

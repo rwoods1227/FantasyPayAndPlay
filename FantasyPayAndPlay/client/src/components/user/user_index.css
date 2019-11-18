@@ -17,6 +17,7 @@
 .user-profile-info {
   padding-top: 100px;
   padding-bottom: 10px;
+  position: sticky;
 }
 
 .profile-info-text {
@@ -48,4 +49,18 @@
   padding: 25px 10px 25px 10px;
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 
+}
+
+.menu-div {
+  display: flex;
+  flex-direction: row;
+}
+
+.link-to-user-profile {
+  font-size: 24px;
+  font-weight: 800;
+  line-height: 32px;
+  position: absolute;
+  top: 100px;
+  left: 756px;
 }
