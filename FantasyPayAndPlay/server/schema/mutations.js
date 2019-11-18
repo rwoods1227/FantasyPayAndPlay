@@ -884,7 +884,7 @@ const mutation = new GraphQLObjectType({
               
                 
               if (player.name === oldPlayer.name && player.team === oldPlayer.team ){
-                  console.log(`found one, ${oldPlayer.name}`)
+                  console.log(`found one, ${oldPlayer.name}`) //left in because I run other queries too fast
                   oldPlayer.weeklyPassingAttempts = player.weeklyPassingAttempts;
 
                 oldPlayer.weeklyPassingCompletions = player.weeklyPassingCompletions;
@@ -1004,6 +1004,15 @@ const mutation = new GraphQLObjectType({
       },
       resolve(parentValue, { playerId, teamId }) {
         return Player.removePlayerFromTeam(playerId, teamId);
+      }
+    },
+    filteredPlayers: {
+      type: new GraphQLList(PlayerType),
+      args: {
+        leagueId: { type: GraphQLID }
+      },
+      resolve(parentValue, { leagueId }) {
+        return Player.filteredPlayers(leagueId);
       }
     },
     newLeague: {
