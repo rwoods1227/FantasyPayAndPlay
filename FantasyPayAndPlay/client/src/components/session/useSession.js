@@ -5,8 +5,9 @@ export default (mutation) => {
   const history = useHistory();
   return useMutation(mutation, {
     onCompleted: (data) => {
-      const { token } = data.login || data.register;
+      const { token, _id } = data.login || data.register;
       localStorage.setItem("auth-token", token);
+      localStorage.setItem("currentUserId", _id);
       history.push("/");
     },
     update: (client, { data }) => {
