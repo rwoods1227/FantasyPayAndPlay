@@ -4,7 +4,7 @@ import BetsList from "./BetsList";
 require("./bets_list.css");
 require("./scrollbar.css");
 
-const BetsIndex = () => {
+const BetsIndex = ({ changeMain }) => {
   const [tab, setTab] = useState({
     matchType: "upcoming"
   });
