@@ -2,9 +2,8 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 import Login from "./session/Login";
 import Register from "./session/Register";
-import BetsList from "./bets/BetsIndex";
-import BetDetail from "./bets/BetDetail";
 import Splash from "./splash/Splash";
+import Main from "./main/Main";
 
 import AuthRoute from "../util/route_util";
 require("./reset.css");
@@ -15,8 +14,7 @@ const App = () => (
       <AuthRoute exact path="/login" component={Login} routeType="auth" />
       <AuthRoute path="/register/:email" component={Register} routeType="auth" />
       <AuthRoute path="/register" component={Register} routeType="auth" />
-      <AuthRoute exact path="/bets" component={BetsList} routeType="protected" />
-      <AuthRoute path="/bets/:id" component={BetDetail} routeType="protected" />
+      <AuthRoute path="/app" component={Main} routeType="protected" />
       <Route path="/" component={Splash} />
     </Switch>
   </div>
