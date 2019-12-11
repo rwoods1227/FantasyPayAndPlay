@@ -75,6 +75,14 @@ export default props => {
           onBlur={() => handleFocus("")}
         />
         <button type="submit" className="auth-submit-button">Login</button>
+        <button onClick={e => {
+          e.preventDefault();
+          loginUser({ variables: { 
+            email: 'jaydoe@email.com',
+            password: '12345678'
+          }}).catch(() => handleError(true))
+        }} className="auth-submit-button"
+        >DEMO LOGIN</button>
       </Form>
     </Formik>
   );

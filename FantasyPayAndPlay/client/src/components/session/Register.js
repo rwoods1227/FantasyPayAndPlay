@@ -30,7 +30,7 @@ export default props => (
       </div>
       <footer className="auth-footer">
         <div className="footer">
-          <a href="https://github.com/rwoods1227/FantasyPayAndPlay">Learn about FantasyPay&Play</a>
+          <a href="https://github.com/rwoods1227/FantasyPayAndPlay/tree/master/FantasyPayAndPlay">Learn about FantasyPay&Play</a>
         </div>
       </footer>
     </div>

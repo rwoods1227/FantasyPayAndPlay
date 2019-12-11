@@ -126,6 +126,7 @@ form.auth-form > button.auth-submit-button {
   line-height: 48px;
   border-radius: 24px;
   padding: 0 48px;
+  margin-bottom: 10px;
   display: flex;
   flex-direction: row;
   align-items: center;
