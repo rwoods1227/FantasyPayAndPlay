@@ -5,7 +5,7 @@ import Register from "./session/Register";
 import BetsList from "./bets/BetsIndex";
 import BetDetail from "./bets/BetDetail";
 import Splash from "./splash/Splash";
-import AddPlayerPage from "./players/AddPlayers"
+import AddPlayerPage from "./players/AddPlayers";
 
 import AuthRoute from "../util/route_util";
 require("./reset.css");
