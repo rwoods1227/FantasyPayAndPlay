@@ -3,10 +3,11 @@ import { Formik, Form, Field } from 'formik';
 import useSession from './useSession';
 
 import Mutations from '../../graphql/mutations';
-const { REGISTER } = Mutations;
+const { REGISTER, LOGIN } = Mutations;
 
 export default props => {
   const [registerUser] = useSession(REGISTER);
+  const [loginUser] = useSession(LOGIN);
 
   const [error, setError] = useState({
     isError: false
@@ -95,6 +96,16 @@ export default props => {
           onBlur={() => handleFocus("")}
         />
         <button type="submit" className="auth-submit-button">continue</button>
+        <button onClick={e => {
+          e.preventDefault();
+          loginUser({
+            variables: {
+              email: 'jaydoe@email.com',
+              password: '12345678'
+            }
+          }).catch(() => handleError(true))
+        }} className="auth-submit-button"
+        >DEMO LOGIN</button>
       </Form>
     </Formik>
   )
