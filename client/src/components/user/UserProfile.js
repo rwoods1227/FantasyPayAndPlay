@@ -3,7 +3,7 @@ import Queries from "../../graphql/queries";
 import { Query } from "react-apollo";
 import { Link } from "react-router-dom";
 import gql from "graphql-tag";
-
+import footballPic from "../../assets/footballPic.png"
 // require("./user_index.css")
 
 
@@ -35,7 +35,7 @@ const UserProfile = (props) => {
         {({ loading, error, data }) => {
           if (loading) return <h1>Loading..</h1>;
           if (error) console.log(error);
-          console.log(data)
+          // console.log(data)
           let userBetHistory = data.user.userBet.map(game => {
             return (
               <div className="game-box">
@@ -50,12 +50,19 @@ const UserProfile = (props) => {
           return (
             <div className="user-detail-container">
               <div className="user-profile-info">
-                <h1 className="profile-info-text">Username: {data.user.username}</h1>
-                <h2 className="profile-info-text money-color">Balance: ${data.user.balance}</h2>
+                <div className="user-profile-info-container">
+                  <h1 className="profile-info-text">Username: {data.user.username}</h1>
+                  <h2 className="profile-info-text money-color">Balance: ${data.user.balance}</h2>
+                  <Link className="profile-info-text" id="back-to-bets-hover" to={`/app`}>Back To Bets</Link>
+                </div>
+                
+                <img className="user-profile-earnings-photo" src={footballPic} />
               </div>
               <div className="betting-history-div">
                 <h1 className="users-betting-history">Users Betting History</h1>
+                <div className="overflow-none-container">
                 {userBetHistory}
+                </div>
               </div>
             </div>
           );

@@ -78,9 +78,9 @@ UserSchema.statics.addUserToLeagueAndCreateTeam = (userId, leagueId) => {
     user.teams.push(newTeam);
 
       League.findById(leagueId).then(newleague => {
-        console.log(newleague)
-        console.log(user)
-        console.log("here^^")
+        // console.log(newleague)
+        // console.log(user)
+        // console.log("here^^")
         newTeam.league = newleague;
         newleague.teams.push(newTeam);
         user.leagues.push(newleague);
