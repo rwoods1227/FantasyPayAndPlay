@@ -2,11 +2,11 @@ import React from "react";
 import { Formik, Form, Field } from 'formik';
 import { Mutation } from "react-apollo";
 import BetsIndex from "./BetsIndex";
-
+import { useAlert } from 'react-alert'
 import Mutations from "../../graphql/mutations";
 const { CREATE_USER_BET } = Mutations;
-
 const BetTypeDetail = ({ bets, selected, changeMain }) => {
+  const alert = useAlert();
   return (
     <div className={selected ? "bet-type" : "hidden"}>
       {bets.map(bet => (
@@ -26,7 +26,9 @@ const BetTypeDetail = ({ bets, selected, changeMain }) => {
                       userId: localStorage.getItem("currentUserId"),
                       betId: bet._id,
                       value: values.value
-                    }})
+                    }}).then(() => {
+                      alert.show("Bet Placed");
+                    })
                   }
                 >
                   <Form className="bet-placement-form">

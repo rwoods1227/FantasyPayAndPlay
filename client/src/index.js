@@ -11,6 +11,9 @@ import './index.css';
 import App from './components/App';
 import * as serviceWorker from './serviceWorker';
 import Mutations from './graphql/mutations';
+import { Provider as AlertProvider } from "react-alert";
+import AlertTemplate from "react-alert-template-basic";
+
 const { VERIFY_USER } = Mutations;
 
 const cache = new InMemoryCache({
@@ -65,11 +68,24 @@ if (token) {
     });
 }
 
+//Alert stuff 
+
+const options = {
+  position: "top center",
+  timeout: 4000,
+  offset: "30px",
+  transition: "fade"
+};
+//////
+
+
 const Root = () => {
   return (
     <ApolloProvider client={client}>
       <HashRouter>
-        <App />
+        <AlertProvider template={AlertTemplate} {...options}>
+          <App />
+        </AlertProvider>
       </HashRouter>
     </ApolloProvider>
   );
