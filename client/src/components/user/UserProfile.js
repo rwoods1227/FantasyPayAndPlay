@@ -31,7 +31,11 @@ const UserProfile = (props) => {
 
   return (
     <ul className="bets-list">
-      <Query query={FETCH_USER} variables={{ _id: props.match.params.id }}>
+      <Query
+        query={FETCH_USER}
+        variables={{ _id: props.match.params.id }}
+        pollInterval={1000}
+      >
         {({ loading, error, data }) => {
           if (loading) return <h1>Loading..</h1>;
           if (error) console.log(error);
@@ -45,24 +49,35 @@ const UserProfile = (props) => {
                 <li>Won/Lost: {game.bet.win}</li>
                 <li>Line: {game.bet.line}</li>
               </div>
-            )
-          })
+            );
+          });
           return (
             <div className="user-detail-container">
               <div className="user-profile-info">
                 <div className="user-profile-info-container">
-                  <h1 className="profile-info-text">Username: {data.user.username}</h1>
-                  <h2 className="profile-info-text money-color">Balance: ${data.user.balance}</h2>
-                  <Link className="profile-info-text" id="back-to-bets-hover" to={`/app`}>Back To Bets</Link>
+                  <h1 className="profile-info-text">
+                    Username: {data.user.username}
+                  </h1>
+                  <h2 className="profile-info-text money-color">
+                    Balance: ${data.user.balance}
+                  </h2>
+                  <Link
+                    className="profile-info-text"
+                    id="back-to-bets-hover"
+                    to={`/app`}
+                  >
+                    Back To Bets
+                  </Link>
                 </div>
-                
-                <img className="user-profile-earnings-photo" src={footballPic} />
+
+                <img
+                  className="user-profile-earnings-photo"
+                  src={footballPic}
+                />
               </div>
               <div className="betting-history-div">
                 <h1 className="users-betting-history">Users Betting History</h1>
-                <div className="overflow-none-container">
-                {userBetHistory}
-                </div>
+                <div className="overflow-none-container">{userBetHistory}</div>
               </div>
             </div>
           );
