@@ -33,6 +33,8 @@
     "mongoose": "^5.7.8",
     "nodemon": "^1.19.4",
     "react": "^16.11.0",
+    "react-alert": "^6.0.0",
+    "react-alert-template-basic": "^1.0.0",
     "react-router-dom": "^5.1.2",
     "sort-json-array": "^0.1.7",
     "validator": "^12.0.0"

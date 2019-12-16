@@ -8,7 +8,7 @@ export default (mutation) => {
       const { token, _id } = data.login || data.register;
       localStorage.setItem("auth-token", token);
       localStorage.setItem("currentUserId", _id);
-      history.push("/");
+      history.push("/app");
     },
     update: (client, { data }) => {
       client.writeData({
