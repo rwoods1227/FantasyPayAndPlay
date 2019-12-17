@@ -113,7 +113,7 @@ form.auth-form > input:focus {
   box-shadow: 0 9px 10px 0 rgba(2, 32, 71, 0.1);
 }
 
-form.auth-form > button.auth-submit-button {
+button.auth-submit-button {
   width: 206px;
   text-transform: uppercase;
   color: #fff;
@@ -126,7 +126,7 @@ form.auth-form > button.auth-submit-button {
   line-height: 48px;
   border-radius: 24px;
   padding: 0 48px;
-  margin-bottom: 10px;
+  margin-right: 10px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -156,4 +156,8 @@ div.footer {
 
 div.footer > a {
   cursor: pointer;
+}
+
+div.auth-submit-buttons-container {
+  display: flex;
 }
