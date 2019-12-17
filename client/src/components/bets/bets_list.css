@@ -5,7 +5,6 @@ div.bets-container {
 
 div.bets-container > ul.bets-list {
   height: 502px;
-  width: 470px;
   overflow: hidden;
   overflow-y: scroll;
   background-color: #283245;

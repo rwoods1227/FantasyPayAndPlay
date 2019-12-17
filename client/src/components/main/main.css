@@ -4,3 +4,7 @@ div.main-page {
   background-color: #18202f;
   color: white;
 }
+
+div.main-content {
+  width: 50%;
+}
