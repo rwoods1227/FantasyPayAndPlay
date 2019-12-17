@@ -73,3 +73,8 @@ div.splash-callout > a {
   font-weight: 800;
   color: #022047;
 }
+
+div.splash-gif-container {
+  width: 40%;
+  margin-top: 20px;
+}
