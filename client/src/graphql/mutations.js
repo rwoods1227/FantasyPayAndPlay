@@ -53,5 +53,21 @@ export default {
         value
       }
     }
+  `,
+  NEW_LEAGUE: gql`
+    mutation NewLeague($name: String, $description: String, $comissioner: ID) {
+      newLeague(name: $name, description: $description, comissioner: $comissioner) {
+        name
+        description
+        comissioner
+      }
+    }
+  `,
+  ADD_USER_TO_LEAGUE_AND_CREATE_TEAM: gql`
+    mutation AddUserToLeagueAndCreateTeam($userId: ID, $leagueId: ID) {
+      addUserToLeagueAndCreateTeam(userId: $userId, leagueId: $leagueId) {
+        id
+      }
+    }
   `
 };

@@ -1,0 +1,11 @@
+div.header-icon.league-icon {
+  background-image: url("../league/league_trophy.png");
+}
+
+div.league-content > h2 {
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: 0.3px;
+  margin-bottom: 20px;
+  color: #fff;
+}

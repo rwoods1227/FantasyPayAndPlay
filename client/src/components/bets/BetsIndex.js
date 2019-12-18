@@ -20,7 +20,7 @@ const BetsIndex = ({ changeMain }) => {
   return (
     <div className="bets-container">
       <div className="header">
-        <div className="bets-icon"></div>
+        <div className="header-icon bets-icon"></div>
         <div className="header-content">
           <h1>Bets</h1>
           <span>All of this weeks matches</span>
