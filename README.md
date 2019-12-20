@@ -2,7 +2,6 @@
 
 FantasyPay&Play is a fantasy football and sports betting website. It incorporates two major football fandom passtimes through a football fantasy league clone and a simple money-line sports betting client
 
- Terms: gridiron, pigskin, Fantasy Footballers, Fanduel, DraftKings, wager, bet, odds, Mern, docker
 # Functionality & MVP
 - [ ] User Auth(site not useable with sign-in)
 - [ ] Splash page to pick fantasy or bets
@@ -40,16 +39,6 @@ FantasyPay&Play is a fantasy football and sports betting website. It incorporate
 - [ ] Kickers and Defense
 - [ ] Subcriptions(Realish-Time updating)
 - [ ] Trading 
-- [ ] Draft Bots
 - [ ] Player News
+- [ ] Draft Bots
 
-## Weekend-Plan
-### Ryan
-- [ ] Bets Model (Ryan)
-### Patrick
-- [ ] Bet Index page
-- [ ] Bet Show page
-### Zach
-- [ ] User Type/Model integration(Zach)
-    - [ ] Earnings
-    - [ ] User Profile(Earnings)
