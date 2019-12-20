@@ -14,11 +14,11 @@ Zach Williams - ADDED SOON
  * Frontend: JavaScript, React, Redux, Apollo / GraphQL
  * FantasyAPI/BettingAPI(https://sportsdata.io/developers/api-documentation/nfl#/fantasy)
 
-# Background and Overview
+## Background and Overview
 
 FantasyPay&Play is a fantasy football and sports betting website. It incorporates two major football fandom passtimes through a football fantasy league clone and a simple money-line sports betting client
 
-# Functionality & MVP
+## Functionality & MVP
 - [ ] User Auth(site not useable with sign-in)
 - [ ] Splash page to pick fantasy or bets
 ### Fantasy
@@ -38,11 +38,6 @@ FantasyPay&Play is a fantasy football and sports betting website. It incorporate
 - [ ] Bet Index page
 - [ ] Bet Show page
 
-# Technologies
-- [ ] Graphql
-- [ ] Docker
-- [ ] MERN
-- [ ] Heroku
 
 
 # Design 
