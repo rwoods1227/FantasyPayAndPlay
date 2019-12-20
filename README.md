@@ -1,6 +1,13 @@
 # FantasyPay&Play
 # [FantasyPay&Play Demo](https://fantasypayandplay.herokuapp.com/#/)
 
+## Group Members and Contributions
+
+Ryan Woods - [Linkedin](https://www.linkedin.com/in/ryan-woods-530679b4/) - [Github](https://github.com/rwoods1227)
+
+Patrick Mondala - ADDED SOON
+
+Zach Williams - ADDED SOON
 
 ## Technologies
  * Backend: MongoDB, Express, Express / GraphQL, and Node.js (MERN)
