@@ -39,7 +39,6 @@ const UserProfile = (props) => {
         {({ loading, error, data }) => {
           if (loading) return <h1>Loading..</h1>;
           if (error) console.log(error);
-          // console.log(data)
           let userBetHistory = data.user.userBet.map((game, idx) => {
               let checkWinLoss
               if (game.bet.win === 0) {
@@ -48,15 +47,10 @@ const UserProfile = (props) => {
                 checkWinLoss = "Lost"
               } else if (game.bet.win === 1) {
                 checkWinLoss = "Won"
+              } else if (game.bet.win === 2) {
+                checkWinLoss = "Pending"
               }
-
-          document.addEventListener("DOMContentLoaded", function(checkWinLoss){
-            console.log("here")
-            let checkWinLossClass = document.getElementsByClassName(`check-win-loss-${idx}`)
-            // console.log(checkWinLoss)
-            console.log(checkWinLossClass)
-          })
-
+              
             return (
               <div className="game-box">
                 <li>Matchup: {game.bet.description}</li>

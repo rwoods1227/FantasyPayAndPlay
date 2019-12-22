@@ -28,6 +28,7 @@ UserBetSchema.statics.makeUserBet = function(betId, userId, value) {
 
     let testTime = mongoose.model("user");
     testTime.findById(userId).then(theUser => {
+
       if (theUser.balance > value) {
         return new this({ bet: betId, user: userId, value: value }).save().then(
           (userBet) => {
@@ -39,6 +40,7 @@ UserBetSchema.statics.makeUserBet = function(betId, userId, value) {
               return bet.save()
             }))
             promiseArr.push(User.findById(userId).then((user) => {
+              user.balance = user.balance - value
               user.userBets.push(userBet.id)
               return user.save()
             }))
@@ -70,11 +72,11 @@ UserBetSchema.statics.updateTheUserBalance = function(betId, userId) {
   return Promise.all(promiseArr).then(([userBet, user, bet]) => {
     // user.balance = Math.ceil(user.balance - userBet.value)
     if (bet.win === -1) {
-      user.balance = Math.ceil(user.balance - userBet.value);
+      // user.balance = Math.ceil(user.balance - userBet.value);
       userBet.payout = true;
-      // return userBet.save()
+      return userBet.save()
     } else if (bet.win === 0) {
-      // user.balance = Math.ceil(user.balance + userBet.value);
+      user.balance = Math.ceil(user.balance + userBet.value);
       userBet.payout = true;
       return userBet.save();
     } else {
@@ -83,10 +85,10 @@ UserBetSchema.statics.updateTheUserBalance = function(betId, userId) {
       let calculateWinnings;
       if (moneyLineBet > 0) {
         calculateWinnings = (100 / moneyLineBet) * 1.0 * betValue;
-        user.balance = Math.ceil(user.balance + calculateWinnings);
+        user.balance = Math.ceil(user.balance + betValue + calculateWinnings);
       } else if (moneyLineBet < 0) {
         calculateWinnings = (100 / moneyLineBet) * -1.0 * betValue;
-        user.balance = Math.ceil(user.balance + calculateWinnings);
+        user.balance = Math.ceil(user.balance + betValue + calculateWinnings);
       }
     }
     return user.save().then(() => {
