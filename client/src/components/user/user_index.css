@@ -111,3 +111,7 @@
 #back-to-bets-hover:hover{
   color: red;
 }
+
+.inline-ele {
+  display: inline;
+}
