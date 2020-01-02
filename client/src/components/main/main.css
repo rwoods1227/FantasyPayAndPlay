@@ -1,5 +1,6 @@
 div.main-page {
   display: flex;
+  justify-content: space-around;
   height: 100vh;
   background-color: #18202f;
   color: white;
@@ -44,4 +45,8 @@ div.main-content > div > div.header > div.header-content > h1 {
 div.main-content > div > div.header > div.header-content > span {
   color: #7888a4;
   font-size: 12px;
+}
+
+div.right-sidebar {
+  width: 30%;
 }
