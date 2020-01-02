@@ -57,6 +57,7 @@ export default {
   NEW_LEAGUE: gql`
     mutation NewLeague($name: String, $description: String, $comissioner: ID) {
       newLeague(name: $name, description: $description, comissioner: $comissioner) {
+        _id
         name
         description
         comissioner
@@ -66,7 +67,7 @@ export default {
   ADD_USER_TO_LEAGUE_AND_CREATE_TEAM: gql`
     mutation AddUserToLeagueAndCreateTeam($userId: ID, $leagueId: ID) {
       addUserToLeagueAndCreateTeam(userId: $userId, leagueId: $leagueId) {
-        id
+        _id
       }
     }
   `
