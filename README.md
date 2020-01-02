@@ -1,4 +1,4 @@
-# FantasyPay&Play
+# FantasyPay&Play(WIP)
 # [FantasyPay&Play Demo](https://fantasypayandplay.herokuapp.com/#/)
 
 ## Group Members and Contributions
@@ -42,11 +42,6 @@ FantasyPay&Play is a fantasy football and sports betting website. It incorporate
 
 
 # Design 
-
-# Group Members and Work Breakdown
- * Zach: https://github.com/zacharycwilliams
- * Patrick: https://github.com/Patrick-Mondala
- * Ryan: https://github.com/rwoods1227
 
 # To-dos
 - [ ] League Chat(Transaction Log)
