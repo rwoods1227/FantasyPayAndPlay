@@ -16,7 +16,8 @@ const CreateLeagueForm = () => {
             comissioner: localStorage.getItem("currentUserId")
           }}
           onSubmit={values => {
-            newLeague({ variables: values });
+            newLeague({ variables: values })
+              .then();
           }}
         >
           <Form className="league-create-form">
