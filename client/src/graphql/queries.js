@@ -122,5 +122,16 @@ export default {
         username
       }
     }
+  `,
+  FETCH_USER_LEAGUES: gql`
+    query FetchUserLeagues($_id: ID!) {
+      user(_id: $_id) {
+        leagues {
+          _id
+          name
+          description
+        }
+      }
+    }
   `
 };
