@@ -1015,6 +1015,7 @@ const mutation = new GraphQLObjectType({
         return Player.filteredPlayers(leagueId);
       }
     },
+    // creates league and adds commisioner as the first team and user
     newLeague: {
       type: LeagueType,
       args: {
@@ -1023,7 +1024,15 @@ const mutation = new GraphQLObjectType({
         comissioner: { type: GraphQLID }
       },
       resolve(parentValue, { name, description, comissioner }) {
-        return new League({ name, description, comissioner }).save();
+        let promiseArr = [];
+        promiseArr.push(new League({ name, description, comissioner }).save())
+        return Promise.all(promiseArr).then( resultArr => {
+          let league = resultArr[0]._id;
+          console.log(league);
+          User.addUserToLeagueAndCreateTeam(comissioner, league);
+          console.log(resultArr[0]);
+          return resultArr[0]; 
+        });
       }
     },
     // add dependent delete of associated teams on League, also maybe players later on depending on how that is implemented
