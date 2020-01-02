@@ -51,7 +51,7 @@ BetSchema.statics.changeWinValue = function(betId) {
   const Bet = mongoose.model("bet")
   const weeklyGameScoresAPI = {
     method: "GET",
-    url: "https://api.sportsdata.io/v3/nfl/scores/json/ScoresByWeek/2019/14",
+    url: "https://api.sportsdata.io/v3/nfl/scores/json/ScoresByWeek/2019/12",
     headers: {
       "Ocp-Apim-Subscription-Key": NFLKey
     }

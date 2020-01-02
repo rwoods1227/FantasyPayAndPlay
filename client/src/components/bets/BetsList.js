@@ -12,13 +12,14 @@ const BetsList = ({ matchType, changeMain }) => {
         if (error) return <p style={{ background: "transparent" }}>Error</p>;
         
         let weeksGames = [];
-        data.bets.forEach(bet => weeksGames.some(b => b.description === bet.description) ? null : weeksGames.push(bet));
-        let now = new Date();
-        let pastGames = weeksGames.filter(game => (Date.parse(game.date) < now));
-        let upcomingGames = weeksGames.filter(game => (Date.parse(game.date) > now));
-        let viewableGames = matchType === "past" ? pastGames : upcomingGames;
+        // data.bets.forEach(bet => weeksGames.some(b => b.description === bet.description) ? null : weeksGames.push(bet));
+        // let now = new Date();
+        // let pastGames = weeksGames.filter(game => (Date.parse(game.date) < now));
+        // let upcomingGames = weeksGames.filter(game => (Date.parse(game.date) > now));
+        // let viewableGames = matchType === "past" ? pastGames : upcomingGames;
         
-        return viewableGames.map(({ _id, description, details, date }) => (
+        // viewableGames
+        return data.bets.map(({ _id, description, details, date }) => (
           <li key={_id}>
             <div 
               className={matchType === "upcoming" ? "bets-item clickable" : "bets-item"}
