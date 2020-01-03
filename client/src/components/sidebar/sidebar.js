@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import BetsIndex from "../bets/BetsIndex";
 import LeagueSplash from "../league/LeagueSplash";
+import LeagueShow from "../league/LeagueShow";
 import Queries from "../../graphql/queries";
 import { Query } from 'react-apollo';
 const { FETCH_USER_LEAGUES } = Queries;
@@ -66,7 +67,7 @@ const SideBar = ({ changeMain }) => {
                       <div className={`sidebar-item${sidebar.selected === league._id ? " selected" : ""}`}
                         onClick={() => {
                           setSelected(sidebar => ({ ...sidebar, selected: league._id }));
-                          changeMain(BetsIndex, { changeMain });
+                          changeMain(LeagueShow, { changeMain, _id: league._id });
                         }}>
                         <div className="sidebar-item-content">
                           <h3>{league.name}</h3>

@@ -133,5 +133,25 @@ export default {
         }
       }
     }
+  `,
+  FETCH_LEAGUE: gql`
+    query FetchLeague($_id: ID!) {
+      league(_id: $_id) {
+        name
+        description
+        comissioner
+        teams {
+          name
+          user
+        }
+      }
+    }
+  `,
+  FETCH_USER: gql`
+    query FetchUser($_id: ID!) {
+      user(_id: $_id) {
+        username
+      }
+    }
   `
 };
