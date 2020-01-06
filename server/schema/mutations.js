@@ -132,92 +132,100 @@ const mutation = new GraphQLObjectType({
     createAllBets: {
       type: new GraphQLList(BetType),
       resolve() {
-          return axios(authOptions).then(res => {
-            res.data.forEach(game => {
-              let description = `${game.HomeTeamName} Vs. ${game.AwayTeamName}`;
-              let date = game.DateTime;
-              let win = 0;
-              let scoreId = game.ScoreId;
+        return axios(authOptions).then(res => {
+          res.data.forEach(game => {
+            let description = `${game.HomeTeamName} Vs. ${game.AwayTeamName}`;
+            let date = game.DateTime;
+            let win = 0;
+            let scoreId = game.ScoreId;
 
+            let MoneylineAwayDetails = `Moneyline for ${game.AwayTeamName}`;
+            let MoneylineAwayLine = game.PregameOdds[0].AwayMoneyLine;
+            let MoneylineHomeDetails = `Moneyline for ${game.HomeTeamName}`;
+            let MoneylineHomeLine = game.PregameOdds[0].HomeMoneyLine;
 
-              let MoneylineAwayDetails = `Moneyline for ${game.AwayTeamName}` 
-              let MoneylineAwayLine = game.PregameOdds[0].AwayMoneyLine;
-              let MoneylineHomeDetails = `Moneyline for ${game.HomeTeamName}`
-              let MoneylineHomeLine = game.PregameOdds[0].HomeMoneyLine;
+            let OverUnderDetails = `Over/Under for ${description} is ${Math.round(
+              game.PregameOdds[0].OverUnder
+            )}`;
+            let OverLine = game.PregameOdds[0].OverPayout;
+            let UnderLine = game.PregameOdds[0].UnderPayout;
 
-              let OverUnderDetails = `Over/Under for ${description} is ${Math.round(game.PregameOdds[0].OverUnder)}`
-              let OverLine = game.PregameOdds[0].OverPayout;
-              let UnderLine = game.PregameOdds[0].UnderPayout;
+            let SpreadDetails = `Spread for ${game.HomeTeamName} is ${Math.ceil(
+              game.PregameOdds[0].HomePointSpread + 0.5
+            )}`;
+            let SpreadAwayLine = game.PregameOdds[0].AwayPointSpreadPayout;
+            let SpreadHomeLine = game.PregameOdds[0].HomePointSpreadPayout;
 
-              let SpreadDetails = `Spread for ${game.HomeTeamName} is ${Math.ceil(game.PregameOdds[0].HomePointSpread + 0.5)}`
-              let SpreadAwayLine = game.PregameOdds[0].AwayPointSpreadPayout;
-              let SpreadHomeLine = game.PregameOdds[0].HomePointSpreadPayout;
+            let MoneyLineAwayBet = new Bet({
+              description: description,
+              details: MoneylineAwayDetails,
+              wagerType: "Moneyline Away",
+              date: date,
+              line: MoneylineAwayLine,
+              scoreId: scoreId,
+              win: win
+            }).save();
 
-               let MoneyLineAwayBet = new Bet({
-                description: description,
-                details: MoneylineAwayDetails,
-                 wagerType: "Moneyline Away",
-                date: date,
-                line: MoneylineAwayLine,
-                scoreId: scoreId,
-                win: win
-              }).save();
+            let MoneyLineHomeBet = new Bet({
+              description: description,
+              details: MoneylineHomeDetails,
+              wagerType: "Moneyline Home",
+              date: date,
+              line: MoneylineHomeLine,
+              scoreId: scoreId,
+              win: win
+            }).save();
 
-              let MoneyLineHomeBet = new Bet({
-                description: description,
-                details: MoneylineHomeDetails,
-                wagerType: "Moneyline Home",
-                date: date,
-                line: MoneylineHomeLine,
-                scoreId: scoreId,
-                win: win
-              }).save();
+            let OverBet = new Bet({
+              description: description,
+              details: OverUnderDetails,
+              wagerType: "Over/under Over",
+              date: date,
+              line: OverLine,
+              scoreId: scoreId,
+              win: win
+            }).save();
 
-              let OverBet = new Bet({
-                description: description,
-                details: OverUnderDetails,
-                wagerType: "Over/under Over",
-                date: date,
-                line: OverLine,
-                scoreId: scoreId,
-                win: win
-              }).save();
+            let UnderBet = new Bet({
+              description: description,
+              details: OverUnderDetails,
+              wagerType: "Over/under Under",
+              date: date,
+              line: UnderLine,
+              scoreId: scoreId,
+              win: win
+            }).save();
 
-              let UnderBet = new Bet({
-                description: description,
-                details: OverUnderDetails,
-                wagerType: "Over/under Under",
-                date: date,
-                line: UnderLine,
-                scoreId: scoreId,
-                win: win
-              }).save();
+            let SpreadAwayBet = new Bet({
+              description: description,
+              details: SpreadDetails,
+              wagerType: "Spread Away",
+              date: date,
+              line: SpreadAwayLine,
+              scoreId: scoreId,
+              win: win
+            }).save();
 
-                let SpreadAwayBet = new Bet({
-                description: description,
-                details: SpreadDetails,
-                wagerType: "Spread Away",
-                date: date,
-                line: SpreadAwayLine,
-                scoreId: scoreId,
-                win: win
-              }).save();
+            let SpreadHomeBet = new Bet({
+              description: description,
+              details: SpreadDetails,
+              wagerType: "Spread Home",
+              date: date,
+              line: SpreadHomeLine,
+              scoreId: scoreId,
+              win: win
+            }).save();
 
-              let SpreadHomeBet = new Bet({
-                description: description,
-                details: SpreadDetails,
-                wagerType: "Spread Home",
-                date: date,
-                line: SpreadHomeLine,
-                scoreId: scoreId,
-                win: win
-              }).save();
-
-              return { MoneyLineAwayBet, MoneyLineHomeBet, OverBet, UnderBet, SpreadAwayBet, SpreadHomeBet}
-              
-            });
-          })
-      
+            return {
+              MoneyLineAwayBet,
+              MoneyLineHomeBet,
+              OverBet,
+              UnderBet,
+              SpreadAwayBet,
+              SpreadHomeBet
+            };
+          });
+        });
       }
     },
     deleteBet: {
@@ -263,12 +271,12 @@ const mutation = new GraphQLObjectType({
     },
     determineWinValue: {
       type: BetType,
-      args: { 
+      args: {
         _id: { type: GraphQLID }
-        // win: { type: GraphQLInt } 
+        // win: { type: GraphQLInt }
       },
       resolve(_, { _id }) {
-        return Bet.changeWinValue(_id)
+        return Bet.changeWinValue(_id);
       }
     },
     createAllPlayers: {
@@ -299,32 +307,45 @@ const mutation = new GraphQLObjectType({
                     player.Position;
                 }
 
-                allPlayers[`${player.PlayerID}`]["seasonPassingAttempts"] =
-                  Math.round(player.PassingAttempts);
-                allPlayers[`${player.PlayerID}`]["seasonPassingCompletions"] =
-                  Math.round(player.PassingCompletions);
-                allPlayers[`${player.PlayerID}`]["seasonPassingYards"] =
-                  Math.round(player.PassingYards);
-                allPlayers[`${player.PlayerID}`]["seasonPassingTouchdowns"] =
-                  Math.round(player.PassingTouchdowns);
-                allPlayers[`${player.PlayerID}`]["seasonPassingInterceptions"] =
-                  Math.round(player.PassingInterceptions);
-                allPlayers[`${player.PlayerID}`]["seasonRushingAttempts"] =
-                  Math.round(player.RushingAttempts);
-                allPlayers[`${player.PlayerID}`]["seasonRushingYards"] =
-                  Math.round(player.RushingYards);
-                allPlayers[`${player.PlayerID}`]["seasonRushingTouchdowns"] =
-                  Math.round(player.RushingTouchdowns);
-                allPlayers[`${player.PlayerID}`]["seasonFumblesLost"] =
-                  Math.round(player.FumblesLost);
-                allPlayers[`${player.PlayerID}`]["seasonReceivingTargets"] =
-                  Math.round(player.ReceivingTargets);
-                allPlayers[`${player.PlayerID}`]["seasonReceptions"] =
-                  Math.round(player.Receptions);
-                allPlayers[`${player.PlayerID}`]["seasonReceivingYards"] =
-                  Math.round(player.ReceivingYards);
-                allPlayers[`${player.PlayerID}`]["seasonReceivingTouchdowns"] =
-                  Math.round(player.ReceivingTouchdowns);
+                allPlayers[`${player.PlayerID}`][
+                  "seasonPassingAttempts"
+                ] = Math.round(player.PassingAttempts);
+                allPlayers[`${player.PlayerID}`][
+                  "seasonPassingCompletions"
+                ] = Math.round(player.PassingCompletions);
+                allPlayers[`${player.PlayerID}`][
+                  "seasonPassingYards"
+                ] = Math.round(player.PassingYards);
+                allPlayers[`${player.PlayerID}`][
+                  "seasonPassingTouchdowns"
+                ] = Math.round(player.PassingTouchdowns);
+                allPlayers[`${player.PlayerID}`][
+                  "seasonPassingInterceptions"
+                ] = Math.round(player.PassingInterceptions);
+                allPlayers[`${player.PlayerID}`][
+                  "seasonRushingAttempts"
+                ] = Math.round(player.RushingAttempts);
+                allPlayers[`${player.PlayerID}`][
+                  "seasonRushingYards"
+                ] = Math.round(player.RushingYards);
+                allPlayers[`${player.PlayerID}`][
+                  "seasonRushingTouchdowns"
+                ] = Math.round(player.RushingTouchdowns);
+                allPlayers[`${player.PlayerID}`][
+                  "seasonFumblesLost"
+                ] = Math.round(player.FumblesLost);
+                allPlayers[`${player.PlayerID}`][
+                  "seasonReceivingTargets"
+                ] = Math.round(player.ReceivingTargets);
+                allPlayers[`${player.PlayerID}`][
+                  "seasonReceptions"
+                ] = Math.round(player.Receptions);
+                allPlayers[`${player.PlayerID}`][
+                  "seasonReceivingYards"
+                ] = Math.round(player.ReceivingYards);
+                allPlayers[`${player.PlayerID}`][
+                  "seasonReceivingTouchdowns"
+                ] = Math.round(player.ReceivingTouchdowns);
                 allPlayers[`${player.PlayerID}`][
                   "seasonTwoPointConversionPasses"
                 ] = Math.round(player.TwoPointConversionPasses);
@@ -367,32 +388,45 @@ const mutation = new GraphQLObjectType({
                 console.log("3");
                 allPlayers[`${player.PlayerID}`]["isGameOver"] =
                   player.IsGameOver;
-                allPlayers[`${player.PlayerID}`]["weeklyPassingAttempts"] =
-                  Math.round(player.PassingAttempts);
-                allPlayers[`${player.PlayerID}`]["weeklyPassingCompletions"] =
-                  Math.round(player.PassingCompletions);
-                allPlayers[`${player.PlayerID}`]["weeklyPassingYards"] =
-                  Math.round(player.PassingYards);
-                allPlayers[`${player.PlayerID}`]["weeklyPassingTouchdowns"] =
-                  Math.round(player.PassingTouchdowns);
-                allPlayers[`${player.PlayerID}`]["weeklyPassingInterceptions"] =
-                  Math.round(player.PassingInterceptions);
-                allPlayers[`${player.PlayerID}`]["weeklyRushingAttempts"] =
-                  Math.round(player.RushingAttempts);
-                allPlayers[`${player.PlayerID}`]["weeklyRushingYards"] =
-                  Math.round(player.RushingYards);
-                allPlayers[`${player.PlayerID}`]["weeklyRushingTouchdowns"] =
-                  Math.round(player.RushingTouchdowns);
-                allPlayers[`${player.PlayerID}`]["weeklyFumblesLost"] =
-                  Math.round(player.FumblesLost);
-                allPlayers[`${player.PlayerID}`]["weeklyReceivingTargets"] =
-                  Math.round(player.ReceivingTargets);
-                allPlayers[`${player.PlayerID}`]["weeklyReceptions"] =
-                  Math.round(player.Receptions);
-                allPlayers[`${player.PlayerID}`]["weeklyReceivingYards"] =
-                  Math.round(player.ReceivingYards);
-                allPlayers[`${player.PlayerID}`]["weeklyReceivingTouchdowns"] =
-                  Math.round(player.ReceivingTouchdowns);
+                allPlayers[`${player.PlayerID}`][
+                  "weeklyPassingAttempts"
+                ] = Math.round(player.PassingAttempts);
+                allPlayers[`${player.PlayerID}`][
+                  "weeklyPassingCompletions"
+                ] = Math.round(player.PassingCompletions);
+                allPlayers[`${player.PlayerID}`][
+                  "weeklyPassingYards"
+                ] = Math.round(player.PassingYards);
+                allPlayers[`${player.PlayerID}`][
+                  "weeklyPassingTouchdowns"
+                ] = Math.round(player.PassingTouchdowns);
+                allPlayers[`${player.PlayerID}`][
+                  "weeklyPassingInterceptions"
+                ] = Math.round(player.PassingInterceptions);
+                allPlayers[`${player.PlayerID}`][
+                  "weeklyRushingAttempts"
+                ] = Math.round(player.RushingAttempts);
+                allPlayers[`${player.PlayerID}`][
+                  "weeklyRushingYards"
+                ] = Math.round(player.RushingYards);
+                allPlayers[`${player.PlayerID}`][
+                  "weeklyRushingTouchdowns"
+                ] = Math.round(player.RushingTouchdowns);
+                allPlayers[`${player.PlayerID}`][
+                  "weeklyFumblesLost"
+                ] = Math.round(player.FumblesLost);
+                allPlayers[`${player.PlayerID}`][
+                  "weeklyReceivingTargets"
+                ] = Math.round(player.ReceivingTargets);
+                allPlayers[`${player.PlayerID}`][
+                  "weeklyReceptions"
+                ] = Math.round(player.Receptions);
+                allPlayers[`${player.PlayerID}`][
+                  "weeklyReceivingYards"
+                ] = Math.round(player.ReceivingYards);
+                allPlayers[`${player.PlayerID}`][
+                  "weeklyReceivingTouchdowns"
+                ] = Math.round(player.ReceivingTouchdowns);
                 allPlayers[`${player.PlayerID}`][
                   "weeklyTwoPointConversionPasses"
                 ] = Math.round(player.TwoPointConversionPasses);
@@ -663,7 +697,6 @@ const mutation = new GraphQLObjectType({
       }
     },
 
-
     updateAllPlayers: {
       type: new GraphQLList(PlayerType),
       resolve() {
@@ -692,32 +725,45 @@ const mutation = new GraphQLObjectType({
                     player.Position;
                 }
 
-                allPlayers[`${player.PlayerID}`]["seasonPassingAttempts"] =
-                  Math.round(player.PassingAttempts);
-                allPlayers[`${player.PlayerID}`]["seasonPassingCompletions"] =
-                  Math.round(player.PassingCompletions);
-                allPlayers[`${player.PlayerID}`]["seasonPassingYards"] =
-                  Math.round(player.PassingYards);
-                allPlayers[`${player.PlayerID}`]["seasonPassingTouchdowns"] =
-                  Math.round(player.PassingTouchdowns);
-                allPlayers[`${player.PlayerID}`]["seasonPassingInterceptions"] =
-                  Math.round(player.PassingInterceptions);
-                allPlayers[`${player.PlayerID}`]["seasonRushingAttempts"] =
-                  Math.round(player.RushingAttempts);
-                allPlayers[`${player.PlayerID}`]["seasonRushingYards"] =
-                  Math.round(player.RushingYards);
-                allPlayers[`${player.PlayerID}`]["seasonRushingTouchdowns"] =
-                  Math.round(player.RushingTouchdowns);
-                allPlayers[`${player.PlayerID}`]["seasonFumblesLost"] =
-                  Math.round(player.FumblesLost);
-                allPlayers[`${player.PlayerID}`]["seasonReceivingTargets"] =
-                  Math.round(player.ReceivingTargets);
-                allPlayers[`${player.PlayerID}`]["seasonReceptions"] =
-                  Math.round(player.Receptions);
-                allPlayers[`${player.PlayerID}`]["seasonReceivingYards"] =
-                  Math.round(player.ReceivingYards);
-                allPlayers[`${player.PlayerID}`]["seasonReceivingTouchdowns"] =
-                  Math.round(player.ReceivingTouchdowns);
+                allPlayers[`${player.PlayerID}`][
+                  "seasonPassingAttempts"
+                ] = Math.round(player.PassingAttempts);
+                allPlayers[`${player.PlayerID}`][
+                  "seasonPassingCompletions"
+                ] = Math.round(player.PassingCompletions);
+                allPlayers[`${player.PlayerID}`][
+                  "seasonPassingYards"
+                ] = Math.round(player.PassingYards);
+                allPlayers[`${player.PlayerID}`][
+                  "seasonPassingTouchdowns"
+                ] = Math.round(player.PassingTouchdowns);
+                allPlayers[`${player.PlayerID}`][
+                  "seasonPassingInterceptions"
+                ] = Math.round(player.PassingInterceptions);
+                allPlayers[`${player.PlayerID}`][
+                  "seasonRushingAttempts"
+                ] = Math.round(player.RushingAttempts);
+                allPlayers[`${player.PlayerID}`][
+                  "seasonRushingYards"
+                ] = Math.round(player.RushingYards);
+                allPlayers[`${player.PlayerID}`][
+                  "seasonRushingTouchdowns"
+                ] = Math.round(player.RushingTouchdowns);
+                allPlayers[`${player.PlayerID}`][
+                  "seasonFumblesLost"
+                ] = Math.round(player.FumblesLost);
+                allPlayers[`${player.PlayerID}`][
+                  "seasonReceivingTargets"
+                ] = Math.round(player.ReceivingTargets);
+                allPlayers[`${player.PlayerID}`][
+                  "seasonReceptions"
+                ] = Math.round(player.Receptions);
+                allPlayers[`${player.PlayerID}`][
+                  "seasonReceivingYards"
+                ] = Math.round(player.ReceivingYards);
+                allPlayers[`${player.PlayerID}`][
+                  "seasonReceivingTouchdowns"
+                ] = Math.round(player.ReceivingTouchdowns);
                 allPlayers[`${player.PlayerID}`][
                   "seasonTwoPointConversionPasses"
                 ] = Math.round(player.TwoPointConversionPasses);
@@ -760,32 +806,45 @@ const mutation = new GraphQLObjectType({
                 // console.log("3");
                 allPlayers[`${player.PlayerID}`]["isGameOver"] =
                   player.IsGameOver;
-                allPlayers[`${player.PlayerID}`]["weeklyPassingAttempts"] =
-                  Math.round(player.PassingAttempts);
-                allPlayers[`${player.PlayerID}`]["weeklyPassingCompletions"] =
-                  Math.round(player.PassingCompletions);
-                allPlayers[`${player.PlayerID}`]["weeklyPassingYards"] =
-                  Math.round(player.PassingYards);
-                allPlayers[`${player.PlayerID}`]["weeklyPassingTouchdowns"] =
-                  Math.round(player.PassingTouchdowns);
-                allPlayers[`${player.PlayerID}`]["weeklyPassingInterceptions"] =
-                  Math.round(player.PassingInterceptions);
-                allPlayers[`${player.PlayerID}`]["weeklyRushingAttempts"] =
-                  Math.round(player.RushingAttempts);
-                allPlayers[`${player.PlayerID}`]["weeklyRushingYards"] =
-                  Math.round(player.RushingYards);
-                allPlayers[`${player.PlayerID}`]["weeklyRushingTouchdowns"] =
-                  Math.round(player.RushingTouchdowns);
-                allPlayers[`${player.PlayerID}`]["weeklyFumblesLost"] =
-                  Math.round(player.FumblesLost);
-                allPlayers[`${player.PlayerID}`]["weeklyReceivingTargets"] =
-                  Math.round(player.ReceivingTargets);
-                allPlayers[`${player.PlayerID}`]["weeklyReceptions"] =
-                  Math.round(player.Receptions);
-                allPlayers[`${player.PlayerID}`]["weeklyReceivingYards"] =
-                  Math.round(player.ReceivingYards);
-                allPlayers[`${player.PlayerID}`]["weeklyReceivingTouchdowns"] =
-                  Math.round(player.ReceivingTouchdowns);
+                allPlayers[`${player.PlayerID}`][
+                  "weeklyPassingAttempts"
+                ] = Math.round(player.PassingAttempts);
+                allPlayers[`${player.PlayerID}`][
+                  "weeklyPassingCompletions"
+                ] = Math.round(player.PassingCompletions);
+                allPlayers[`${player.PlayerID}`][
+                  "weeklyPassingYards"
+                ] = Math.round(player.PassingYards);
+                allPlayers[`${player.PlayerID}`][
+                  "weeklyPassingTouchdowns"
+                ] = Math.round(player.PassingTouchdowns);
+                allPlayers[`${player.PlayerID}`][
+                  "weeklyPassingInterceptions"
+                ] = Math.round(player.PassingInterceptions);
+                allPlayers[`${player.PlayerID}`][
+                  "weeklyRushingAttempts"
+                ] = Math.round(player.RushingAttempts);
+                allPlayers[`${player.PlayerID}`][
+                  "weeklyRushingYards"
+                ] = Math.round(player.RushingYards);
+                allPlayers[`${player.PlayerID}`][
+                  "weeklyRushingTouchdowns"
+                ] = Math.round(player.RushingTouchdowns);
+                allPlayers[`${player.PlayerID}`][
+                  "weeklyFumblesLost"
+                ] = Math.round(player.FumblesLost);
+                allPlayers[`${player.PlayerID}`][
+                  "weeklyReceivingTargets"
+                ] = Math.round(player.ReceivingTargets);
+                allPlayers[`${player.PlayerID}`][
+                  "weeklyReceptions"
+                ] = Math.round(player.Receptions);
+                allPlayers[`${player.PlayerID}`][
+                  "weeklyReceivingYards"
+                ] = Math.round(player.ReceivingYards);
+                allPlayers[`${player.PlayerID}`][
+                  "weeklyReceivingTouchdowns"
+                ] = Math.round(player.ReceivingTouchdowns);
                 allPlayers[`${player.PlayerID}`][
                   "weeklyTwoPointConversionPasses"
                 ] = Math.round(player.TwoPointConversionPasses);
@@ -871,7 +930,6 @@ const mutation = new GraphQLObjectType({
           })
         );
 
-
         console.log("finish 1", promiseArr);
 
         return Promise.all(promiseArr).then(() => {
@@ -879,81 +937,115 @@ const mutation = new GraphQLObjectType({
           // console.log("begin 2", allPlayers)
           return Player.find({}).then(oldPlayers => {
             oldPlayers.forEach(oldPlayer => {
-            Object.values(allPlayers).forEach(player => {
-           
-              
-                
-              if (player.name === oldPlayer.name && player.team === oldPlayer.team ){
-                  console.log(`found one, ${oldPlayer.name}`) //left in because I run other queries too fast
-                  oldPlayer.weeklyPassingAttempts = player.weeklyPassingAttempts;
+              Object.values(allPlayers).forEach(player => {
+                if (
+                  player.name === oldPlayer.name &&
+                  player.team === oldPlayer.team
+                ) {
+                  console.log(`found one, ${oldPlayer.name}`); //left in because I run other queries too fast
+                  oldPlayer.weeklyPassingAttempts =
+                    player.weeklyPassingAttempts;
 
-                oldPlayer.weeklyPassingCompletions = player.weeklyPassingCompletions;
-                oldPlayer.weeklyPassingYards = player.weeklyPassingYards;
-                oldPlayer.weeklyPassingTouchdowns = player.weeklyPassingTouchdowns;
-                oldPlayer.weeklyPassingInterceptions = player.weeklyPassingInterceptions;
-                oldPlayer.weeklyRushingAttempts = player.weeklyRushingAttempts;
-                oldPlayer.weeklyRushingYards = player.weeklyRushingYards;
-                oldPlayer.weeklyRushingTouchdowns = player.weeklyRushingTouchdowns;
-                oldPlayer.weeklyFumblesLost = player.weeklyFumblesLost;
-                oldPlayer.weeklyReceivingTargets = player.weeklyReceivingTargets;
-                oldPlayer.weeklyReceptions = player.weeklyReceptions;
-                oldPlayer.weeklyReceivingYards = player.weeklyReceivingYards;
-                oldPlayer.weeklyReceivingTouchdowns = player.weeklyReceivingTouchdowns;
-                oldPlayer.weeklyTwoPointConversionPasses = player.weeklyTwoPointConversionPasses;
-                oldPlayer.weeklyTwoPointConversionRuns = player.weeklyTwoPointConversionRuns;
-                oldPlayer.weeklyTwoPointConversionReceptions = player.weeklyTwoPointConversionReceptions;
-                oldPlayer.weeklyFantasyPoints = player.weeklyFantasyPoints;
-                oldPlayer.weeklyFantasyPointsPPR = player.weeklyFantasyPointsPPR;
-                oldPlayer.weeklyActive = player.weeklyActive;
+                  oldPlayer.weeklyPassingCompletions =
+                    player.weeklyPassingCompletions;
+                  oldPlayer.weeklyPassingYards = player.weeklyPassingYards;
+                  oldPlayer.weeklyPassingTouchdowns =
+                    player.weeklyPassingTouchdowns;
+                  oldPlayer.weeklyPassingInterceptions =
+                    player.weeklyPassingInterceptions;
+                  oldPlayer.weeklyRushingAttempts =
+                    player.weeklyRushingAttempts;
+                  oldPlayer.weeklyRushingYards = player.weeklyRushingYards;
+                  oldPlayer.weeklyRushingTouchdowns =
+                    player.weeklyRushingTouchdowns;
+                  oldPlayer.weeklyFumblesLost = player.weeklyFumblesLost;
+                  oldPlayer.weeklyReceivingTargets =
+                    player.weeklyReceivingTargets;
+                  oldPlayer.weeklyReceptions = player.weeklyReceptions;
+                  oldPlayer.weeklyReceivingYards = player.weeklyReceivingYards;
+                  oldPlayer.weeklyReceivingTouchdowns =
+                    player.weeklyReceivingTouchdowns;
+                  oldPlayer.weeklyTwoPointConversionPasses =
+                    player.weeklyTwoPointConversionPasses;
+                  oldPlayer.weeklyTwoPointConversionRuns =
+                    player.weeklyTwoPointConversionRuns;
+                  oldPlayer.weeklyTwoPointConversionReceptions =
+                    player.weeklyTwoPointConversionReceptions;
+                  oldPlayer.weeklyFantasyPoints = player.weeklyFantasyPoints;
+                  oldPlayer.weeklyFantasyPointsPPR =
+                    player.weeklyFantasyPointsPPR;
+                  oldPlayer.weeklyActive = player.weeklyActive;
 
-                oldPlayer.projWPassingAttempts = player.projWPassingAttempts;
-                oldPlayer.projWPassingCompletions = player.projWPassingCompletions;
-                oldPlayer.projWPassingYards = player.projWPassingYards;
-                oldPlayer.projWPassingTouchdowns = player.projWPassingTouchdowns;
-                oldPlayer.projWPassingInterceptions = player.projWPassingInterceptions;
-                oldPlayer.projWRushingAttempts = player.projWRushingAttempts;
-                oldPlayer.projWRushingYards = player.projWRushingYards;
-                oldPlayer.projWRushingTouchdowns = player.projWRushingTouchdowns;
-                oldPlayer.projWFumblesLost = player.projWFumblesLost;
-                oldPlayer.projWReceivingTargets = player.projWReceivingTargets;
-                oldPlayer.projWReceptions = player.projWReceptions;
-                oldPlayer.projWReceivingYards = player.projWReceivingYards;
-                oldPlayer.projWReceivingTouchdowns = player.projWReceivingTouchdowns;
-                oldPlayer.projWTwoPointConversionPasses = player.projWTwoPointConversionPasses;
-                oldPlayer.projWTwoPointConversionRuns = player.projWTwoPointConversionRuns;
-                oldPlayer.projWTwoPointConversionReceptions = player.projWTwoPointConversionReceptions;
-                oldPlayer.projWFantasyPoints = player.projWFantasyPoints;
-                oldPlayer.projWFantasyPointsPPR = player.projWFantasyPointsPPR;
-                oldPlayer.projWActive = player.projWActive;
+                  oldPlayer.projWPassingAttempts = player.projWPassingAttempts;
+                  oldPlayer.projWPassingCompletions =
+                    player.projWPassingCompletions;
+                  oldPlayer.projWPassingYards = player.projWPassingYards;
+                  oldPlayer.projWPassingTouchdowns =
+                    player.projWPassingTouchdowns;
+                  oldPlayer.projWPassingInterceptions =
+                    player.projWPassingInterceptions;
+                  oldPlayer.projWRushingAttempts = player.projWRushingAttempts;
+                  oldPlayer.projWRushingYards = player.projWRushingYards;
+                  oldPlayer.projWRushingTouchdowns =
+                    player.projWRushingTouchdowns;
+                  oldPlayer.projWFumblesLost = player.projWFumblesLost;
+                  oldPlayer.projWReceivingTargets =
+                    player.projWReceivingTargets;
+                  oldPlayer.projWReceptions = player.projWReceptions;
+                  oldPlayer.projWReceivingYards = player.projWReceivingYards;
+                  oldPlayer.projWReceivingTouchdowns =
+                    player.projWReceivingTouchdowns;
+                  oldPlayer.projWTwoPointConversionPasses =
+                    player.projWTwoPointConversionPasses;
+                  oldPlayer.projWTwoPointConversionRuns =
+                    player.projWTwoPointConversionRuns;
+                  oldPlayer.projWTwoPointConversionReceptions =
+                    player.projWTwoPointConversionReceptions;
+                  oldPlayer.projWFantasyPoints = player.projWFantasyPoints;
+                  oldPlayer.projWFantasyPointsPPR =
+                    player.projWFantasyPointsPPR;
+                  oldPlayer.projWActive = player.projWActive;
 
-                oldPlayer.seasonPassingAttempts = player.seasonPassingAttempts;
-                oldPlayer.seasonPassingCompletions = player.seasonPassingCompletions;
-                oldPlayer.seasonPassingYards = player.seasonPassingYards;
-                oldPlayer.seasonPassingTouchdowns = player.seasonPassingTouchdowns;
-                oldPlayer.seasonPassingInterceptions = player.seasonPassingInterceptions;
-                oldPlayer.seasonRushingAttempts = player.seasonRushingAttempts;
-                oldPlayer.seasonRushingYards = player.seasonRushingYards;
-                oldPlayer.seasonRushingTouchdowns = player.seasonRushingTouchdowns;
-                oldPlayer.seasonFumblesLost = player.seasonFumblesLost;
-                oldPlayer.seasonReceivingTargets = player.seasonReceivingTargets;
-                oldPlayer.seasonReceptions = player.seasonReceptions;
-                oldPlayer.seasonReceivingYards = player.seasonReceivingYards;
-                oldPlayer.seasonReceivingTouchdowns = player.seasonReceivingTouchdowns;
-                oldPlayer.seasonTwoPointConversionPasses = player.seasonTwoPointConversionPasses;
-                oldPlayer.seasonTwoPointConversionRuns = player.seasonTwoPointConversionRuns;
-                oldPlayer.seasonTwoPointConversionReceptions = player.seasonTwoPointConversionReceptions;
-                oldPlayer.seasonFantasyPoints = player.seasonFantasyPoints;
-                oldPlayer.seasonFantasyPointsPPR = player.seasonFantasyPointsPPR;
+                  oldPlayer.seasonPassingAttempts =
+                    player.seasonPassingAttempts;
+                  oldPlayer.seasonPassingCompletions =
+                    player.seasonPassingCompletions;
+                  oldPlayer.seasonPassingYards = player.seasonPassingYards;
+                  oldPlayer.seasonPassingTouchdowns =
+                    player.seasonPassingTouchdowns;
+                  oldPlayer.seasonPassingInterceptions =
+                    player.seasonPassingInterceptions;
+                  oldPlayer.seasonRushingAttempts =
+                    player.seasonRushingAttempts;
+                  oldPlayer.seasonRushingYards = player.seasonRushingYards;
+                  oldPlayer.seasonRushingTouchdowns =
+                    player.seasonRushingTouchdowns;
+                  oldPlayer.seasonFumblesLost = player.seasonFumblesLost;
+                  oldPlayer.seasonReceivingTargets =
+                    player.seasonReceivingTargets;
+                  oldPlayer.seasonReceptions = player.seasonReceptions;
+                  oldPlayer.seasonReceivingYards = player.seasonReceivingYards;
+                  oldPlayer.seasonReceivingTouchdowns =
+                    player.seasonReceivingTouchdowns;
+                  oldPlayer.seasonTwoPointConversionPasses =
+                    player.seasonTwoPointConversionPasses;
+                  oldPlayer.seasonTwoPointConversionRuns =
+                    player.seasonTwoPointConversionRuns;
+                  oldPlayer.seasonTwoPointConversionReceptions =
+                    player.seasonTwoPointConversionReceptions;
+                  oldPlayer.seasonFantasyPoints = player.seasonFantasyPoints;
+                  oldPlayer.seasonFantasyPointsPPR =
+                    player.seasonFantasyPointsPPR;
 
                   promiseArr.push(oldPlayer.save());
                 }
-              })
-            });
-                return Promise.all(promiseArr).then(resultArr => {
-                  // console.log(resultArr)
-                  return resultArr;
-              // console.log("endpoint-player", player);
               });
+            });
+            return Promise.all(promiseArr).then(resultArr => {
+              // console.log(resultArr)
+              return resultArr;
+              // console.log("endpoint-player", player);
+            });
           });
         });
       }
@@ -972,7 +1064,7 @@ const mutation = new GraphQLObjectType({
         user: { type: GraphQLID },
         league: { type: GraphQLID }
       },
-      resolve(parentValue, { name, description, user, league}) {
+      resolve(parentValue, { name, description, user, league }) {
         return new Team({ name, description, user, league }).save();
       }
     },
@@ -984,7 +1076,7 @@ const mutation = new GraphQLObjectType({
         return Team.removePlayersAndDestroy(teamId);
       }
     },
-    //adds player to team and creates makes player.owned = true
+    //adds player association to team, and userTeam association to plauer and handles sets that player id to owned in that league
     addPlayerToTeam: {
       type: PlayerType,
       args: {
@@ -995,7 +1087,7 @@ const mutation = new GraphQLObjectType({
         return Player.addPlayerToTeam(playerId, teamId);
       }
     },
-    // removes player from a team and sets player.team = null and player.owned = false
+    // removes player from team, and team from player and releases player to non-owned status
     removePlayerFromTeam: {
       type: PlayerType,
       args: {
@@ -1025,13 +1117,13 @@ const mutation = new GraphQLObjectType({
       },
       resolve(parentValue, { name, description, comissioner }) {
         let promiseArr = [];
-        promiseArr.push(new League({ name, description, comissioner }).save())
-        return Promise.all(promiseArr).then( resultArr => {
+        promiseArr.push(new League({ name, description, comissioner }).save());
+        return Promise.all(promiseArr).then(resultArr => {
           let league = resultArr[0]._id;
           console.log(league);
           User.addUserToLeagueAndCreateTeam(comissioner, league);
           console.log(resultArr[0]);
-          return resultArr[0]; 
+          return resultArr[0];
         });
       }
     },
@@ -1043,7 +1135,7 @@ const mutation = new GraphQLObjectType({
         return League.deleteTeamsAndDestroy(leagueId);
       }
     },
-    // fix this(think its good)
+    // (think its good)
     addUserToLeagueAndCreateTeam: {
       type: UserType,
       args: {
@@ -1074,41 +1166,37 @@ const mutation = new GraphQLObjectType({
       resolve(parentValue, { leagueId }) {
         let promiseArr = [];
         // League.findById(leagueId).then(league => {
-          // console.log(league)
-          return Player.find({}).then(players => {
-            return League.findById(leagueId).then(league => {
+        // console.log(league)
+        return Player.find({}).then(players => {
+          return League.findById(leagueId).then(league => {
             players.forEach(player => {
-
-              promiseArr.push(new OwnedPlayer({
-                playerId: player._id,
-                leagueOwned: false,
-                leagueId: league._id
-              }).save());
+              promiseArr.push(
+                new OwnedPlayer({
+                  playerId: player._id,
+                  leagueOwned: false,
+                  leagueId: league._id
+                }).save()
+              );
               //  console.log(ownedPlayerObject)
               // promiseArr.push(ownedPlayerObject.save())
               // promiseArr.push(league.ownedPlayers.push(ownedPlayerObject));
             });
-            return Promise.all(promiseArr).then((ownedPlayers) => {
+            return Promise.all(promiseArr).then(ownedPlayers => {
               // let promiseArr = [];
-              console.log(ownedPlayers)
-                  ownedPlayers.forEach(ownedPlayer => {
-                   league.ownedPlayers.push(ownedPlayer._id)
-                  })
-                  return league.save();
-                  // return Promise.all(promiseArr).then(resultArr => {
-                  //   // console.log(resultArr)
-                  //   return resultArr
-                  // })
-                })
- 
-              
-            })
-          })
-          // console.log(league.ownedPlayers);
+              console.log(ownedPlayers);
+              ownedPlayers.forEach(ownedPlayer => {
+                league.ownedPlayers.push(ownedPlayer._id);
+              });
+              return league.save();
+              // return Promise.all(promiseArr).then(resultArr => {
+              //   // console.log(resultArr)
+              //   return resultArr
+              // })
+            });
+          });
+        });
+        // console.log(league.ownedPlayers);
         // })
-        
-
-       
       }
     }
   }

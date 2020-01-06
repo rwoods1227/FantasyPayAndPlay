@@ -351,7 +351,7 @@ PlayerSchema.statics.addPlayerToTeam = (playerId, teamId) => {
            // console.log(`${ownedPlayer.playerId}` === `${playerId}`);
             // console.log(playerId);
              if(`${ownedPlayer.playerId}` === `${playerId}`){
-               console.log("found one")
+               //console.log("found one")
                ownedPlayer.leagueOwned = true;
                promiseArr.push(ownedPlayer.save())
              }
@@ -411,6 +411,63 @@ PlayerSchema.statics.removePlayerFromTeam = (playerId, teamId) => {
     });
   });
 };
+
+PlayerSchema.statics.tradePlayerForPlayer = (playerId1, teamId1, playerId2, teamId2) => {
+  const Player = mongoose.model("player");
+  const Team = mongoose.model("team");
+  const League = mongoose.model("league");
+  const OwnedPlayer = mongoose.model("ownedPlayer");
+  let promiseArr = [];
+
+  return Player.findById(playerId1).then(player1 => {
+    return Team.findById(teamId1).then(newTeam1 => {
+      return Player.findById(playerId2).then(player2 => {
+        return Team.findById(teamId2).then(newTeam2 => {
+          return League.findById(newTeam1.league._id).then(newLeague => {
+           
+            // for now testing one to one trade so players will remain owned in league no matter what
+
+            // newLeague.ownedPlayers.forEach(ownedPlayerId => {
+            //   OwnedPlayer.findById(ownedPlayerId).then(ownedPlayer => {
+            //     // console.log(`${ownedPlayer.playerId}` === `${playerId}`);
+            //     // console.log(playerId);
+            //     if (`${ownedPlayer.playerId}` === `${playerId}`) {
+            //       console.log("trade success");
+            //       ownedPlayer.leagueOwned = false;
+            //       promiseArr.push(ownedPlayer.save());
+            //     }
+            //   });
+            // });
+
+            player1.userTeams.pull(newTeam1);
+            newTeam1.players.pull(player1);
+            player2.userTeams.pull(newTeam2);
+            newTeam2.players.pull(player2);
+
+            player1.userTeams.push(newTeam2);
+            newTeam1.players.push(player2);
+            player2.userTeams.push(newTeam1);
+            newTeam2.players.push(player1);
+
+
+            promiseArr.push(player1.save());
+            promiseArr.push(newTeam1.save());
+            promiseArr.push(player2.save());
+            promiseArr.push(newTeam2.save());
+
+            promiseArr.push(newLeague.save());
+            return Promise.all(promiseArr).then(
+              ([player1, newTeam1, player2, newTeam2, ownedPlayer]) => [newTeam1, newTeam2]
+            );
+          });
+        });
+      });
+    });
+  });
+};
+
+
+
 
 PlayerSchema.statics.filteredPlayers = (leagueId) => {
   const Player = mongoose.model("player");
