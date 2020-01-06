@@ -425,7 +425,8 @@ PlayerSchema.statics.tradePlayerForPlayer = (playerId1, teamId1, playerId2, team
         return Team.findById(teamId2).then(newTeam2 => {
           return League.findById(newTeam1.league._id).then(newLeague => {
            
-            // for now testing one to one trade so players will remain owned in league no matter what
+            // for now testing one to one trade so players will remain owned in league no matter what/
+            // also other catches are not accounted for as there is likely no way for them to be triggered on frontend
 
             // newLeague.ownedPlayers.forEach(ownedPlayerId => {
             //   OwnedPlayer.findById(ownedPlayerId).then(ownedPlayer => {

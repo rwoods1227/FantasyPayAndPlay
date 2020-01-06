@@ -1098,6 +1098,18 @@ const mutation = new GraphQLObjectType({
         return Player.removePlayerFromTeam(playerId, teamId);
       }
     },
+    tradePlayerForPlayer: {
+      type: PlayerType,
+      args: {
+        playerId1: { type: GraphQLID },
+        teamId1: { type: GraphQLID },
+        playerId2: { type: GraphQLID },
+        teamId2: { type: GraphQLID }
+      },
+      resolve(parentValue, { playerId1, teamId1, playerId2, teamId2 }) {
+        return Player.tradePlayerForPlayer(playerId1, teamId1, playerId2, teamId2);
+      }
+    },
     filteredPlayers: {
       type: new GraphQLList(PlayerType),
       args: {
