@@ -42,11 +42,9 @@ FantasyPay&Play is a fantasy football and sports betting website. It incorporate
 
 # Design 
 
-# To-dos
+# Possible Future Additions
 - [ ] League Chat(Transaction Log)
 - [ ] Kickers and Defense
-- [ ] Subcriptions(Realish-Time updating)
-- [ ] Trading 
 - [ ] Player News
 
 
