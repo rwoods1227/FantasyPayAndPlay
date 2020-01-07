@@ -1,0 +1,40 @@
+div.league-show-tabs-container {
+  display: flex;
+}
+
+div.league-show-tabs-container > div.tab {
+  display: flex;
+  height: 62px;
+  width: 117.5px;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  align-items: center;
+  position: relative;
+  background: #3a465b;
+  box-shadow: 1px -4px 5px #17202f;
+  cursor: pointer;
+  padding: 0 19px;
+  font-size: 12px;
+  font-family: 'Muli';
+  font-weight: bold;
+  color: #a3bbd3;
+  z-index: 1;
+}
+
+div.league-show-tabs-container > div.tab:nth-child(n + 2) {
+  margin-left: -10px;
+}
+
+div.league-show-tabs-container > div.tab.selected {
+  z-index: 6 !important;
+  background-color: #283245;
+  box-shadow: none;
+  color: #00ceb8;
+}
+
+div.league-show-content-container {
+  height: 70%;
+}
