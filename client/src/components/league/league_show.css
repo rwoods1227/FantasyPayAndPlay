@@ -34,3 +34,7 @@ div.league-show-tabs-container > div.tab.selected {
   box-shadow: none;
   color: #00ceb8;
 }
+
+div.league-show-content-container {
+  height: 70%;
+}

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import MyTeam from "./MyTeam";
 import TeamIndex from "./TeamIndex";
 import MatchUp from "./MatchUp";
+import AddPlayers from "../players/AddPlayers";
 import { Query } from 'react-apollo'
 import Queries from "../../graphql/queries";
 const { FETCH_LEAGUE, FETCH_USER } = Queries;
@@ -23,20 +24,24 @@ const LeagueShow = ({ _id }) => {
   and make a case for it like so then
   make sure there's a tab for it to setTab to your content
   */
-  const getCurrentContent = () => {
+  const getCurrentContent = teams => {
     switch (tab.currentTab) {
       case "my team":
         return (
-          <MyTeam />
+          <MyTeam teams={teams} />
         );
       case "teams":
         return (
-          <TeamIndex />
+          <TeamIndex teams={teams} />
         );
       case "matchup":
         return (
           <MatchUp />
-        )
+        );
+      case "add players":
+        return (
+          <AddPlayers />
+        );
       default:
         return (
           <div>error</div>
@@ -76,14 +81,22 @@ const LeagueShow = ({ _id }) => {
               <span>Teams</span>
             </div>
             <div
+              style={{ zIndex: 3 }}
               className={tab.currentTab === "matchup" ? "tab selected" : "tab"}
               onClick={handletabChange("matchup")}
             >
               <span>Matchup</span>
             </div>
+            <div
+              style={{ zIndex: 2 }}
+              className={tab.currentTab === "add players" ? "tab selected" : "tab"}
+              onClick={handletabChange("add players")}
+            >
+              <span>Add Players</span>
+            </div>
           </div>
           <div className="league-show-content-container">
-            {getCurrentContent()}
+            {getCurrentContent(data.league.teams)}
           </div>
         </div>
       );

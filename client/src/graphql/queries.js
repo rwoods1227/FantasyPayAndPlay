@@ -143,6 +143,9 @@ export default {
         teams {
           name
           user
+          players {
+            name
+          }
         }
       }
     }
