@@ -82,7 +82,9 @@ const LeagueShow = ({ _id }) => {
               <span>Matchup</span>
             </div>
           </div>
-          {getCurrentContent()}
+          <div className="league-show-content-container">
+            {getCurrentContent()}
+          </div>
         </div>
       );
     }}
