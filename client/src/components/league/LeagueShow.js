@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import MyTeam from "./MyTeam";
+import TeamIndex from "./TeamIndex";
+import MatchUp from "./MatchUp";
 import { Query } from 'react-apollo'
 import Queries from "../../graphql/queries";
 const { FETCH_LEAGUE, FETCH_USER } = Queries;
@@ -15,19 +18,24 @@ const LeagueShow = ({ _id }) => {
     setTab(tab => ({ ...tab, currentTab }));
   };
 
+  /*
+  import the component you want to render
+  and make a case for it like so then
+  make sure there's a tab for it to setTab to your content
+  */
   const getCurrentContent = () => {
     switch (tab.currentTab) {
       case "my team":
         return (
-          <div>my team</div>
+          <MyTeam />
         );
       case "teams":
         return (
-          <div>teams list</div>
+          <TeamIndex />
         );
       case "matchup":
         return (
-          <div>matchup</div>
+          <MatchUp />
         )
       default:
         return (
@@ -73,8 +81,8 @@ const LeagueShow = ({ _id }) => {
             >
               <span>Matchup</span>
             </div>
-            {getCurrentContent()}
           </div>
+          {getCurrentContent()}
         </div>
       );
     }}
