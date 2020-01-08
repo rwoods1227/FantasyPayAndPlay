@@ -1132,10 +1132,13 @@ const mutation = new GraphQLObjectType({
         promiseArr.push(new League({ name, description, comissioner }).save());
         return Promise.all(promiseArr).then(resultArr => {
           let league = resultArr[0]._id;
-          console.log(league);
-          User.addUserToLeagueAndCreateTeam(comissioner, league);
-          console.log(resultArr[0]);
-          return resultArr[0];
+          let promiseArr = [];
+          // console.log(league);
+           promiseArr.push(User.addUserToLeagueAndCreateTeam(comissioner, league));
+           promiseArr.push(League.createAllLeaguePlayers(league));
+           return Promise.all(promiseArr).then(resultArr => {
+             return resultArr[0];
+           })
         });
       }
     },
@@ -1170,45 +1173,55 @@ const mutation = new GraphQLObjectType({
         return Team.removeTeamAndUserFromLeague(teamId, leagueId);
       }
     },
+    // moved most of this to league.js
+    // createAllLeaguePlayers: {
+    //   type: LeagueType,
+    //   args: {
+    //     leagueId: { type: GraphQLID }
+    //   },
+    //   resolve(parentValue, { leagueId }) {
+    //     let promiseArr = [];
+    //     // League.findById(leagueId).then(league => {
+    //     // console.log(league)
+    //     return Player.find({}).then(players => {
+    //       return League.findById(leagueId).then(league => {
+    //         players.forEach(player => {
+    //           promiseArr.push(
+    //             new OwnedPlayer({
+    //               playerId: player._id,
+    //               leagueOwned: false,
+    //               leagueId: league._id
+    //             }).save()
+    //           );
+    //           //  console.log(ownedPlayerObject)
+    //           // promiseArr.push(ownedPlayerObject.save())
+    //           // promiseArr.push(league.ownedPlayers.push(ownedPlayerObject));
+    //         });
+    //         return Promise.all(promiseArr).then(ownedPlayers => {
+    //           // let promiseArr = [];
+    //           console.log(ownedPlayers);
+    //           ownedPlayers.forEach(ownedPlayer => {
+    //             league.ownedPlayers.push(ownedPlayer._id);
+    //           });
+    //           return league.save();
+    //           // return Promise.all(promiseArr).then(resultArr => {
+    //           //   // console.log(resultArr)
+    //           //   return resultArr
+    //           // })
+    //         });
+    //       });
+    //     });
+    //     // console.log(league.ownedPlayers);
+    //     // })
+    //   }
+    // }
     createAllLeaguePlayers: {
       type: LeagueType,
       args: {
         leagueId: { type: GraphQLID }
       },
       resolve(parentValue, { leagueId }) {
-        let promiseArr = [];
-        // League.findById(leagueId).then(league => {
-        // console.log(league)
-        return Player.find({}).then(players => {
-          return League.findById(leagueId).then(league => {
-            players.forEach(player => {
-              promiseArr.push(
-                new OwnedPlayer({
-                  playerId: player._id,
-                  leagueOwned: false,
-                  leagueId: league._id
-                }).save()
-              );
-              //  console.log(ownedPlayerObject)
-              // promiseArr.push(ownedPlayerObject.save())
-              // promiseArr.push(league.ownedPlayers.push(ownedPlayerObject));
-            });
-            return Promise.all(promiseArr).then(ownedPlayers => {
-              // let promiseArr = [];
-              console.log(ownedPlayers);
-              ownedPlayers.forEach(ownedPlayer => {
-                league.ownedPlayers.push(ownedPlayer._id);
-              });
-              return league.save();
-              // return Promise.all(promiseArr).then(resultArr => {
-              //   // console.log(resultArr)
-              //   return resultArr
-              // })
-            });
-          });
-        });
-        // console.log(league.ownedPlayers);
-        // })
+        League.createAllLeaguePlayers(leagueId)
       }
     }
   }
