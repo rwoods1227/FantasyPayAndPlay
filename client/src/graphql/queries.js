@@ -122,5 +122,14 @@ export default {
         username
       }
     }
+  `,
+  FETCH_USER: gql`
+    query FetchUser($_id: ID!) {
+      user(_id: $_id) {
+        username
+        balance
+        email
+      }
+    }
   `
 };

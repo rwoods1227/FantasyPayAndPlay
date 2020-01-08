@@ -39,7 +39,7 @@ const UserProfile = (props) => {
         {({ loading, error, data }) => {
           if (loading) return <h1>Loading..</h1>;
           if (error) console.log(error);
-          let userBetHistory = data.user.userBet.map((game, idx) => {
+          let userBetHistory = data.user.userBet.reverse().map((game, idx) => {
               let checkWinLoss
               if (game.bet.win === 0) {
                 checkWinLoss = "Pending"

@@ -70,6 +70,7 @@ UserBetSchema.statics.updateTheUserBalance = function(betId, userId) {
   promiseArr.push(User.findById(userId));
   promiseArr.push(Bet.findById(betId));
   return Promise.all(promiseArr).then(([userBet, user, bet]) => {
+    console.log("here")
     // user.balance = Math.ceil(user.balance - userBet.value)
     if (bet.win === -1) {
       // user.balance = Math.ceil(user.balance - userBet.value);
@@ -84,10 +85,10 @@ UserBetSchema.statics.updateTheUserBalance = function(betId, userId) {
       const betValue = userBet.value;
       let calculateWinnings;
       if (moneyLineBet > 0) {
-        calculateWinnings = (100 / moneyLineBet) * 1.0 * betValue;
+        calculateWinnings = ((betValue * moneyLineBet * 1.0) / 100);
         user.balance = Math.ceil(user.balance + betValue + calculateWinnings);
       } else if (moneyLineBet < 0) {
-        calculateWinnings = (100 / moneyLineBet) * -1.0 * betValue;
+        calculateWinnings = (betValue * 100) / (moneyLineBet * -1.0);
         user.balance = Math.ceil(user.balance + betValue + calculateWinnings);
       }
     }

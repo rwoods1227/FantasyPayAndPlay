@@ -51,7 +51,7 @@ BetSchema.statics.changeWinValue = function(betId) {
   const Bet = mongoose.model("bet")
   const weeklyGameScoresAPI = {
     method: "GET",
-    url: "https://api.sportsdata.io/v3/nfl/scores/json/ScoresByWeek/2019/12",
+    url: "https://api.sportsdata.io/v3/nfl/scores/json/ScoresByWeek/2019/16",
     headers: {
       "Ocp-Apim-Subscription-Key": NFLKey
     }
@@ -63,12 +63,8 @@ BetSchema.statics.changeWinValue = function(betId) {
     const weeklyGameScores = gameData
     Bet.findById(betId).then((bet) => {
       const betGameID = bet.scoreId;
-      // console.log("1")
-      // console.log(weeklyGameScores.length)
+     
       for(let i = 0; i < weeklyGameScores.length; i++) {
-        // console.log(i)
-        // console.log(weeklyGameScores[i].ScoreID);
-        // console.log(betGameID)
         if (weeklyGameScores[i].ScoreID === betGameID) {
           const thisGame = weeklyGameScores[i]
           const homeScore = thisGame.HomeScore;
@@ -78,9 +74,7 @@ BetSchema.statics.changeWinValue = function(betId) {
           let detailsArr;
           let detailsArrNumber;
           let pointSpread;
-          // console.log(bet.details)
-          // console.log("here")
-    
+          console.log("here")
           switch (bet.wagerType) {
             case "Moneyline Away":
               if (awayScore > homeScore) {
@@ -187,7 +181,6 @@ BetSchema.statics.changeWinValue = function(betId) {
               }
           }
         }
-        // console.log(bet.win)
       }
       return bet.save();
     }).catch(err => {

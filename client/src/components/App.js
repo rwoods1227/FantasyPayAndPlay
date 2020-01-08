@@ -6,6 +6,7 @@ import Splash from "./splash/Splash";
 import AddPlayerPage from "./players/AddPlayers"
 import UserProfile from "./user/UserProfile";
 import UserIndex from "./user/UserIndex";
+import Credit from "./main/Credit"
 import Main from "./main/Main";
 
 import AuthRoute from "../util/route_util";
@@ -23,6 +24,7 @@ const App = () => (
       <AuthRoute path="/users/:id" component={UserProfile} routeType="protected" />
       {/* <AuthRoute exact path="/users" component={UserIndex} routeType="protected" /> */}
       <AuthRoute path="/app" component={Main} routeType="protected" />
+      <Route exact path="/credits" component={Credit} />
       <Route path="/" component={Splash} />
     </Switch>
   </div>

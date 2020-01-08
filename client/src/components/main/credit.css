@@ -1,0 +1,32 @@
+.main-credit-flex {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  margin: auto;
+  justify-content: center;
+}
+
+.credit-card {
+  padding: 60px;
+  margin: 20px;
+  box-shadow: 2px 1px 12px 2px rgba(255,255,255,.16), 2px 1px 12px 2px rgba(255,255,255,.16);
+}
+
+.credit-card-links {
+  display: flex;
+  margin-top: 10px;
+}
+
+.cc-link {
+  margin-right: 12px;
+  list-style-type: circle;
+}
+
+.cc-name {
+  font-size: 20px;
+}
+
+.cc-link:hover {
+  cursor: pointer;
+  color: #21ce99;
+}
