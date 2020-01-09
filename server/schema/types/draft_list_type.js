@@ -10,12 +10,17 @@ const {
 } = graphql;
 
 let DraftListType = new GraphQLObjectType({
-  name: "OwnedPlayerType",
+  name: "DraftListType",
   fields: () => ({
     _id: { type: GraphQLID },
     playerId: { type: GraphQLID },
-    team: { type: GraphQLID },
-    rank: {type: GraphQLInt}
+    team: {
+      type: require('./team_type'),
+        resolve(parentValue) {
+          return Team.findById(parentValue.team)
+        }
+    },
+    rank: { type: GraphQLInt }
   })
 });
 

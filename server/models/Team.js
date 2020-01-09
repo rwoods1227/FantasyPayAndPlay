@@ -36,14 +36,14 @@ const TeamSchema = new Schema({
 });
 
 
-TeamSchema.statics.fetchTeamPlayers = TeamId => {
+TeamSchema.statics.fetchTeamPreDraftPlayerRankings = TeamId => {
   const Team = mongoose.model("team");
   return Team.findById(TeamId)
     .populate("preDraftPlayerRankings")
-    .then(preDraftPlayerRankings => team.preDraftPlayerRankings);
+    .then(team => team.preDraftPlayerRankings);
 };
 
-TeamSchema.statics.fetchTeamPreDraftPlayerRankings = TeamId => {
+TeamSchema.statics.fetchTeamPlayers = TeamId => {
   const Team = mongoose.model("team");
   return Team.findById(TeamId)
     .populate("players")
@@ -99,6 +99,55 @@ TeamSchema.statics.removeTeamAndUserFromLeague = (teamId, LeagueId) => {
   });
   return Promise.all(promiseArr).then(
   () => console.log("complete"));
+};
+
+TeamSchema.statics.createDraftListRankings = teamId => {
+  const Player = mongoose.model("player");
+  const Team = mongoose.model("team");
+  const League = mongoose.model("league");
+  const DraftList = mongoose.model("draftList");
+  // may need promise stuff unsure
+  let promiseArr = [];
+  Player.find({}).then(players => {
+    let semiSortedPlayers = players.sort((a, b) => (!a.averageDraftPosition  || a.averageDraftPosition > b.averageDraftPosition) ? 1 : -1);
+    let noNullPlayers = [];
+    let nullPlayers = [];
+    semiSortedPlayers.forEach((player =>{
+      if (!player.averageDraftPosition){
+        nullPlayers.push(player)
+      }
+      else{
+        noNullPlayers.push(player)
+      }
+    }))
+    let sortedPlayers = noNullPlayers.concat(nullPlayers);
+    
+
+    Team.findById(teamId).then(team => {
+      let i = 1;
+      sortedPlayers.forEach(player => {
+      
+        promiseArr.push(
+          new DraftList({
+            playerId: player._id,
+            rank: i,
+            team: team._id
+          }).save()
+        );
+        i+=1;
+      });
+      return Promise.all(promiseArr).then(draftListPlayers => {
+        // console.log(draftListPlayers);
+        // console.log("finish?");
+        // console.log(team);
+        draftListPlayers.forEach(preDraftPlayerRanking => {
+          //  console.log(preDraftPlayerRanking);
+          team.preDraftPlayerRankings.push(preDraftPlayerRanking);
+        });
+        return team.save();
+      });
+    });
+  });
 };
 
 

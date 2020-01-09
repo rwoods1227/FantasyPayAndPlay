@@ -85,14 +85,17 @@ UserSchema.statics.addUserToLeagueAndCreateTeam = (userId, leagueId) => {
         newleague.teams.push(newTeam);
         user.leagues.push(newleague);
         newleague.users.push(user);
-        promiseArr.push(newTeam.save());
+        // promiseArr.push(newTeam.save());
+        promiseArr.push(Team.createDraftListRankings(newTeam._id));
         promiseArr.push(user.save());
         promiseArr.push(newleague.save())
+        promiseArr.push(newTeam.save());
     });
-
+    console.log(`This is the input ${newTeam}`);
+ 
   });
   return Promise.all(promiseArr).then(
-    ([user]) => console.log("complete"));
+    resultArr => console.log(`This is the output ${newTeam}`));
 };
 
 
