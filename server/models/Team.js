@@ -2,22 +2,23 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const TeamSchema = new Schema({
-  // should probably require user here
-  user:
-  {
+  user: {
     type: Schema.Types.ObjectId,
     ref: "user",
     required: true
   },
-  league:
-  {
+  league: {
     type: Schema.Types.ObjectId,
     ref: "league",
     required: true
   },
   name: {
     type: String,
-    required: false,
+    required: false
+  },
+  description: {
+    type: String,
+    required: false
   },
   players: [
     {
@@ -25,23 +26,31 @@ const TeamSchema = new Schema({
       ref: "player"
     }
   ],
-  description: {
-    type: String,
-    required: false,
-  }
-
-  // eventually a league association here 
+  // going to be populated by Player({}) filtered by averageDraftPosition and filled
+  preDraftPlayerRankings: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "draftList"
+    }
+  ]
 });
 
 
 TeamSchema.statics.fetchTeamPlayers = TeamId => {
   const Team = mongoose.model("team");
   return Team.findById(TeamId)
-    .populate("players")
-    .then(team=> team.players);
+    .populate("preDraftPlayerRankings")
+    .then(preDraftPlayerRankings => team.preDraftPlayerRankings);
 };
 
-// this gets rid of association to players and to the user associated though the name is semi confusing
+TeamSchema.statics.fetchTeamPreDraftPlayerRankings = TeamId => {
+  const Team = mongoose.model("team");
+  return Team.findById(TeamId)
+    .populate("players")
+    .then(team => team.players);
+};
+
+// this gets rid of association to players and to the user associated though the name is semi-confusing
 TeamSchema.statics.removePlayersAndDestroy= (teamId) => {
   const Player = mongoose.model("player");
   const Team = mongoose.model("team");

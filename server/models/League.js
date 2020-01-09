@@ -120,4 +120,10 @@ LeagueSchema.statics.createAllLeaguePlayers = (leagueId) => {
         });
 }
 
+
+// LeagueSchema.statics.offlineDraft = (leagueId) => {
+
+
+// }
+
 module.exports = mongoose.model("league", LeagueSchema);
