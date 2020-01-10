@@ -24,8 +24,8 @@ const SideBar = ({ changeMain }) => {
         </li>
         <li>
           <Link to={`/credits`}>
-            <div className="sidebar-item selected">
-              <div className="sidebar-item-icon bets"></div>
+            <div className="sidebar-item credits-sidebar-option">
+              <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" className="sidebar-item-icon bets sidebar-credits-icon"></img>
               <div className="sidebar-item-content">
                 <h3>Credits</h3>
                 <span>Check out our Github accounts</span>

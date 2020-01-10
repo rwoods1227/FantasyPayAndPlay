@@ -1,23 +1,30 @@
 # FantasyPay&Play
-# [FantasyPay&Play Demo](https://fantasypayandplay.herokuapp.com/#/)
-
-## Group Members and Contributions
-
-Ryan Woods - [Linkedin](https://www.linkedin.com/in/ryan-woods-530679b4/) - [Github](https://github.com/rwoods1227)
-
-Zach Williams - [Linkedin](https://www.linkedin.com/in/zachary-currell-williams/)
-- [Github](https://github.com/ZacharyCWilliams)
-
-Patrick Mondala - ADDED SOON
+# [FantasyPay&Play Live Demo](https://fantasypayandplay.herokuapp.com/#/)
 
 ## Technologies
  * Backend: MongoDB, Express, Express / GraphQL, and Node.js (MERN)
  * Frontend: JavaScript, React, Redux, Apollo / GraphQL
- * FantasyAPI/BettingAPI(https://sportsdata.io/developers/api-documentation/nfl#/fantasy)
+ * [Fantasy Football/Betting API](https://sportsdata.io/developers/api-documentation/nfl#/fantasy)
 
 ## Background and Overview
 
 FantasyPay&Play is a fantasy football and sports betting website. It incorporates two major football fandom passtimes through a football fantasy league clone and a simple money-line sports betting client
+
+Screenshot 1 (Splash) 
+Screenshot 2 (Main Login page)
+
+# Features & Technical Challenges
+
+## Sports Betting
+
+Screenshot 3 (Betting Page)
+Screenshot 4 (User Profile)
+
+## Fantasy Football
+
+Screenshot 5 (Leagues -- Schedule & Draft)
+Screenshot 6 (Team Page)
+
 
 ## Functionality & MVP
 - [ ] User Auth(site not useable with sign-in)
@@ -40,19 +47,21 @@ FantasyPay&Play is a fantasy football and sports betting website. It incorporate
 - [ ] Bet Show page
 
 
+## Group Members
 
-# Design 
+Ryan Woods
+  - [Portfolio](https://www.ryanwoodsdev.com/)
+  - [Linkedin](https://www.linkedin.com/in/ryan-woods-530679b4/) 
+  - [Github](https://github.com/rwoods1227)
 
-# Group Members and Work Breakdown
- * Zach: https://github.com/zacharycwilliams
- * Patrick: https://github.com/Patrick-Mondala
- * Ryan: https://github.com/rwoods1227
+Zach Williams 
+  - [Portfolio](http://swezachary.com/)
+  - [Linkedin](https://www.linkedin.com/in/zachary-currell-williams/)
+  - [Github](https://github.com/ZacharyCWilliams)
 
-# To-dos
-- [ ] League Chat(Transaction Log)
-- [ ] Kickers and Defense
-- [ ] Subcriptions(Realish-Time updating)
-- [ ] Trading 
-- [ ] Player News
+Patrick Mondala
+  - [Portfolio](https://patrick-mondala.github.io/portfolio-site/#)
+  - [Linkedin](https://www.linkedin.com/in/patrick-mondala/)
+  - [Github](https://github.com/Patrick-Mondala)
 
 

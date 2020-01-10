@@ -23,7 +23,7 @@ const App = () => (
       <AuthRoute path="/bets/:id" component={BetDetail} routeType="protected" /> */}
       <AuthRoute path="/users/:id" component={UserProfile} routeType="protected" />
       {/* <AuthRoute exact path="/users" component={UserIndex} routeType="protected" /> */}
-      <AuthRoute path="/app" component={Main} routeType="protected" />
+      <AuthRoute exact path="/app" component={Main} routeType="protected" />
       <Route exact path="/credits" component={Credit} />
       <Route path="/" component={Splash} />
     </Switch>
