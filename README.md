@@ -2,28 +2,35 @@
 # [FantasyPay&Play Live Demo](https://fantasypayandplay.herokuapp.com/#/)
 
 ## Technologies
- * Backend: MongoDB, Express, Express / GraphQL, and Node.js (MERN)
- * Frontend: JavaScript, React, Redux, Apollo / GraphQL
+ * Backend: MongoDB, Express, GraphQL, and Node.js (MERN)
+ * Frontend: JavaScript, React, Redux, Apollo/GraphQL
  * [Fantasy Football/Betting API](https://sportsdata.io/developers/api-documentation/nfl#/fantasy)
 
 ## Background and Overview
 
 FantasyPay&Play is a fantasy football and sports betting website. It incorporates two major football fandom passtimes through a football fantasy league clone and a simple money-line sports betting client
 
-Screenshot 1 (Splash) 
-Screenshot 2 (Main Login page)
+[Splash Page](https://i.imgur.com/nlOyF2p.png)
+[Login Page](https://i.imgur.com/vtUQeZT.png)
 
 # Features & Technical Challenges
 
 ## Sports Betting
 
-Screenshot 3 (Betting Page)
-Screenshot 4 (User Profile)
+Screenshot 1 (Betting Page)
+Screenshot 2 (Betting Code)
+
+Screenshot 3 (User Profile)
+Screenshot 4 (User Profile Code)
 
 ## Fantasy Football
 
-Screenshot 5 (Leagues -- Schedule & Draft)
-Screenshot 6 (Team Page)
+Screenshot 1 (Leagues -- Schedule & Draft)
+Screenshot 2 (Schedule Code)
+Screenshot 3 (Draft Code)
+
+Screenshot 4 (Team Page)
+Screenshot 5 (Team Page Code)
 
 
 ## Functionality & MVP
