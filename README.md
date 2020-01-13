@@ -1,5 +1,5 @@
 # FantasyPay&Play(WIP)
-# [FantasyPay&Play Demo](https://fantasypayandplay.herokuapp.com/#/)
+# [Live Demo](https://fantasypayandplay.herokuapp.com/#/)
 
 
 ## Technologies
