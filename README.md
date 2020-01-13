@@ -82,7 +82,35 @@ This is possible by sending the changeMain function down as a prop to the sideba
   );
 ```
 ### Cron-Jobs
-
+Because this site uses real-world data based off of the NFL, the data for bets and fantasy leagues needs to be updated. In order to accomplish this we used cron-jobs to update bets and players on a weekly basis. 
+```javascript
+//index.js
+cron.schedule(“59 23 * * 3”, function() {
+      const nflStart = new Date("September 3, 2019 00:20:18");
+      let parsedStart = Date.parse(nflStart);
+      const nflEnd = new Date("December 30, 2019 00:20:18");
+      let parsedEnd = Date.parse(nflEnd);
+      let date = Date.now();
+      if ( date >= parsedStart && date <= parsedEnd){
+        let i = 0;
+        while((parsedStart + (i*604800000)) < date){
+          i++
+        }
+……..
+       client
+          .mutate({
+            mutation: CREATE_ALL_BETS,
+            variables: {
+              url:
+                `https://api.sportsdata.io/v3/nfl/odds/json/GameOddsByWeek/${year}/${week}`
+            }
+          })
+          .then(({ data }) => {
+            console.log(data);
+          });
+      }
+    });
+```
 ## Upcoming Additions
 - [ ] League Chat(Transaction Log)
 - [ ] Player News
