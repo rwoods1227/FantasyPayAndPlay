@@ -32,7 +32,7 @@ createAllPlayers: {
 * Player data is assembled into the Player model after the promiseArr has saved all of the intermediate data
 * Nested Promise Arrays used to secure data, and force all actions to complete and models to save in order
 ```javascript
- //after assembling all data from 4 ApiCalls
+//after assembling all data from 4 ApiCalls
 return Promise.all(promiseArr).then(() => {
           let promiseArr = [];
           Object.values(allPlayers).forEach(player => {
