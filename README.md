@@ -15,6 +15,18 @@ FantasyPay&Play is a fantasy football and sports betting website. It incorporate
 
 # Features & Technical Challenges
 
+Constructed User Auth by sending 
+
+Integrated IEX (Third Party) API by sending an HTTP query with a secured API key for real-time U.S. stock market data
+
+Created User Portfolio Dashboard that updates off of our Redux stores state
+User Watchlist - Users can add companies to a watchlist so that they can track specific companies that interest them
+Company Profile - Users can see detailed information about an individual company, including detailed financial information and stats. Users can also buy, sell, and watch stocks from this page
+Buying/Selling Shares - Users are able to purchase and sell company shares. Their balance and portoflio both update in real time alongside their trading decisions
+Search - Users can get instant live search results of company symbols as they are typing the company name or symbol
+
+Employed Docker container tooling to ensure code is shipped reliably across all platforms
+
 ## Sports Betting
 
 Screenshot 1 (Betting Page)
