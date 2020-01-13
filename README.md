@@ -14,24 +14,7 @@ Company Profile - Users can see detailed information about an individual company
 Buying/Selling Shares - Users are able to purchase and sell company shares. Their balance and portoflio both update in real time alongside their trading decisions
 Search - Users can get instant live search results of company symbols as they are typing the company name or symbol
 
-Employed Docker container tooling to ensure code is shipped reliably across all platforms
 
-## Sports Betting
-
-Screenshot 1 (Betting Page)
-Screenshot 2 (Betting Code)
-
-Screenshot 3 (User Profile)
-Screenshot 4 (User Profile Code)
-
-## Fantasy Football
-
-Screenshot 1 (Leagues -- Schedule & Draft)
-Screenshot 2 (Schedule Code)
-Screenshot 3 (Draft Code)
-
-Screenshot 4 (Team Page)
-Screenshot 5 (Team Page Code)
 
 FantasyPay&Play is a fantasy football and sports betting website. It incorporates two major football fandom passtimes through a simple football fantasy league and a football betting client, which uses a starting stipend of "money" for fun cost-free betting
 ![FP&P Home](./screenshots/home.png)
