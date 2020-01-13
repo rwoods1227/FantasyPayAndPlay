@@ -1,0 +1,30 @@
+
+div.sidebar-item.selected {
+  border-left: 7px solid #00ceb8;
+  background: #283245;
+}
+
+div.sidebar-item-icon {
+  width: 48px;
+  height: 48px;
+  flex: 0 0 48px;
+  background-size: contain;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 300;
+  font-size: 18px;
+  position: relative;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-right: 5px;
+}
+
+div.sidebar-item-icon.bets {
+  background-image: url("../bets/bets_icon.png");
+}
+
+div.sidebar-item-icon.league {
+  background-image: url("../league/league_trophy.png");
+}

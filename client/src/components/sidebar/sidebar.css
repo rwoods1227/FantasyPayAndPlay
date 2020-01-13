@@ -1,5 +1,5 @@
 div.sidebar {
-  width: 350px;
+  width: 80%;
 }
 
 div.sidebar-item {
@@ -49,4 +49,17 @@ div.sidebar-item-content > span {
   font-size: 12px;
   opacity: 0.75;
   padding-top: 5px;
+}
+
+div.league-index > h2 {
+  font-size: 10px;
+  text-transform: uppercase;
+  color: #fff;
+  opacity: 1;
+  flex-grow: 1;
+  line-height: 18px;
+  font-family: 'Muli';
+  letter-spacing: 0.23px;
+  font-weight: 700;
+  margin: 20px;
 }

@@ -1,8 +1,10 @@
 div.players-panel {
   background: #1a1f2e;
   color: white;
-  height: 564px;
-  width: 1140px;
+  height: 70%;
+  min-height: 464px;
+  width: 100%;
+  min-width: 733px;
 }
 
 div.players-panel > div.header-container { 

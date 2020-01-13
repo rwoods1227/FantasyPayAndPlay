@@ -1,5 +1,6 @@
 div.main-page {
   display: flex;
+  justify-content: space-around;
   height: 100vh;
   background-color: #18202f;
   color: white;
@@ -7,4 +8,45 @@ div.main-page {
 
 div.main-content {
   width: 50%;
+  padding-top: 20px;
+  padding-bottom: 10px;
+}
+
+div.main-content > div > div.header > div.header-icon {
+  width: 48px;
+  height: 48px;
+  flex: 0 0 48px;
+  background-size: contain;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 300;
+  font-size: 18px;
+  position: relative;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-right: 10px;
+}
+
+div.main-content > div > div.header {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+div.main-content > div > div.header > div.header-content > h1 {
+  align-items: center;
+  font-size: 24px;
+  font-weight: 800;
+  line-height: 32px;
+}
+
+div.main-content > div > div.header > div.header-content > span {
+  color: #7888a4;
+  font-size: 12px;
+}
+
+div.right-sidebar {
+  width: 10%;
 }
