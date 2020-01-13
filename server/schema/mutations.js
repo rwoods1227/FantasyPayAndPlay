@@ -29,6 +29,8 @@ const LeagueType = require("./types/league_type");
 const League = mongoose.model("league");
 const OwnedPlayer = mongoose.model("ownedPlayer");
 const OwnedPlayerType = require("./types/owned_player_type");
+const Draftlist = mongoose.model("draftList");
+const DraftListType = require("./types/draft_list_type");
 
 
 
@@ -1239,6 +1241,16 @@ const mutation = new GraphQLObjectType({
       },
       resolve(parentValue, { teamId }) {
         Team.createDraftListRankings(teamId);
+      }
+    },
+    swapRankings: {
+      type: DraftListType,
+      args: {
+        draftListId: { type: GraphQLID },
+        newRank: { type: GraphQLInt }
+      },
+      resolve(parentValue, { draftListId, newRank }) {
+        Draftlist.swapRankings(draftListId, newRank);
       }
     }
   }
