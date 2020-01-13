@@ -10,7 +10,7 @@
 ## Background and Overview
 
 FantasyPay&Play is a fantasy football and sports betting website. It incorporates two major football fandom passtimes through a simple football fantasy league and a football betting client, which uses a starting stipend of "money" for fun cost-free betting
-
+![FP&P Home](./screenshots/home.png)
 ## Features and Technical Challenges
 
 ### Player Models
