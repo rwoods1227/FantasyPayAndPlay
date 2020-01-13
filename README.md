@@ -41,28 +41,6 @@ return Promise.all(promiseArr).then(() => {
 
                 weeklyPassingAttempts: player.weeklyPassingAttempts,
                 weeklyPassingCompletions: player.weeklyPassingCompletions,
-                weeklyPassingYards: player.weeklyPassingYards,
-                weeklyPassingTouchdowns: player.weeklyPassingTouchdowns,
-                weeklyPassingInterceptions: player.weeklyPassingInterceptions,
-                weeklyRushingAttempts: player.weeklyRushingAttempts,
-                weeklyRushingYards: player.weeklyRushingYards,
-                weeklyRushingTouchdowns: player.weeklyRushingTouchdowns,
-                weeklyFumblesLost: player.weeklyFumblesLost,
-                weeklyReceivingTargets: player.weeklyReceivingTargets,
-                weeklyReceptions: player.weeklyReceptions,
-                weeklyReceivingYards: player.weeklyReceivingYards,
-                weeklyReceivingTouchdowns: player.weeklyReceivingTouchdowns,
-                weeklyTwoPointConversionPasses:
-                  player.weeklyTwoPointConversionPasses,
-                weeklyTwoPointConversionRuns:
-                  player.weeklyTwoPointConversionRuns,
-                weeklyTwoPointConversionReceptions:
-                  player.weeklyTwoPointConversionReceptions,
-                weeklyFantasyPoints: player.weeklyFantasyPoints,
-                weeklyFantasyPointsPPR: player.weeklyFantasyPointsPPR,
-                weeklyActive: player.weeklyActive,
-
-                projWPassingAttempts: player.projWPassingAttempts,
 		etc….
 ```
 
