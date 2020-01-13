@@ -1,4 +1,4 @@
-# FantasyPay&Play(WIP)
+# FantasyPay&Play
 # [Live Demo](https://fantasypayandplay.herokuapp.com/#/)
 
 
