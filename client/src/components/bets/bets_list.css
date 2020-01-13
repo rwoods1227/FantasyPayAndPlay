@@ -1,51 +1,18 @@
 div.bets-container {
-  padding-top: 20px;
-  padding-bottom: 10px;
+  height: 70%;
 }
 
 div.bets-container > ul.bets-list {
-  height: 502px;
+  height: 100%;
+  min-width: 500px;
   overflow: hidden;
   overflow-y: scroll;
   background-color: #283245;
   border-bottom-left-radius: 10px;
 }
 
-div.bets-icon {
+div.header-icon.bets-icon {
   background-image: url("../bets/bets_icon.png");
-  width: 48px;
-  height: 48px;
-  flex: 0 0 48px;
-  background-size: contain;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  font-weight: 300;
-  font-size: 18px;
-  position: relative;
-  background-color: #fff;
-  background-repeat: no-repeat;
-  background-position: center;
-  margin-right: 10px;
-}
-
-div.bets-container > div.header {
-  display: flex;
-}
-
-div.bets-container > div.header > div.header-content > h1 {
-  align-items: center;
-  font-size: 24px;
-  font-weight: 800;
-  line-height: 32px;
-}
-
-div.bets-container > div.header > div.header-content > span {
-  color: #7888a4;
-  font-size: 12px;
-  margin-bottom: 20px;
 }
 
 div.bets-item {

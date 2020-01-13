@@ -90,5 +90,34 @@ LeagueSchema.statics.deleteTeamsAndDestroy = (leagueId) => {
 }
 
 
+LeagueSchema.statics.createAllLeaguePlayers = (leagueId) => {
+  const Player = mongoose.model("player");
+  const Team = mongoose.model("team");
+  const League = mongoose.model("league");
+  const OwnedPlayer = mongoose.model("ownedPlayer");
+  // may need promise stuff unsure
+        let promiseArr = [];
+        Player.find({}).then(players => {
+          League.findById(leagueId).then(league => {
+            players.forEach(player => {
+              promiseArr.push(
+                new OwnedPlayer({
+                  playerId: player._id,
+                  leagueOwned: false,
+                  leagueId: league._id
+                }).save()
+              );
+            });
+            return Promise.all(promiseArr).then(ownedPlayers => {
+              console.log("made LeaguePlayers");
+              ownedPlayers.forEach(ownedPlayer => {
+                // console.log(ownedPlayer._id);
+                league.ownedPlayers.push(ownedPlayer._id);
+              });
+              return league.save();
+            });
+          });
+        });
+}
 
 module.exports = mongoose.model("league", LeagueSchema);

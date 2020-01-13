@@ -25,6 +25,7 @@ const Main = () => {
       <div className="main-content">
         <main.mainComponent {...main.props} changeMain={changeMain} />
       </div>
+      <div className="right-sidebar"></div>
     </div>
   );
 };
