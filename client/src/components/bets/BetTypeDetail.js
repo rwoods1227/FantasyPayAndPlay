@@ -22,14 +22,18 @@ const BetTypeDetail = ({ bets, selected, changeMain }) => {
                     value: 0
                   }}
                   onSubmit={values =>
-                    createUserBet({ variables: {
-                      userId: localStorage.getItem("currentUserId"),
-                      betId: bet._id,
-                      value: values.value
-                    }}).then(() => {
-                      alert.show("Bet Placed");
-                    })
-                  }
+                    {if (values.value > 0) {
+                      createUserBet({ variables: {
+                        userId: localStorage.getItem("currentUserId"),
+                        betId: bet._id,
+                        value: values.value
+                      }}).then(() => {
+                        alert.show("Bet Placed");
+                      })
+                    } else {
+                      alert.show("Error! Try Again")
+                    }
+                  }}
                 >
                   <Form className="bet-placement-form">
                     <Field name="value" type="number" placeholder="Enter bet"/>

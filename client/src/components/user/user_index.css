@@ -99,14 +99,25 @@
 }
 
 .user-profile-info-container{
-  background-color: rgba(40, 50, 69, 0.6);
+  /* background-color: rgba(40, 50, 69, 0.6);
   padding: 5px;
   border: 5px solid white;
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
   display: flex;
   flex-direction: column;
   justify-content: center;
-  text-align:center;
+  text-align:center; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  cursor: pointer;
+  background-color: #283245;
+  margin-bottom: 10px;
+  padding: 25px 10px 25px 10px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  border: 3px solid #283245;
+  margin-top: 36px;
 }
 
 #back-to-bets-hover:hover{
@@ -115,4 +126,21 @@
 
 .inline-ele {
   display: inline;
+}
+
+.check-win-loss-Pending{
+  color: yellow;
+  font-weight: 700;
+}
+.check-win-loss-Won{
+  color: #21ce99;
+  font-weight: 700;
+}
+.check-win-loss-Lost{
+  color: red;
+  font-weight: 700;
+}
+.check-win-loss-Push{
+  color: white;
+  font-weight: 700;
 }

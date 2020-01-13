@@ -36,7 +36,7 @@ const BetSchema = new Schema({
   },
   win: {
     type: Number,
-    default: 2
+    default: 0
  }
 });
 
@@ -51,7 +51,7 @@ BetSchema.statics.changeWinValue = function(betId) {
   const Bet = mongoose.model("bet")
   const weeklyGameScoresAPI = {
     method: "GET",
-    url: "https://api.sportsdata.io/v3/nfl/scores/json/ScoresByWeek/2019/10",
+    url: "https://api.sportsdata.io/v3/nfl/scores/json/ScoresByWeek/2019/12",
     headers: {
       "Ocp-Apim-Subscription-Key": NFLKey
     }
@@ -87,7 +87,7 @@ BetSchema.statics.changeWinValue = function(betId) {
                 bet.win = 1;
                 break;
               } else if (awayScore === homeScore) {
-                bet.win = 0;
+                bet.win = 2;
                 break;
               } else {
                 bet.win = -1;
@@ -98,7 +98,7 @@ BetSchema.statics.changeWinValue = function(betId) {
                 bet.win = 1;
                 break;
               } else if (homeScore === awayScore) {
-                bet.win = 0;
+                bet.win = 2;
                 break;
               } else {
                 bet.win = -1;
@@ -114,7 +114,7 @@ BetSchema.statics.changeWinValue = function(betId) {
                   bet.win = 1;
                   break;
                 } else if (homeScore === beatSpread) {
-                  bet.win = 0;
+                  bet.win = 2;
                   break;
                 } else {
                   bet.win = -1;
@@ -126,7 +126,7 @@ BetSchema.statics.changeWinValue = function(betId) {
                     bet.win = -1
                     break;
                   } else if (awayScore === beatSpread) {
-                    bet.win = 0
+                    bet.win = 2
                     break;
                   } else {
                     bet.win = 1
@@ -143,7 +143,7 @@ BetSchema.statics.changeWinValue = function(betId) {
                   bet.win = 1;
                   break;
                 } else if (homeScore === beatSpread) {
-                  bet.win = 0;
+                  bet.win = 2;
                   break;
                 } else {
                   bet.win = -1;
@@ -155,7 +155,7 @@ BetSchema.statics.changeWinValue = function(betId) {
                   bet.win = -1
                   break;
                 } else if (awayScore === beatSpread) {
-                  bet.win = 0
+                  bet.win = 2
                   break;
                 } else {
                   bet.win = 1
@@ -168,7 +168,7 @@ BetSchema.statics.changeWinValue = function(betId) {
                 bet.win = 1;
                 break
               } else if (overUnder === totalPoints) {
-                bet.win = 0;
+                bet.win = 2;
                 break;
               } else {
                 bet.win = -1;
@@ -179,7 +179,7 @@ BetSchema.statics.changeWinValue = function(betId) {
                 bet.win = 1;
                 break;
               } else if (overUnder === totalPoints) {
-                bet.win = 0;
+                bet.win = 2;
                 break;
               } else {
                 bet.win = -1;

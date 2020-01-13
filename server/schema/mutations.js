@@ -35,7 +35,7 @@ const OwnedPlayerType = require("./types/owned_player_type");
 const authOptions = {
   method: "GET",
   url:
-    "https://api.sportsdata.io/v3/nfl/odds/json/GameOddsByWeek/2019/15",
+    "https://api.sportsdata.io/v3/nfl/odds/json/GameOddsByWeek/2019/16",
   headers: {
     "Ocp-Apim-Subscription-Key": NFLKey
   },
@@ -44,7 +44,7 @@ const authOptions = {
 const weeklyStats = {
   method: "GET",
   url:
-    "https://api.sportsdata.io/v3/nfl/stats/json/PlayerGameStatsByWeek/2019/14",
+    "https://api.sportsdata.io/v3/nfl/stats/json/PlayerGameStatsByWeek/2019/16",
   headers: {
     "Ocp-Apim-Subscription-Key": NFLKey
   },
@@ -53,7 +53,7 @@ const weeklyStats = {
 const projWeeklyStats = {
   method: "GET",
   url:
-    "https://api.sportsdata.io/v3/nfl/projections/json/PlayerGameProjectionStatsByWeek/2019/15",
+    "https://api.sportsdata.io/v3/nfl/projections/json/PlayerGameProjectionStatsByWeek/2019/16",
   headers: {
     "Ocp-Apim-Subscription-Key": NFLKey
   },
@@ -80,7 +80,7 @@ const projSeasonStats = {
 
 const weeklyGameScores = {
   method: "GET",
-  url: "https://api.sportsdata.io/v3/nfl/scores/json/ScoresByWeek/2019/14",
+  url: "https://api.sportsdata.io/v3/nfl/scores/json/ScoresByWeek/2019/16",
   headers: {
     "Ocp-Apim-Subscription-Key": NFLKey
   }

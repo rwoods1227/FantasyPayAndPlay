@@ -75,7 +75,7 @@ UserBetSchema.statics.updateTheUserBalance = function(betId, userId) {
       // user.balance = Math.ceil(user.balance - userBet.value);
       userBet.payout = true;
       return userBet.save()
-    } else if (bet.win === 0) {
+    } else if (bet.win === 2) {
       user.balance = Math.ceil(user.balance + userBet.value);
       userBet.payout = true;
       return userBet.save();

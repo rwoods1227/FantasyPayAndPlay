@@ -42,21 +42,21 @@ const UserProfile = (props) => {
           let userBetHistory = data.user.userBet.map((game, idx) => {
               let checkWinLoss
               if (game.bet.win === 0) {
-                checkWinLoss = "Push"
+                checkWinLoss = "Pending"
               } else if (game.bet.win === -1) {
                 checkWinLoss = "Lost"
               } else if (game.bet.win === 1) {
                 checkWinLoss = "Won"
               } else if (game.bet.win === 2) {
-                checkWinLoss = "Pending"
+                checkWinLoss = "Push"
               }
               
             return (
               <div className="game-box">
                 <li>Matchup: {game.bet.description}</li>
                 <li>Bet Description: {game.bet.details}</li>
-                <li>Amount wagered: {game.value}</li>
-                <li>Won/Lost: <span className={`check-win-loss-${idx} inline-ele`}>{checkWinLoss}</span></li>
+                <li>Amount wagered: ${game.value}</li>
+                <li>Won/Lost: <span className={`check-win-loss-${checkWinLoss} inline-ele`}>{checkWinLoss}</span></li>
                 {/* <li>Won/Lost: {game.bet.win}</li> */}
                 <li>Line: {game.bet.line}</li>
               </div>
