@@ -96,7 +96,7 @@ cron.schedule(“59 23 * * 3”, function() {
         while((parsedStart + (i*604800000)) < date){
           i++
         }
-……..
+  // later on in the cron-block
        client
           .mutate({
             mutation: CREATE_ALL_BETS,
