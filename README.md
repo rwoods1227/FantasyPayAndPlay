@@ -114,8 +114,11 @@ cron.schedule(“59 23 * * 3”, function() {
     });
 ```
 * Allows for real-life feedback, when player stats and bets update weekly in acccordance to the weekly NFL games
-* Bets, Players, and Userbet models all have functions to update them weekly
 * Updates on Wednesday nights to avoid overlapping with NFL games
+* Bets, Players, and Userbet models all have functions to update them weekly
+
+
+![FP&P Userbets](./screenshots/userbets.png)
 ## Upcoming Additions
 - [ ] League Chat(Transaction Log)
 - [ ] Player News
