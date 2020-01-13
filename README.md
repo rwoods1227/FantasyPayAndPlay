@@ -13,7 +13,7 @@ FantasyPay&Play is a fantasy football and sports betting website. It incorporate
 
 ## Features and Technical Challenges
 
-### Nfl Players
+### Player Models
 ```javascript
 //mutations.js
 createAllPlayers: {
