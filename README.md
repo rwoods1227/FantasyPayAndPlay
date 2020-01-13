@@ -50,6 +50,7 @@ return Promise.all(promiseArr).then(() => {
 ![FP&P Sidebar](./screenshots/sidebar.png)
 
 The main content is displayed using the side bar's state of the mainComponent
+```javascript
   const [main, setMain] = useState({
     mainComponent: BetsIndex, //default selected component
     props: null
@@ -57,8 +58,9 @@ The main content is displayed using the side bar's state of the mainComponent
   const changeMain = (mainComponent, props) => (
     setMain(main => ({ ...main, mainComponent, props }))
   );
-
+```
 This is possible by sending the changeMain function down as a prop to the sidebar and their items, and the component currently displayed as seen from the main page component
+```javascript
   return (
     <div className="main-page">
       <div className="sidebar-container">
@@ -71,7 +73,7 @@ This is possible by sending the changeMain function down as a prop to the sideba
       <div className="right-sidebar"></div>
     </div>
   );
-
+```
 
 
 ## Upcoming Additions
