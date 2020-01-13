@@ -48,6 +48,7 @@ return Promise.all(promiseArr).then(() => {
 		etc….
 ```
 * Large/Unified player model allows for quick transitions and filtering of player table on the frontend
+
 ![FP&P Player Table](./screenshots/players.png)
 ### State based content display
 
