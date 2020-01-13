@@ -43,7 +43,34 @@ return Promise.all(promiseArr).then(() => {
                 weeklyPassingCompletions: player.weeklyPassingCompletions,
 		etc….
 ```
+### State based content display
 
+![FP&P Main content](./screenshots/main.png)
+
+![FP&P Sidebar](./screenshots/sidebar.png)
+
+The main content is displayed using the side bar's state of the mainComponent
+  const [main, setMain] = useState({
+    mainComponent: BetsIndex, //default selected component
+    props: null
+  });
+  const changeMain = (mainComponent, props) => (
+    setMain(main => ({ ...main, mainComponent, props }))
+  );
+
+This is possible by sending the changeMain function down as a prop to the sidebar and their items, and the component currently displayed as seen from the main page component
+  return (
+    <div className="main-page">
+      <div className="sidebar-container">
+        <Nav onAppPage={true} />
+        <SideBar changeMain={changeMain} /> //each sidebar item will use changeMain when clicked
+      </div>
+      <div className="main-content">
+        <main.mainComponent {...main.props} changeMain={changeMain} /> //the component displayed is taken from main state
+      </div>
+      <div className="right-sidebar"></div>
+    </div>
+  );
 
 
 
