@@ -154,6 +154,8 @@ export default {
     query FetchUser($_id: ID!) {
       user(_id: $_id) {
         username
+        balance
+        email
       }
     }
   `

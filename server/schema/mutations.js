@@ -269,6 +269,22 @@ const mutation = new GraphQLObjectType({
         return UserBet.updateTheUserBalance(bet, user);
       }
     },
+    updateAllBalances: {
+      type: new GraphQLList(UserBetType),
+      resolve() {
+        const promiseArr = []
+        return UserBet.find({}).then(userBets => {
+          userBets.forEach(userBet => {
+            console.log(userBet)
+            promiseArr.push(UserBet.updateTheUserBalance(userBet.bet._id, userBet.user._id))
+          })
+          
+          return Promise.all(promiseArr).then(resultArr => {
+            return resultArr
+          })
+        })
+      }
+    },
     determineWinValue: {
       type: BetType,
       args: {
@@ -277,6 +293,21 @@ const mutation = new GraphQLObjectType({
       },
       resolve(_, { _id }) {
         return Bet.changeWinValue(_id);
+      }
+    },
+    allBetWinValues: {
+      type: new GraphQLList(BetType),
+      resolve() {
+        const promiseArr = []
+        return Bet.find({}).then(bets => {
+          bets.forEach(bet => {
+            promiseArr.push(Bet.changeWinValue(bet._id))
+          })
+          console.log(promiseArr)
+          return Promise.all(promiseArr).then(resultArr => {
+            return resultArr;
+          })
+        })
       }
     },
     createAllPlayers: {

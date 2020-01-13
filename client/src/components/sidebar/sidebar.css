@@ -10,6 +10,34 @@ div.sidebar-item {
   transition: all 0.2s linear;
 }
 
+div.sidebar-item.selected {
+  border-left: 7px solid #00ceb8;
+  background: #283245;
+}
+
+div.sidebar-item-icon {
+  width: 48px;
+  height: 48px;
+  flex: 0 0 48px;
+  background-size: contain;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 300;
+  font-size: 18px;
+  position: relative;
+  background-color: #fff;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-right: 10px;
+}
+
+div.sidebar-item-icon.bets {
+  background-image: url("../bets/bets_icon.png");
+}
+
 div.sidebar-item-content {
   font-size: 16px;
   font-weight: bold;
