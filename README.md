@@ -96,6 +96,8 @@ cron.schedule(“59 23 * * 3”, function() {
         while((parsedStart + (i*604800000)) < date){
           i++
         }
+	week = i;
+        year = nflStart.getFullYear();
   // later on in the cron-block
        client
           .mutate({
