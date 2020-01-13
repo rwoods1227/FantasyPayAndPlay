@@ -14,6 +14,7 @@ FantasyPay&Play is a fantasy football and sports betting website. It incorporate
 ## Features and Technical Challenges
 
 ### Player Models
+* Player Data drawn from 4 api calls to bring in season, weekly, projected Season, and projected weekly stats
 ```javascript
 //mutations.js
 createAllPlayers: {
@@ -27,7 +28,8 @@ createAllPlayers: {
             let seasonStatsArr = res.data;
             sortJsonArray(seasonStatsArr, "PlayerID");
             seasonStatsArr.forEach(player => {
-
+* Player data is assembled into the Player model after the promiseArr has saved all of the intermediate data
+* Nested Promise Arrays used to secure data, and force all actions to complete and models to save in order
  //after assembling all data from 4 ApiCalls
 return Promise.all(promiseArr).then(() => {
           let promiseArr = [];
