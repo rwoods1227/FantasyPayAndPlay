@@ -47,6 +47,8 @@ return Promise.all(promiseArr).then(() => {
                 weeklyPassingCompletions: player.weeklyPassingCompletions,
 		etc….
 ```
+This large player model allows for quick transitions of different data types in a smooth player table on the frontend
+![FP&P Player Table](./screenshots/players.png)
 ### State based content display
 
 ![FP&P Main content](./screenshots/main.png)
