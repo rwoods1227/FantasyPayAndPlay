@@ -13,12 +13,18 @@ const TeamType = new GraphQLObjectType({
     name: { type: GraphQLString },
     description: { type: GraphQLString },
     players: {
-      type: new GraphQLList(require('./player_type')),
+      type: new GraphQLList(require("./player_type")),
       resolve(parentValue) {
-        return Team.fetchTeamPlayers(parentValue.id)
+        return Team.fetchTeamPlayers(parentValue.id);
+      }
+    },
+    preDraftPlayerRankings: {
+      type: new GraphQLList(require("./draft_list_type")),
+      resolve(parentValue) {
+        return Team.fetchTeamPreDraftPlayerRankings(parentValue.id);
       }
     }
-  }),
+  })
 });
 
 module.exports = TeamType;

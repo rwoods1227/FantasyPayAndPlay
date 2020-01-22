@@ -29,6 +29,8 @@ const LeagueType = require("./types/league_type");
 const League = mongoose.model("league");
 const OwnedPlayer = mongoose.model("ownedPlayer");
 const OwnedPlayerType = require("./types/owned_player_type");
+const DraftList = mongoose.model("draftList");
+const DraftListType = require("./types/draft_list_type");
 
 
 
@@ -1138,7 +1140,12 @@ const mutation = new GraphQLObjectType({
         teamId2: { type: GraphQLID }
       },
       resolve(parentValue, { playerId1, teamId1, playerId2, teamId2 }) {
-        return Player.tradePlayerForPlayer(playerId1, teamId1, playerId2, teamId2);
+        return Player.tradePlayerForPlayer(
+          playerId1,
+          teamId1,
+          playerId2,
+          teamId2
+        );
       }
     },
     filteredPlayers: {
@@ -1151,6 +1158,7 @@ const mutation = new GraphQLObjectType({
       }
     },
     // creates league and adds commisioner as the first team and user
+    // currently broken during testing
     newLeague: {
       type: LeagueType,
       args: {
@@ -1165,11 +1173,13 @@ const mutation = new GraphQLObjectType({
           let league = resultArr[0]._id;
           let promiseArr = [];
           // console.log(league);
-           promiseArr.push(User.addUserToLeagueAndCreateTeam(comissioner, league));
-           promiseArr.push(League.createAllLeaguePlayers(league));
-           return Promise.all(promiseArr).then(resultArr => {
-             return resultArr[0];
-           })
+          promiseArr.push(
+            User.addUserToLeagueAndCreateTeam(comissioner, league)
+          );
+          promiseArr.push(League.createAllLeaguePlayers(league));
+          return Promise.all(promiseArr).then(resultArr => {
+            return resultArr[0];
+          });
         });
       }
     },
@@ -1252,7 +1262,26 @@ const mutation = new GraphQLObjectType({
         leagueId: { type: GraphQLID }
       },
       resolve(parentValue, { leagueId }) {
-        League.createAllLeaguePlayers(leagueId)
+        League.createAllLeaguePlayers(leagueId);
+      }
+    },
+    createDraftListRankings: {
+      type: TeamType,
+      args: {
+        teamId: { type: GraphQLID }
+      },
+      resolve(parentValue, { teamId }) {
+        Team.createDraftListRankings(teamId);
+      }
+    },
+    swapRankings: {
+      type: DraftListType,
+      args: {
+        draftListId: { type: GraphQLID },
+        newRank: { type: GraphQLInt }
+      },
+      resolve(parentValue, { draftListId, newRank }) {
+        DraftList.swapRankings(draftListId, newRank);
       }
     }
   }

@@ -69,7 +69,8 @@ UserSchema.statics.addUserToLeagueAndCreateTeam = (userId, leagueId) => {
 
   User.findById(userId).then(user => {
     // console.log(user)
-    let newTeam = new Team({ name:`${user.username}'s Team`,
+    let newTeam = new Team({ 
+    name:`${user.username}'s Team`,
     description: "",
     user: user._id,
     league:leagueId });
@@ -85,14 +86,17 @@ UserSchema.statics.addUserToLeagueAndCreateTeam = (userId, leagueId) => {
         newleague.teams.push(newTeam);
         user.leagues.push(newleague);
         newleague.users.push(user);
-        promiseArr.push(newTeam.save());
+        // promiseArr.push(newTeam.save());
+        promiseArr.push(Team.createDraftListRankings(newTeam._id));
         promiseArr.push(user.save());
         promiseArr.push(newleague.save())
+        promiseArr.push(newTeam.save());
     });
-
+    // console.log(`This is the input ${newTeam}`);
+ 
+    return Promise.all(promiseArr).then(
+      resultArr => resultArr);
   });
-  return Promise.all(promiseArr).then(
-    ([user]) => console.log("complete"));
 };
 
 
