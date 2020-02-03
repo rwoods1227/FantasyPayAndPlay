@@ -1,0 +1,79 @@
+.team-index-container{
+  display: flex;
+  flex-direction: column;
+  height:100%;
+}
+
+.team-index-ul{
+  overflow-y: scroll;
+  height: 70%;
+}
+
+.team-index-name{
+  justify-content: center;
+  text-align: center;
+  color: whitesmoke;
+  font-style: bolder;
+}
+
+.player-entry{
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1px solid rgb(62, 62, 228);
+}
+
+.QB{
+   min-width: 40px;
+  background-color: red;
+  padding: 5px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  margin: 4px 2px;
+  color: white;
+  border-radius: 25%;
+}
+.RB{
+   min-width: 40px;
+  background-color: blue;
+    padding: 5px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  margin: 4px 2px;
+  color: white;
+  border-radius: 25%;
+}
+
+.TE{
+   min-width: 40px;
+  background-color: purple;
+  padding: 5px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  margin: 4px 2px;
+  color: white;
+  border-radius: 25%;
+}
+
+.WR{
+  background-color: green;
+  padding: 5px;
+  text-align: center;
+  text-decoration: none;
+  min-width: 40px;
+  font-size: 16px;
+  margin: 4px 2px;
+  color: white;
+  border-radius: 25%;
+}
+
+.team-player-name{
+  font-size: 16px;
+  color: white;
+  padding-left: 10px;
+  text-align: center;
+  line-height: 2.5;
+}
+

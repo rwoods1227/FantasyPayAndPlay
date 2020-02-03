@@ -36,5 +36,9 @@ div.league-show-tabs-container > div.tab.selected {
 }
 
 div.league-show-content-container {
-  height: 70%;
+  height: 100%;
+}
+
+.league-show-container{
+  height:100%;
 }
