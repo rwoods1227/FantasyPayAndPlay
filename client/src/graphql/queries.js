@@ -145,6 +145,7 @@ export default {
           user
           players {
             name
+            position
           }
         }
       }

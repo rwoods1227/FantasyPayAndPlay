@@ -9,6 +9,8 @@ const TeamIndex = ({ teams }) => {
             <h2>{team.name}</h2>
             {team.players.map(player => (
               <div>
+                {console.log(player)}
+                {player.position}
                 {player.name}
               </div>
             ))}
