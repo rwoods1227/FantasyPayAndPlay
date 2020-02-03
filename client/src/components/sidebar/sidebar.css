@@ -1,5 +1,8 @@
 div.sidebar {
-  width: 80%;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    height: 700px;
 }
 
 div.sidebar-item {
@@ -62,4 +65,25 @@ div.league-index > h2 {
   letter-spacing: 0.23px;
   font-weight: 700;
   margin: 20px;
+}
+
+.league-index{
+  height: 60%;
+}
+
+.league-list{
+  height: 100%;
+}
+
+.side-leagues-list{
+  height: 100%;
+}
+
+.league-list-container{
+  overflow-y: scroll;
+  height: 90%;
+}
+
+body{
+  overflow-x: hidden;
 }
