@@ -82,7 +82,7 @@ const SideBar = ({ changeMain }) => {
 
               return (
                 <div className="league-list">
-                  <ul>
+                  <ul className="side-leagues-list">
                     {data.user.leagues.map(league => (
                       <li key={league._id}>
                         <div

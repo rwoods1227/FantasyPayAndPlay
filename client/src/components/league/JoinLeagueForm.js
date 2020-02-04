@@ -1,11 +1,14 @@
 import React from "react";
 import { Formik, Form, Field } from 'formik';
 import { Mutation } from "react-apollo";
+import { useAlert } from 'react-alert'
 
 import Mutations from "../../graphql/mutations";
 const { ADD_USER_TO_LEAGUE_AND_CREATE_TEAM } = Mutations;
+// add alerts and checks for actual leagues/ unique users in league at some point
 
 const JoinLeagueForm = () => {
+  const alert = useAlert();
   return (
     <Mutation mutation={ADD_USER_TO_LEAGUE_AND_CREATE_TEAM}>
       {(addUserToLeagueAndCreateTeam, data) => (

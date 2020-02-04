@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import MyTeam from "./MyTeam";
 import TeamIndex from "./TeamIndex";
 import MatchUp from "./MatchUp";
+import Draft from "./Draft";
 import AddPlayers from "../players/AddPlayers";
 import { Query } from 'react-apollo'
 import Queries from "../../graphql/queries";
@@ -42,13 +43,17 @@ const LeagueShow = ({ _id }) => {
         return (
           <AddPlayers />
         );
+      case "draft":
+        return (
+          <Draft />
+        );
       default:
         return (
           <div>error</div>
         );
     }
   }
-
+// all data sent to tabs comes from fetch_league so if more data is needed that will need to update as well
   return (
     <Query
       query={FETCH_LEAGUE}
@@ -56,13 +61,14 @@ const LeagueShow = ({ _id }) => {
     >{({loading, error, data}) => {
       if (loading) return <p>Loading...</p>;
       if (error) return <p>Error</p>;
-
+      console.log(data);
       return (
         <div className="league-show-container">
           <div className="header">
             <div className="header-content">
               <h1>{data.league.name}</h1>
               <span>{data.league.description}</span>
+              <span>{`Invite Friends to join with this League ID: ${data.league._id}`}</span>
             </div>
           </div>
           <div className="league-show-tabs-container">
@@ -93,6 +99,13 @@ const LeagueShow = ({ _id }) => {
               onClick={handletabChange("add players")}
             >
               <span>Add Players</span>
+            </div>
+            <div
+              style={{ zIndex: 1 }}
+              className={tab.currentTab === "draft" ? "tab selected" : "tab"}
+              onClick={handletabChange("draft")}
+            >
+              <span>Draft</span>
             </div>
           </div>
           <div className="league-show-content-container">
