@@ -305,9 +305,18 @@ const mutation = new GraphQLObjectType({
           bets.forEach(bet => {
             promiseArr.push(Bet.changeWinValue(bet._id))
           })
-          console.log(promiseArr)
           return Promise.all(promiseArr).then(resultArr => {
-            return resultArr;
+            const promiseArr = []
+            return UserBet.find({}).then(userBets => {
+              userBets.forEach(userBet => {
+                console.log(userBet)
+                promiseArr.push(UserBet.updateTheUserBalance(userBet.bet._id, userBet.user._id))
+              })
+
+              return Promise.all(promiseArr).then(resultArr => {
+                return resultArr
+              })
+            })
           })
         })
       }
