@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import MyTeam from "./MyTeam";
 import TeamIndex from "./TeamIndex";
 import MatchUp from "./MatchUp";
+import Draft from "./Draft";
 import AddPlayers from "../players/AddPlayers";
 import { Query } from 'react-apollo'
 import Queries from "../../graphql/queries";
@@ -41,6 +42,10 @@ const LeagueShow = ({ _id }) => {
       case "add players":
         return (
           <AddPlayers />
+        );
+      case "draft":
+        return (
+          <Draft />
         );
       default:
         return (
@@ -94,6 +99,13 @@ const LeagueShow = ({ _id }) => {
               onClick={handletabChange("add players")}
             >
               <span>Add Players</span>
+            </div>
+            <div
+              style={{ zIndex: 1 }}
+              className={tab.currentTab === "draft" ? "tab selected" : "tab"}
+              onClick={handletabChange("draft")}
+            >
+              <span>Draft</span>
             </div>
           </div>
           <div className="league-show-content-container">
