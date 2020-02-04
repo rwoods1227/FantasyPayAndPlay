@@ -4,6 +4,7 @@ div.main-page {
   height: 100vh;
   background-color: #18202f;
   color: white;
+  overflow-y: hidden;
 }
 
 div.main-content {

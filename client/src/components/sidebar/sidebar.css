@@ -87,3 +87,7 @@ div.league-index > h2 {
 body{
   overflow-x: hidden;
 }
+
+.sidebar-item:hover{
+   background: #283245;
+}
