@@ -1,13 +1,16 @@
 import React from "react";
 import { Formik, Form, Field } from 'formik';
 import { Mutation } from "react-apollo";
+import { useAlert } from 'react-alert'
 
 import Mutations from "../../graphql/mutations";
 const { NEW_LEAGUE } = Mutations;
 
 const CreateLeagueForm = () => {
+  const alert = useAlert();
   return (
     <Mutation mutation={NEW_LEAGUE}>
+      
       {(newLeague, data) => (
         <Formik
           initialValues={{
@@ -16,8 +19,17 @@ const CreateLeagueForm = () => {
             comissioner: localStorage.getItem("currentUserId")
           }}
           onSubmit={values => {
-            newLeague({ variables: values })
-              .then();
+            {
+              console.log(values)
+              if (values.name.length > 2 && values.description.length > 2) {
+                newLeague({ variables: values
+                }).then(() => {
+                  alert.show("League Created Successfully");
+                })
+              } else {
+                alert.show("Error! Name or Description Too Short")
+              }
+            }
           }}
         >
           <Form className="league-create-form">
