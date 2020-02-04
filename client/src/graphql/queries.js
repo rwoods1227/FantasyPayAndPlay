@@ -137,6 +137,7 @@ export default {
   FETCH_LEAGUE: gql`
     query FetchLeague($_id: ID!) {
       league(_id: $_id) {
+        _id
         name
         description
         comissioner
@@ -146,6 +147,7 @@ export default {
           players {
             name
             position
+            seasonFantasyPoints
           }
         }
       }

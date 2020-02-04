@@ -77,3 +77,20 @@
   line-height: 2.5;
 }
 
+#no-scroll{
+  overflow-y: hidden;
+}
+.team-player-fantasyPoints{
+  font-size: 16px;
+  color: white;
+  padding-left: 10px;
+text-align: center;
+  line-height: 2.5;
+}
+
+.justify-space-between{
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  width: 95%;
+}

@@ -48,7 +48,7 @@ const LeagueShow = ({ _id }) => {
         );
     }
   }
-
+// all data sent to tabs comes from fetch_league so if more data is needed that will need to update as well
   return (
     <Query
       query={FETCH_LEAGUE}
@@ -56,13 +56,14 @@ const LeagueShow = ({ _id }) => {
     >{({loading, error, data}) => {
       if (loading) return <p>Loading...</p>;
       if (error) return <p>Error</p>;
-
+      console.log(data);
       return (
         <div className="league-show-container">
           <div className="header">
             <div className="header-content">
               <h1>{data.league.name}</h1>
               <span>{data.league.description}</span>
+              <span>{`Invite Friends to join with this League ID: ${data.league._id}`}</span>
             </div>
           </div>
           <div className="league-show-tabs-container">
