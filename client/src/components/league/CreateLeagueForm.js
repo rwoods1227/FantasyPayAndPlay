@@ -11,7 +11,10 @@ const CreateLeagueForm = () => {
   return (
     <Mutation mutation={NEW_LEAGUE}>
       
-      {(newLeague, data) => (
+      {(newLeague, {loading, error, data}) => {
+        if (loading) return <p>Loading...</p>;
+        if (error) return <p>Error</p>;
+        return (
         <Formik
           initialValues={{
             name: '',
@@ -52,7 +55,7 @@ const CreateLeagueForm = () => {
             <button type="submit" className="league-create-button">FINISH</button>
           </Form>
         </Formik>
-      )}
+        )}}
     </Mutation>
   );
 }
