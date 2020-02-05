@@ -58,6 +58,7 @@ const LeagueShow = ({ _id }) => {
     <Query
       query={FETCH_LEAGUE}
       variables={{ _id }}
+      pollInterval={10000}
     >{({loading, error, data}) => {
       if (loading) return <p>Loading...</p>;
       if (error) return <p>Error</p>;

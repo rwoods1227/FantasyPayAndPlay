@@ -35,7 +35,7 @@ const UserProfile = (props) => {
       <Query
         query={FETCH_USER}
         variables={{ _id: props.match.params.id }}
-        pollInterval={1000}
+        pollInterval={2000}
       >
         {({ loading, error, data }) => {
           if (loading) return <h1>Loading..</h1>;
