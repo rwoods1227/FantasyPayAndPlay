@@ -87,10 +87,16 @@ const UserProfile = (props) => {
                   </div>
                 </div>
 
-                <img
+                <div className="user-profile-info-container">
+                  <p className="explanation-para">
+                    Currently, the football season is over. So weekly updates timed with future football weeks are not functional. For demo purposes, the season-week is hard-coded 
+                    and calling update balance takes into account all bets for this week. This works as designed, but may look slightly off in the offseason, as bets are assigned win/loss ahead of the update call.
+                  </p>
+                </div>
+                {/* <img
                   className="user-profile-earnings-photo"
                   src={footballPic}
-                />
+                /> */}
               </div>
               <div className="betting-history-div">
                 <h1 className="users-betting-history">Users Betting History</h1>
