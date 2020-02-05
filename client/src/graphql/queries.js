@@ -161,5 +161,15 @@ export default {
         email
       }
     }
-  `
+  `,
+  FETCH_LEAGUES: gql`
+    query FetchLeagues {
+      leagues {
+        _id
+        users{
+          _id
+        }
+      }
+    }
+  `,
 };

@@ -24,13 +24,13 @@ const CreateLeagueForm = () => {
           onSubmit={values => {
             {
               console.log(values)
-              if (values.name.length > 2 && values.description.length > 2) {
+              if ((values.name.length > 2 && values.description.length > 2) && values.name.length < 32 && values.description.length < 32) {
                 newLeague({ variables: values
                 }).then(() => {
                   alert.show("League Created Successfully");
                 })
               } else {
-                alert.show("Error! Name or Description Too Short")
+                alert.show("Error! All fields must be 2-32 characters")
               }
             }
           }}
