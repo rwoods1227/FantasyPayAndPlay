@@ -70,5 +70,13 @@ export default {
         _id
       }
     }
+  `,
+  //this assigns win value and then updates the bets.. hopefully
+  ALL_BET_WIN_VALUES: gql`
+    mutation allBetWinValues{
+      allBetWinValues{
+        _id
+      }
+    }
   `
 };

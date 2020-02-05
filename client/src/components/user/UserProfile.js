@@ -3,6 +3,7 @@ import Queries from "../../graphql/queries";
 import { Query } from "react-apollo";
 import { Link } from "react-router-dom";
 import gql from "graphql-tag";
+import UpdateBalanceButton from "./UpdateBalance"
 import footballPic from "../../assets/footballPic.png"
 // require("./user_index.css")
 
@@ -79,6 +80,11 @@ const UserProfile = (props) => {
                   >
                     Back To Bets
                   </Link>
+                </div>
+                <div className="user-profile-info-container">
+                  <div className="update-user-balance">
+                    <UpdateBalanceButton />
+                  </div>
                 </div>
 
                 <img
