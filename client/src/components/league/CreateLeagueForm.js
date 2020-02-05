@@ -11,7 +11,10 @@ const CreateLeagueForm = () => {
   return (
     <Mutation mutation={NEW_LEAGUE}>
       
-      {(newLeague, data) => (
+      {(newLeague, {loading, error, data}) => {
+        if (loading) return <p>Loading...</p>;
+        if (error) return <p>Error</p>;
+        return (
         <Formik
           initialValues={{
             name: '',
@@ -21,13 +24,13 @@ const CreateLeagueForm = () => {
           onSubmit={values => {
             {
               console.log(values)
-              if (values.name.length > 2 && values.description.length > 2) {
+              if ((values.name.length > 2 && values.description.length > 2) && values.name.length < 32 && values.description.length < 32) {
                 newLeague({ variables: values
                 }).then(() => {
                   alert.show("League Created Successfully");
                 })
               } else {
-                alert.show("Error! Name or Description Too Short")
+                alert.show("Error! All fields must be 2-32 characters")
               }
             }
           }}
@@ -52,7 +55,7 @@ const CreateLeagueForm = () => {
             <button type="submit" className="league-create-button">FINISH</button>
           </Form>
         </Formik>
-      )}
+        )}}
     </Mutation>
   );
 }
