@@ -1,11 +1,12 @@
 div.league-show-tabs-container {
   display: flex;
+  width:100%;
 }
 
 div.league-show-tabs-container > div.tab {
   display: flex;
   height: 62px;
-  width: 117.5px;
+  width: 25%;
   justify-content: center;
   align-items: center;
   cursor: pointer;
@@ -41,4 +42,5 @@ div.league-show-content-container {
 
 .league-show-container{
   height:100%;
+  width:100%;
 }
