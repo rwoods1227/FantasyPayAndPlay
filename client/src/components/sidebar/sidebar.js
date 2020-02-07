@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import BetsIndex from "../bets/BetsIndex";
 import LeagueSplash from "../league/LeagueSplash";
 import LeagueShow from "../league/LeagueShow";
+import Credits from "../main/Credit"
 import Queries from "../../graphql/queries";
 import { Query } from 'react-apollo';
 const { FETCH_USER_LEAGUES } = Queries;
@@ -37,6 +38,23 @@ const SideBar = ({ changeMain }) => {
           </div>
         </li>
         <li>
+          <div
+            className={`sidebar-item${
+              sidebar.selected === "credits" ? " selected" : ""
+              }`}
+            onClick={() => {
+              setSelected(sidebar => ({ ...sidebar, selected: "credits" }));
+              changeMain(Credits, { changeMain });
+            }}
+          >
+            <div className="sidebar-item-icon credits"></div>
+            <div className="sidebar-item-content">
+              <h3>Credits</h3>
+              <span>Check out our Github accounts</span>
+            </div>
+          </div>
+        </li>
+        {/* <li>
           <Link to={`/credits`}>
             <div className="sidebar-item credits-sidebar-option">
               <img
@@ -49,7 +67,7 @@ const SideBar = ({ changeMain }) => {
               </div>
             </div>
           </Link>
-        </li>
+        </li> */}
         <li>
           <div
             className={`sidebar-item${

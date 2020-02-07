@@ -28,3 +28,7 @@ div.sidebar-item-icon.bets {
 div.sidebar-item-icon.league {
   background-image: url("../league/league_trophy.png");
 }
+
+div.sidebar-item-icon.credits {
+  background-image: url("https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png");
+}
