@@ -89,17 +89,17 @@ const LeagueShow = ({ _id }) => {
             </div>
             <div
               style={{ zIndex: 3 }}
-              className={tab.currentTab === "matchup" ? "tab selected" : "tab"}
-              onClick={handletabChange("matchup")}
-            >
-              <span>Matchup</span>
-            </div>
-            <div
-              style={{ zIndex: 2 }}
               className={tab.currentTab === "add players" ? "tab selected" : "tab"}
               onClick={handletabChange("add players")}
             >
               <span>Add Players</span>
+            </div>
+            <div
+              style={{ zIndex: 2 }}
+              className={tab.currentTab === "matchup" ? "tab selected" : "tab"}
+              onClick={handletabChange("matchup")}
+            >
+              <span>Matchup</span>
             </div>
             <div
               style={{ zIndex: 1 }}

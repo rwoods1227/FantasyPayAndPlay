@@ -3,7 +3,7 @@ import React from 'react';
 const Draft = () => {
   return (
     <div>
-      Draft stuff
+      Draft implemented in future
     </div>
   );
 }

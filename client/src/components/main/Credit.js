@@ -1,8 +1,8 @@
 import React from "react"
 import { Link } from "react-router-dom"
 require("./credit.css")
-
-const Credit = () => {
+// under transtion to work with change main
+const Credit = ({changeMain}) => {
 
   return (
     <div className="main-page main-flex-css">
@@ -10,9 +10,9 @@ const Credit = () => {
         <h1 className="credits-h1">Credits</h1>
       </div>
       <div className="main-credit-flex">
-        <div className="credit-card">
+        {/* <div className="credit-card">
           <Link className="cc-name credits-back-button" to="/app">Back to Bets</Link>
-        </div>  
+        </div>   */}
         <div className="credit-card">
           <h2 className="cc-name">Ryan Woods</h2>
           <div className="credit-card-links">
